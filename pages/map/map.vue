@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="container_main flex-center" @click="switchTabPage('/pages/homepage/index')">
+		<view class="container_main flex-center" @click="switchTabPage('/pages/homepage/homepage')">
 			<image class="p5_txt1" src="../../static/images/p5_txt1.png" mode="widthFix" />
 			<view style="margin-top: 320rpx;">Click anywhere to continue</view>
 		</view>

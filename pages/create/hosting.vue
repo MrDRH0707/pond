@@ -4,13 +4,13 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				<view>I want to</view>
-				<view class="blue">attend</view>an event in<view class="mr_10"></view>
+				<view class="green">create</view>
+				<view class="mr_10">an event calledg</view>
 				<view class="tipinput">
-					<textarea v-model="value" :auto-height="true" @keydown.enter="submit()" placeholder="what?" />
+					<textarea v-model="value" :style="{ width: spanWidth }" :auto-height="true" @input="getValue"
+						@keydown.enter="submit()" placeholder="what?" />
+					<view class="spanText">{{ spanText }}</view>
 				</view>
-			</view>
-			<view class="tipmini">
-				<view>Search for any place using neighbourhood, city, state or ZIP code</view>
 			</view>
 		</view>
 		<view class="footer" @click="submit()">
@@ -28,7 +28,9 @@
 	export default {
 		data() {
 			return {
-				value: ''
+				value: '',
+				spanText: '',
+				spanWidth: uni.upx2px(160) + 'px'
 			}
 		},
 		onReady() {},
@@ -36,14 +38,31 @@
 		onShow() {},
 		onHide() {},
 		created() {},
-		mounted() {},
+		mounted() {
+
+		},
 		methods: {
+			getValue(val) {
+				this.spanText = val.target.value;
+				setTimeout(() => {
+					let view = uni.createSelectorQuery().select(".spanText");
+					view.boundingClientRect(data => {
+						if (data.width > 90) {
+							this.spanWidth = uni.upx2px(260) + 'px'
+						} else if (data.width < 160) {
+							this.spanWidth = uni.upx2px(160) + 'px'
+						} else {
+							this.spanWidth = data.width + "px";
+						}
+					}).exec();
+				})
+			},
 			submit() {
 				if (this.value == '') {
 					uni.$u.toast("Complete information")
 					return
 				}
-				this.navigatePage('/pages/changeTime/index', {
+				this.navigatePage('/pages/create/hostClass', {
 					title: this.value
 				})
 			}
@@ -67,8 +86,8 @@
 			display: inline-block;
 		}
 
-		.blue {
-			color: #237bff;
+		.green {
+			color: #03A727;
 			padding: 0 10rpx;
 		}
 
@@ -78,6 +97,7 @@
 
 		.tipinput {
 			max-width: 100%;
+			margin-bottom: -14rpx;
 			vertical-align: middle;
 
 			textarea {
@@ -88,7 +108,7 @@
 				box-shadow: none;
 				display: inline-block;
 				font-size: 50rpx;
-				color: #237bff;
+				color: #03A727;
 				line-height: 66rpx;
 			}
 
@@ -101,14 +121,6 @@
 				visibility: hidden;
 			}
 		}
-	}
-
-	.tipmini {
-		margin: 50rpx auto 0;
-		width: 660rpx;
-		font-size: 26rpx;
-		font-weight: bold;
-		overflow: hidden;
 	}
 
 	.footer {

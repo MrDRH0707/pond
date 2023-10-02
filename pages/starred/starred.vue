@@ -9,7 +9,8 @@
 				<view class="item" :class="{ 'active': tags == 2 }" @click.stop="tags = 2">By location</view>
 			</view>
 			<view class="list">
-				<view class="item" v-for="(item, index) in list">
+				<view class="item" v-for="(item, index) in list"
+					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
 					<img :src="item.eventpic" alt="">
 					<view class="item_info">
 						<view class="item_name">{{ item.eventname }}</view>
@@ -41,7 +42,7 @@
 		methods: {
 			getData() {
 				this.request.getRequest('/api/ma/user/attend/list', {
-					userid: 102,
+					userid: this.userInfo.userId,
 				}).then(res => {
 					this.list = res.data
 				});

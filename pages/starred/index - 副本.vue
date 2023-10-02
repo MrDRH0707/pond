@@ -10,7 +10,7 @@
 			</view>
 			<view class="list">
 				<view class="item" v-for="(item, index) in list"
-					@click="navigatePage('/pages/eventdetail/index',{id:item.id})">
+					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
 					<image :src="item.eventpic" alt="" mode="aspectFit" />
 					<view class="item_info">
 						<view class="_info1">

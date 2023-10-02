@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="container_main  flex-center" @click="navigatePage('/pages/ergister2/index')">
+		<view class="container_main  flex-center" @click="navigatePage('/pages/ergister2/ergister2')">
 			<view>This is a prototype for POND</view>
 			<view style="margin-top: 15px;">POND is your curated event</view>
 			<view>hub.</view>

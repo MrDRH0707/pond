@@ -71,7 +71,7 @@
 					uni.$u.toast("Complete information")
 					return
 				}
-				this.navigatePage('/pages/changeOption/index', {
+				this.navigatePage('/pages/attend/changeOption', {
 					title: this.query.title,
 					dateStr: this.dateStr,
 					dateType: this.dateType

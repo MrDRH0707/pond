@@ -10,7 +10,7 @@
 			</view>
 		</view>
 		<view class="footer"
-			@click="navigatePage('/pages/attendingStar/index',{ title: query.title,dateStr: query.dateStr,dataStr: query.dataStr,dataStrId: query.dataStrId,dateType: query.dateType })">
+			@click="navigatePage('/pages/attend/attendingStar',{ title: query.title,dateStr: query.dateStr,dataStr: query.dataStr,dataStrId: query.dataStrId,dateType: query.dateType })">
 			<view>
 				<image src="../../static/images/Logo6.png" class="left-img" alt="" mode="widthFix" />
 			</view>

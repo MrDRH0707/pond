@@ -4,49 +4,53 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/intro/index"
+			"path": "pages/pathindex"
 		}, {
-			"path": "pages/entry/index"
+			"path": "pages/intro/intro"
 		}, {
-			"path": "pages/ergister/index"
+			"path": "pages/entry/entry"
 		}, {
-			"path": "pages/ergister2/index"
+			"path": "pages/ergister/ergister"
 		}, {
-			"path": "pages/login/index"
+			"path": "pages/ergister2/ergister2"
 		}, {
-			"path": "pages/homepage/index"
+			"path": "pages/login/login"
 		}, {
-			"path": "pages/account/index"
+			"path": "pages/loginnext/loginnext"
 		}, {
-			"path": "pages/hosting/index"
+			"path": "pages/homepage/homepage"
 		}, {
-			"path": "pages/hostClass/index"
+			"path": "pages/shares/shares"
 		}, {
-			"path": "pages/hostConf/index"
+			"path": "pages/starred/starred"
 		}, {
-			"path": "pages/hostPage/index"
+			"path": "pages/account/account"
 		}, {
-			"path": "pages/hostPreview/index"
+			"path": "pages/create/hosting"
 		}, {
-			"path": "pages/hostDetail/index"
+			"path": "pages/create/hostClass"
 		}, {
-			"path": "pages/attending/index"
+			"path": "pages/create/hostConf"
 		}, {
-			"path": "pages/changeTime/index"
+			"path": "pages/create/hostPage"
 		}, {
-			"path": "pages/changeOption/index"
+			"path": "pages/create/hostPreview"
 		}, {
-			"path": "pages/continue/index"
+			"path": "pages/create/hostDetail"
 		}, {
-			"path": "pages/attendingStar/index"
+			"path": "pages/attend/attending"
 		}, {
-			"path": "pages/eventdetail/index"
+			"path": "pages/attend/changeTime"
 		}, {
-			"path": "pages/starred/index"
+			"path": "pages/attend/changeOption"
 		}, {
-			"path": "pages/browse/index"
+			"path": "pages/attend/continue"
 		}, {
-			"path": "pages/shares/index"
+			"path": "pages/attend/attendingStar"
+		}, {
+			"path": "pages/attend/eventdetail"
+		}, {
+			"path": "pages/browse/browse"
 		}
 	],
 	"globalStyle": {
@@ -61,22 +65,22 @@
 		"iconWidth": "24px",
 		"fontSize": "12px",
 		"list": [{
-				"pagePath": "pages/homepage/index",
+				"pagePath": "pages/homepage/homepage",
 				"iconPath": "static/images/home.png",
 				"selectedIconPath": "static/images/home_acitve.png"
 			},
 			{
-				"pagePath": "pages/shares/index",
+				"pagePath": "pages/shares/shares",
 				"iconPath": "static/images/shares.png",
 				"selectedIconPath": "static/images/shares_active.png"
 			},
 			{
-				"pagePath": "pages/starred/index",
+				"pagePath": "pages/starred/starred",
 				"iconPath": "static/images/starred.png",
 				"selectedIconPath": "static/images/starred_active.png"
 			},
 			{
-				"pagePath": "pages/account/index",
+				"pagePath": "pages/account/account",
 				"iconPath": "static/images/account.png",
 				"selectedIconPath": "static/images/account_active.png"
 			}

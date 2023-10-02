@@ -13,7 +13,7 @@
 			</view>
 		</view>
 		<view class="footer"
-			@click="navigatePage('/pages/hostPage/index',{ title: query.title,dataStr:query.dataStr,dataStrId:query.dataStrId })">
+			@click="navigatePage('/pages/create/hostPage',{ title: query.title,dataStr:query.dataStr,dataStrId:query.dataStrId })">
 			<view>
 				<image src="../../static/images/Arrow-47left.png" class="left-img" alt="" mode="widthFix" />
 			</view>

@@ -8,7 +8,7 @@
 			</view>
 			<view style="margin-top: 35px;">Or</view>
 			<view class="nav flex-acenter">
-				<view @click="switchTabPage('/pages/homepage/index')">
+				<view @click="switchTabPage('/pages/homepage/homepage')">
 					<image src="../../static/images/04-REGISTER2.png" mode="widthFix" />
 				</view>
 				<view>
@@ -19,7 +19,7 @@
 				</view>
 			</view>
 			<view style="margin-top: 55px;">Already have an account?
-				<view class="ahref">Login</view>
+				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
 			</view>
 		</view>
 	</view>

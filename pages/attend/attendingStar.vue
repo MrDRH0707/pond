@@ -13,8 +13,8 @@
 			</view>
 			<view class="list" v-show="tags == 1">
 				<view class="item" v-for="(item, index) in list"
-					@click="navigatePage('/pages/eventdetail/index',{id:item.id})">
-					<image :src="item.eventpic" alt="" mode="aspectFit"/>
+					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
+					<image :src="item.eventpic" alt="" mode="aspectFit" />
 					<view class="item_info">
 						<view class="_info1">
 							<view>{{ item.eventname }}</view>
@@ -52,7 +52,7 @@
 				// tabList:[1,2,3]  标签
 				// dateType:传数字   1今天  2明天  3本周
 				this.request.getRequest('/api/ma/event/list', {
-					// eventname: this.query.title,
+					eventname: this.query.title,
 					// dateType: this.query.dateType,
 					// tabList: this.query.dataStrId,
 				}).then(res => {
@@ -135,13 +135,16 @@
 				display: flex;
 
 				._info1 {
-					flex: 1;
+					flex: 0 0 50%;
 					font-size: 22rpx;
 					font-weight: bold;
 				}
 
 				._info2 {
-					flex: 1;
+					flex: 0 0 50%;
+					font-size: 24rpx;
+					word-wrap: break-word;
+					overflow: hidden;
 				}
 			}
 		}

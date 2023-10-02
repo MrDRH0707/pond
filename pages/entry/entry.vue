@@ -8,11 +8,11 @@
 				<image class="p2_ioc1" src="../../static/images/p2_ioc1.png" mode="widthFix" />
 				<image class="logoico" src="../../static/images/LOGO.png" mode="widthFix" />
 			</view>
-			<view class="btn p2_btn1" @click="navigatePage('/pages/ergister/index')">
+			<view class="btn p2_btn1" @click="navigatePage('/pages/ergister/ergister')">
 				<view>This is my</view>
 				<view>first time here</view>
 			</view>
-			<view class="btn p2_btn2" @click="navigatePage('/pages/login/index')">
+			<view class="btn p2_btn2" @click="navigatePage('/pages/ergister2/ergister2')">
 				<view>l already have</view>
 				<view>an account</view>
 			</view>

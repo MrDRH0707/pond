@@ -25,10 +25,11 @@
 				<view>Invite friends</view>
 				<view>Help</view>
 				<view>Legal stuff</view>
-				<view style="color: blue;" @click="navigatePage('/')">Log out</view>
+				<view style="color: blue;" @click="signout()">Log out</view>
 			</view>
 			<view class="list" v-if="tags == 2">
-				<view class="item" v-for="(item, index) in list">
+				<view class="item" v-for="(item, index) in list"
+					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
 					<img :src="item.eventpic" alt="">
 					<view class="item_info">
 						<view class="item_name">{{ item.eventname }}</view>
@@ -59,11 +60,16 @@
 		methods: {
 			getData() {
 				this.request.getRequest('/api/ma/event/list', {
-					createBy: 102,
-					status: 0
+					createBy: this.userInfo.userId,
 				}).then(res => {
 					this.list = res.data
 				});
+			},
+			// 提出登录
+			signout() {
+				uni.clearStorageSync('token')
+				uni.clearStorageSync('userInfo')
+				this.navigatePage('/pages/pathindex')
 			},
 		}
 	}

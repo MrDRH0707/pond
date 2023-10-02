@@ -70,7 +70,7 @@
 					uni.$u.toast("Complete information")
 					return
 				}
-				this.navigatePage('/pages/continue/index', {
+				this.navigatePage('/pages/attend/continue', {
 					title: this.query.title,
 					dateStr: this.query.dateStr,
 					dateType: this.query.dateType,

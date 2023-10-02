@@ -2,19 +2,15 @@
 	<view class="container">
 		<view class="container_main flex-center">
 			<view class="tipmini">
-				<view>This is what your event preview will look like from the attending portal.</view>
-				<view>Are you ready to get your event out there?</view>
+				<view class="samlltxt">Your event {{query.eventname}} at the Courthouse has joined the pond!</view>
+				<view>You can view or edit this event from your account page.</view>
 			</view>
 			<view class="main">
-				<image src="../../static/images/Eventlisting.png" class="left-img" alt="" mode="widthFix" />
+				<image :src="query.eventpic" mode="aspectFit"></image>
+				<!-- <image src="../../static/images/IMG_70884.png" mode="widthFix" /> -->
 			</view>
-		</view>
-		<view class="footer" @click="submit()">
-			<view>
-				<image src="../../static/images/Logo6.png" class="left-img" alt="" mode="widthFix" />
-			</view>
-			<view class="footer-text">
-				Click to enter the POND
+			<view class="btn" @click="switchTabPage('/pages/homepage/homepage')">
+				Share with my network
 			</view>
 		</view>
 	</view>
@@ -48,7 +44,7 @@
 					eventdesc: this.query.eventdesc, // 事件描述
 					tabList: this.query.dataStrId.split(',') // 标签
 				}).then(res => {
-					this.navigatePage('/pages/hostDetail/index')
+					this.navigatePage('/pages/create/hostDetail')
 				});
 			}
 		}
@@ -62,30 +58,35 @@
 		font-size: 26rpx;
 		font-weight: bold;
 		overflow: hidden;
+		text-align: center;
+
+		.samlltxt {
+			margin-bottom: 30rpx;
+			text-align: center;
+			font-size: 44rpx;
+		}
 	}
 
 	.main {
 		margin-top: 60rpx;
 
 		image {
-			width: 400rpx;
+			width: 600rpx;
 		}
 	}
 
-	.footer {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		margin: 30rpx 60rpx;
+	.btn {
 		font-family: Neue Montreal;
-		font-size: 24rpx;
+		font-size: 30rpx;
 		font-weight: 700;
-		line-height: 28rpx;
+		line-height: 26rpx;
 		letter-spacing: 0em;
-
-		image {
-			width: 150rpx;
-			height: 100rpx;
-		}
+		text-align: center;
+		width: 410rpx;
+		height: 78rpx;
+		border-radius: 20rpx;
+		background-color: #fff;
+		line-height: 80rpx;
+		margin-top: 200rpx;
 	}
 </style>

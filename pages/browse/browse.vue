@@ -1,7 +1,8 @@
 <template>
 	<view class="container">
 		<view class="container_main  flex-center">
-			<image class="mainimg" src="../../static/images/25-BROWSEPORTAL.png" mode="widthFix"></image>
+			<image class="mainimg" src="../../static/images/25-BROWSEPORTAL.png" mode="widthFix" @click="historyback()">
+			</image>
 		</view>
 	</view>
 </template>

@@ -70,7 +70,7 @@
 					uni.$u.toast("Complete information")
 					return
 				}
-				this.navigatePage('/pages/hostConf/index', {
+				this.navigatePage('/pages/create/hostConf', {
 					title: this.query.title,
 					dataStr: this.dataStr,
 					dataStrId: this.dataStrId

@@ -4,13 +4,13 @@
 			<view class="p6_main1">
 				I want to...
 			</view>
-			<view class="btn flex-center" @click="navigatePage('/pages/hosting/index')" style="margin-top: 60px;">
+			<view class="btn flex-center" @click="navigatePage('/pages/create/hosting')" style="margin-top: 60px;">
 				create
 			</view>
-			<view class="btn flex-center" @click="navigatePage('/pages/attending/index')" style="margin-top: 30px;">
+			<view class="btn flex-center" @click="navigatePage('/pages/attend/attending')" style="margin-top: 30px;">
 				attend
 			</view>
-			<view class="btn flex-center" @click="navigatePage('/pages/browse/index')" style="margin-top: 30px;">
+			<view class="btn flex-center" @click="navigatePage('/pages/browse/browse')" style="margin-top: 30px;">
 				browse
 			</view>
 			<view class="dialog" v-if="dialogshow">

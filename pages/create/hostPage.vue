@@ -1,114 +1,158 @@
 <template>
 	<view class="container">
 		<view class="container_main">
+			<view class="tipmini">
+				<view>Han, we've pre-populated your event page for you. Feel free to customise as you'd like.</view>
+			</view>
+			<view class="line"></view>
 			<view class="upload_main">
-				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFit" />
+				<image class="load_img" v-if="fileimg" :src="fileimg" mode="aspectFit" />
+				<view class="upload_btn" v-else @click="uploadinfo()">
+					Insert event artwork here
+				</view>
 			</view>
 			<view class="forminfo">
-				<view class="title">{{info.eventname}}</view>
+				<view class="title">{{query.title}}</view>
 				<view class="line"></view>
-				<view class="item">
+				<view class="item" @click="ondatatime()">
 					<view class="item_label">When?</view>
-					<view class="item_value">{{ info.eventtime }}</view>
+					<view class="item_value">{{ eventtime }}</view>
 				</view>
 				<view class="line"></view>
-				<view class="item">
+				<view class="item" @click="mapShow=true">
 					<view class="item_label">Where?</view>
-					<view class="item_value">{{ info.eventaddr }}</view>
+					<view class="item_value">
+						<input class="c_input" v-model="positionObj.address" type="text" disabled
+							placeholder="Insert location">
+					</view>
 				</view>
 				<view class="line"></view>
 				<view class="item">
 					<view class="item_label">Who?</view>
-					<view class="item_value">{{ info.details }}</view>
+					<view class="item_value">
+						<input class="c_input" v-model="details" type="text" placeholder="Insert host details">
+					</view>
 				</view>
 				<view class="line"></view>
 				<view class="more_item">
 					<view class="item_l">
 						<view class="item_label">Event description</view>
 						<view class="item_value">
-							<textarea class="c_textarea" :value="info.eventdesc" disabled></textarea>
+							<textarea class="c_textarea" v-model="eventdesc"
+								placeholder="Insert event description here. Max 200 characters."></textarea>
+						</view>
+						<view class="more_info" @click="submit()">
+							<image src="../../static/images/Group8932watch.png" mode="widthFix" />
+							<view>More options</view>
 						</view>
 					</view>
 					<view class="item_r">
-						<view class="item" @click="setstar()">
-							<image v-if="info.isCollect == 0 ||info.isCollect == null" src="@/static/images/star.png"
-								mode="widthFix" />
-							<image v-else src="@/static/images/star_active.png" mode="widthFix" />
-						</view>
 						<view class="item" @click="dialogshow1 = true">
 							<image src="../../static/images/date.png" mode="widthFix" />
 						</view>
-						<view class="item" @click="dialogshow = true">
+						<view class="item">
 							<image src="../../static/images/share.png" mode="widthFix" />
+						</view>
+						<view class="item">
+							<image src="../../static/images/Socialbutton.png" mode="widthFix" />
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="moreporson" v-if="info.sysUsers">
-				<view class="item_ico" v-for="(item,index) in info.sysUsers">
-					<image :src="item.avatar" mode="aspectFill"></image>
-				</view>
-				<view class="item_name">
-					<view v-for="(item,index) in info.sysUsers">{{item.userName}},</view>
-				</view>
-			</view>
-			<view class="dialog" v-if="dialogshow" @click="dialogshow = false">
-				<view class="dialog_main_bottom">
-					<image src="@/static/images/ShareSheet.png" mode="widthFix"></image>
-				</view>
-			</view>
+			<datatime ref="datatime" @change="datatimechange"></datatime>
+			<mi-map v-if="mapShow" ref="miMap" @updateAddress="updateAddress"></mi-map>
 			<view class="dialog" v-if="dialogshow1" @click="dialogshow1 = false">
-				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix"
-					@click="setcal(info.eventtime)"></image>
+				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix" @click="setcal(eventtime)">
+				</image>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import datatime from "../../components/datatime/datatime.vue"
+	import miMap from '../../components/mi-map/mi-map.vue'
 	export default {
+		components: {
+			datatime,
+			miMap
+		},
 		data() {
 			return {
-				info: {},
-				dialogshow: false,
-				dialogshow1: false,
+				fileimg: '',
+				eventtime: '',
+				wherename: '',
+				details: '',
+				eventdesc: '',
+				mapShow: false,
+				positionObj: {},
+				dialogshow1: false
 			}
 		},
 		onReady() {},
-		onLoad() {
-			this.getData(this.query.id)
-		},
+		onLoad() {},
 		onShow() {},
 		onHide() {},
 		created() {},
-		mounted() {
-
-		},
+		mounted() {},
 		methods: {
-			getData(id) {
-				this.request.getRequest('/api/ma/event/' + id).then(res => {
-					this.info = res.data
-				});
+			uploadinfo() {
+				let _this = this
+				uni.chooseImage({
+					count: 1,
+					success: (res) => {
+						console.log('chooseImage', res)
+						const tempFilePaths = res.tempFilePaths[0];
+						uni.uploadFile({
+							// url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
+							url: _this.request.baseUrlfile + '/api/common/upload', //post请求的地址
+							filePath: tempFilePaths,
+							name: 'file',
+							formData: {},
+							success: (uploadFileRes) => {
+								let data = JSON.parse(uploadFileRes.data)
+								console.log('uploadFileRes', data)
+								// _this.fileimg = data.url.replace('http', 'https');
+								_this.fileimg = data.url;
+							},
+							fail: (err) => {
+								console.log('err', err)
+							}
+						})
+					}
+				})
 			},
-			setstar() {
-				let url = ''
-				if (this.info.isCollect == 0) {
-					url = '/api/ma/calendar/insert'
-				} else {
-					url = '/api/ma/user/attend/uncollect'
+			// 选择完整日期
+			ondatatime(e) {
+				this.$refs.datatime.openpicker(e);
+			},
+			// 完整日期回调
+			datatimechange(row) {
+				this.eventtime = row.slice(0, 13)
+			},
+			// 更新地址并关闭地图
+			updateAddress(addressObj) {
+				this.mapShow = false
+				// #ifdef APP-PLUS
+				this.positionObj = addressObj
+				//#endif
+				// #ifndef APP-PLUS
+				this.positionObj = {
+					"longitude": 115.02089142246793,
+					"latitude": 35.77559943073253,
+					"address": "华龙区金辉职高生活区(政和一路北)"
 				}
-				this.request.postRequest(url, {
-					userid: 102,
-					eventid: this.query.id,
-					caldate: this.info.eventtime
-				}).then(res => {
-					uni.$u.toast("success")
-					this.getData(this.query.id)
-				});
+				// #endif
 			},
 			setcal(time) {
+				if (time == '') {
+					uni.$u.toast("Complete information")
+					return
+				}
 				let starttime = time
 				let endtime = time
+				starttime = Date.parse(new Date(time + ':00'))
+				endtime = new Date(time + ':00').getTime() - 2 * 60 * 60 * 1000
 				let that = this;
 				var Uri = plus.android.importClass("android.net.Uri");
 				var main = plus.android.runtimeMainActivity();
@@ -141,12 +185,39 @@
 				values.put("minutes", "15");
 				values.put("method", "1");
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);
+			},
+			submit() {
+				if (this.fileimg == '' || this.eventtime == '' || this.positionObj.address == '' || this.details == '' ||
+					this.eventdesc == '') {
+					uni.$u.toast("Complete information")
+					return
+				}
+				this.navigatePage('/pages/create/hostPreview', {
+					title: this.query.title,
+					dataStr: this.query.dataStr,
+					dataStrId: this.query.dataStrId,
+					eventpic: this.fileimg,
+					eventtime: this.eventtime,
+					eventaddr: this.positionObj.address,
+					xpos: this.positionObj.longitude,
+					ypos: this.positionObj.latitude,
+					details: this.details,
+					eventdesc: this.eventdesc,
+				})
 			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
+	.tipmini {
+		margin: 50rpx auto 0;
+		width: 660rpx;
+		font-size: 26rpx;
+		font-weight: bold;
+		overflow: hidden;
+	}
+
 	.line {
 		margin: 10rpx 0;
 		border-bottom: 1px solid black;
@@ -163,6 +234,20 @@
 			max-width: 100%;
 			max-height: 100%;
 			object-fit: contain;
+		}
+
+		.upload_btn {
+			width: 388rpx;
+			height: 58rpx;
+			background-color: #fff;
+			text-align: center;
+			line-height: 58rpx;
+			border-radius: 20rpx;
+			font-family: Neue Montreal;
+			font-size: 26rpx;
+			font-weight: 700;
+			letter-spacing: 0em;
+			text-align: center;
 		}
 	}
 
@@ -187,6 +272,8 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
+
 		}
 
 		.item_label {
@@ -256,29 +343,23 @@
 			height: 150rpx;
 			font-size: 20rpx;
 		}
-	}
 
-	.moreporson {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		.item_ico {
-			image {
-				width: 70rpx;
-				height: 70rpx;
-				border-radius: 50%;
-				margin-right: -30rpx;
-				border: 1px solid black;
-			}
-		}
-
-		.item_name {
-			font-weight: bold;
-			font-size: 28rpx;
-			margin-left: 40rpx;
+		.more_info {
+			font-family: Neue Montreal;
+			font-size: 30rpx;
+			font-weight: 700;
+			line-height: 26rpx;
+			letter-spacing: 0em;
+			text-align: left;
+			margin-top: 50rpx;
 			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			image {
+				width: 60rpx;
+				height: 60rpx;
+			}
 		}
 	}
 
@@ -300,23 +381,5 @@
 		right: 0%;
 		margin: auto;
 		background-color: rgba(0, 0, 0, 0.6);
-
-		.dialog_main_bottom {
-			position: absolute;
-			bottom: 0%;
-			left: 0%;
-			right: 0%;
-			margin: auto;
-			width: 100%;
-			border-radius: 20rpx;
-			border: 4rpx solid black;
-			background-color: #F5F4F0;
-			box-sizing: border-box;
-			padding: 30rpx;
-
-			image {
-				width: 100%;
-			}
-		}
 	}
 </style>
