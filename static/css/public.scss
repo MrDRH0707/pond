@@ -1,0 +1,80 @@
+/**
+* 公共css部分
+*/
+
+.container{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	background-color: #F5F4F0;
+	color: #2c3e50;
+	padding-top: var(--status-bar-height);
+}
+
+.container_main{
+	flex: 1;
+	overflow: auto;
+}
+
+.w_100{
+	width: 100%;
+}
+
+.h_100{
+	height: 100%;
+}
+
+.p_30{
+	padding: 30rpx;
+	box-sizing: border-box;
+}
+
+.mb_30{
+	margin-bottom: 30rpx;
+}
+
+.mr_30{
+	margin-right: 30rpx;
+}
+
+.flex-acenter{
+	display: flex;
+	align-items: center;
+}
+
+.flex-column{
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-center{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-1{
+	flex: 1;
+}
+
+.onerow {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.manyrow {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+
