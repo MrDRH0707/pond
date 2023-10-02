@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main">
+			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="blue">attend</view>an event in<view class="blue">{{ query.title }}</view>
 				with
@@ -82,11 +83,12 @@
 </script>
 
 <style lang="less" scoped>
-	.container_main{
+	.container_main {
 		padding: 20rpx 0;
 	}
+
 	.tiptxt {
-		margin: 40rpx auto 0;
+		margin: 140rpx auto 0;
 		width: 660rpx;
 		font-family: Neue Montreal;
 		font-size: 50rpx;

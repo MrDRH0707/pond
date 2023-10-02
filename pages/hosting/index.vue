@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main flex-center">
+			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				<view>I want to</view>
 				<view class="green">create</view>

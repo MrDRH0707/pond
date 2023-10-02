@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main flex-center">
+			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				<view>I want to</view>
 				<view class="blue">attend</view>an event in<view class="mr_10"></view>
@@ -87,7 +88,7 @@
 				box-shadow: none;
 				display: inline-block;
 				font-size: 50rpx;
-				color: #03A727;
+				color: #237bff;
 				line-height: 66rpx;
 			}
 

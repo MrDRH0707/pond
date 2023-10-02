@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main flex-center">
+			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="blue">attend</view>an event in
 				<view class="blue">{{query.title}}</view>
@@ -82,6 +83,7 @@
 
 <style lang="less" scoped>
 	.tiptxt {
+		margin-top: 140rpx;
 		width: 660rpx;
 		font-family: Neue Montreal;
 		font-size: 50rpx;

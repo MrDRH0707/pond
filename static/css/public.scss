@@ -18,6 +18,7 @@
 
 .container_main{
 	flex: 1;
+	position: relative;
 	overflow: auto;
 }
 
@@ -77,4 +78,12 @@
 	-webkit-box-orient: vertical;
 }
 
-
+.pageoff{
+	position: absolute;
+	z-index: 99;
+	top: 30rpx;
+	left: 30rpx;
+	width: 60rpx;
+	height: 60rpx;
+	
+}

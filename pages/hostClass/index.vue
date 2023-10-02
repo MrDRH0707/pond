@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main">
+			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="green">create</view>an event called<view class="green">{{ query.title }}</view>
 				with
@@ -85,7 +86,7 @@
 	}
 
 	.tiptxt {
-		margin: 40rpx auto 0;
+		margin: 140rpx auto 0;
 		width: 660rpx;
 		font-family: Neue Montreal;
 		font-size: 50rpx;
