@@ -1,0 +1,86 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/intro/index"
+		}, {
+			"path": "pages/entry/index"
+		}, {
+			"path": "pages/ergister/index"
+		}, {
+			"path": "pages/ergister2/index"
+		}, {
+			"path": "pages/login/index"
+		}, {
+			"path": "pages/homepage/index"
+		}, {
+			"path": "pages/account/index"
+		}, {
+			"path": "pages/hosting/index"
+		}, {
+			"path": "pages/hostClass/index"
+		}, {
+			"path": "pages/hostConf/index"
+		}, {
+			"path": "pages/hostPage/index"
+		}, {
+			"path": "pages/hostPreview/index"
+		}, {
+			"path": "pages/hostDetail/index"
+		}, {
+			"path": "pages/attending/index"
+		}, {
+			"path": "pages/changeTime/index"
+		}, {
+			"path": "pages/changeOption/index"
+		}, {
+			"path": "pages/continue/index"
+		}, {
+			"path": "pages/attendingStar/index"
+		}, {
+			"path": "pages/eventdetail/index"
+		}, {
+			"path": "pages/starred/index"
+		}, {
+			"path": "pages/browse/index"
+		}, {
+			"path": "pages/shares/index"
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "pond",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"backgroundColor": "#F5F4F0",
+		"iconWidth": "24px",
+		"fontSize": "12px",
+		"list": [{
+				"pagePath": "pages/homepage/index",
+				"iconPath": "static/images/home.png",
+				"selectedIconPath": "static/images/home_acitve.png"
+			},
+			{
+				"pagePath": "pages/shares/index",
+				"iconPath": "static/images/shares.png",
+				"selectedIconPath": "static/images/shares_active.png"
+			},
+			{
+				"pagePath": "pages/starred/index",
+				"iconPath": "static/images/starred.png",
+				"selectedIconPath": "static/images/starred_active.png"
+			},
+			{
+				"pagePath": "pages/account/index",
+				"iconPath": "static/images/account.png",
+				"selectedIconPath": "static/images/account_active.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}
