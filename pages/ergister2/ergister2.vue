@@ -2,9 +2,12 @@
 	<view class="container">
 		<view class="container_main  flex-center">
 			<view>Create an account here.Its free</view>
-			<view class="btn">
+			<view class="btn" v-if="!focu" @click="focu = true">
 				<view>Enter your phone or email</view>
 				<view>here</view>
+			</view>
+			<view class="btn" v-else>
+				<input type="text" :focus="focu" v-model="phonenumber" @blur="onblur" @confirm="doSearch">
 			</view>
 			<view style="margin-top: 35px;">Or</view>
 			<view class="nav flex-acenter">
@@ -29,7 +32,8 @@
 	export default {
 		data() {
 			return {
-
+				focu: false,
+				phonenumber: ''
 			}
 		},
 		onReady() {},
@@ -39,7 +43,21 @@
 		created() {},
 		mounted() {},
 		methods: {
-
+			onblur(e) {
+				if (e.target.value == '') {
+					this.focu = false
+				}
+			},
+			doSearch() {
+				console.log(8201)
+				if (this.phonenumber == '') {
+					uni.$u.toast("Complete information")
+					return
+				}
+				this.navigatePage('/pages/register/register', {
+					phonenumber: this.phonenumber
+				})
+			}
 		}
 	}
 </script>

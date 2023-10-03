@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<pagerocker></pagerocker>
 		<view class="container_main flex-center">
 			<view class="tipmini">
 				<view>This is what your event preview will look like from the attending portal.</view>
@@ -62,7 +63,12 @@
 					eventdesc: this.query.eventdesc, // 事件描述
 					tabList: this.query.dataStrId.split(',') // 标签
 				}).then(res => {
-					this.navigatePage('/pages/create/hostDetail', {
+					// this.navigatePage('/pages/create/hostDetail', {
+					// 	eventname: this.query.title,
+					// 	eventpic: this.query.eventpic,
+					// })
+					this.navigatePage('/pages/buffer/buffer', {
+						pageurl: '/pages/create/hostDetail',
 						eventname: this.query.title,
 						eventpic: this.query.eventpic,
 					})
@@ -74,7 +80,7 @@
 
 <style lang="less" scoped>
 	.tipmini {
-		margin: 50rpx auto 0;
+		margin: 0 auto;
 		width: 660rpx;
 		font-size: 26rpx;
 		font-weight: bold;

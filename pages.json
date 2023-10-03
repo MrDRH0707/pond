@@ -8,6 +8,8 @@
 		}, {
 			"path": "pages/intro/intro"
 		}, {
+			"path": "pages/buffer/buffer"
+		}, {
 			"path": "pages/entry/entry"
 		}, {
 			"path": "pages/ergister/ergister"
@@ -17,6 +19,8 @@
 			"path": "pages/login/login"
 		}, {
 			"path": "pages/loginnext/loginnext"
+		}, {
+			"path": "pages/register/register"
 		}, {
 			"path": "pages/homepage/homepage"
 		}, {
@@ -37,6 +41,10 @@
 			"path": "pages/create/hostPreview"
 		}, {
 			"path": "pages/create/hostDetail"
+		}, {
+			"path": "pages/create/feedback"
+		}, {
+			"path": "pages/create/submission"
 		}, {
 			"path": "pages/attend/attending"
 		}, {

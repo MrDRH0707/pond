@@ -6,7 +6,7 @@
 				<view>I want to</view>
 				<view class="green">create</view>
 				<view class="mr_10">an event calledg</view>
-				<view class="tipinput">
+				<view class="tipinput" :style="{ width: spanWidth }">
 					<textarea v-model="value" :style="{ width: spanWidth }" :auto-height="true" @input="getValue"
 						@keydown.enter="submit()" placeholder="what?" />
 					<view class="spanText">{{ spanText }}</view>
@@ -47,12 +47,12 @@
 				setTimeout(() => {
 					let view = uni.createSelectorQuery().select(".spanText");
 					view.boundingClientRect(data => {
-						if (data.width > 90) {
-							this.spanWidth = uni.upx2px(260) + 'px'
-						} else if (data.width < 160) {
-							this.spanWidth = uni.upx2px(160) + 'px'
+						console.log(123, data.width)
+						this.spanWidth = data.width + "px";
+						if (data.width < 80) {
+							this.spanWidth = 80 + 'px'
 						} else {
-							this.spanWidth = data.width + "px";
+							this.spanWidth = "100%";
 						}
 					}).exec();
 				})

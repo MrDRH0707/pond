@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<pagerocker></pagerocker>
 		<view class="container_main">
 			<view class="tipmini">
 				<view>Han, we've pre-populated your event page for you. Feel free to customise as you'd like.</view>
@@ -211,7 +212,7 @@
 
 <style lang="less" scoped>
 	.tipmini {
-		margin: 50rpx auto 0;
+		margin: 0 auto;
 		width: 660rpx;
 		font-size: 26rpx;
 		font-weight: bold;

@@ -9,10 +9,11 @@
 				<image :src="query.eventpic" mode="aspectFit"></image>
 				<!-- <image src="../../static/images/IMG_70884.png" mode="widthFix" /> -->
 			</view>
-			<view class="btn" @click="switchTabPage('/pages/homepage/homepage')">
+			<view class="btn" @click="navigatePage('/pages/create/feedback')">
 				Share with my network
 			</view>
 		</view>
+		<tabBar></tabBar>
 	</view>
 </template>
 

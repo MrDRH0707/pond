@@ -3,7 +3,7 @@
 */
 <template>
 	<view>
-		<u-datetime-picker mode="datetime" v-model="dataTime" :show="showtype" v-if="showtype" @confirm="confirmtime"
+		<u-datetime-picker mode="datetime" v-model="dataTime" cancelText="cancel" confirmText="confirm" :show="showtype" v-if="showtype" @confirm="confirmtime"
 			@cancel="showtype = false">
 		</u-datetime-picker>
 	</view>

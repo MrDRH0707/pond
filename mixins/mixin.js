@@ -13,6 +13,16 @@ export default {
 				let u_info = uni.getStorageSync('userInfo')
 				if (u_info) {
 					this.userInfo = JSON.parse(u_info)
+				} else {
+					let pages = getCurrentPages();
+					let whitelist = ['/pages/intro/intro', '/pages/entry/entry', '/pages/ergister/ergister',
+						'/pages/ergister2/ergister2','/pages/loginnext/loginnext','/pages/register/register'
+					]
+					if (whitelist.indexOf(pages[pages.length - 1].$page.path) == -1) {
+						uni.reLaunch({
+							url: '/pages/intro/intro'
+						})
+					}
 				}
 			},
 			methods: {

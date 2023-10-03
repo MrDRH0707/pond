@@ -31,7 +31,7 @@ const getRequest = (url, date, loding = true) => {
 		clearTimeout(timer)
 		timer = setTimeout(() => {
 			uni.showLoading({
-				title: '加载中'
+				title: 'loading'
 			});
 		}, 300)
 	}
@@ -72,7 +72,7 @@ const postRequest = (url, date, loding = true) => {
 		clearTimeout(timer)
 		timer = setTimeout(() => {
 			uni.showLoading({
-				title: '加载中'
+				title: 'loading'
 			});
 		}, 300)
 	}
@@ -109,13 +109,13 @@ const postRequest = (url, date, loding = true) => {
 const handle = (response, callback) => {
 	if (response[1].statusCode == 200) {
 		if (response[1].data.code != 200) {
-			uni.$u.toast("请求报错")
+			uni.$u.toast("error")
 			return false;
 		}
 		let [error, res] = response;
 		callback(res.data);
 	} else {
-		uni.$u.toast("请求报错")
+		uni.$u.toast("error")
 		return false;
 	}
 }

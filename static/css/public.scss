@@ -85,5 +85,15 @@
 	left: 30rpx;
 	width: 60rpx;
 	height: 60rpx;
-	
+}
+
+.pagerocker{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 30rpx;
+	box-sizing: border-box;
+	image{
+		width: 80rpx
+	}
 }
