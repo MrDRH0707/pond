@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+		<pagerocker></pagerocker>
 		<view class="container_main">
 			<view class="upload_main">
 				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFit" />
@@ -62,6 +63,7 @@
 					@click="setcal(info.eventtime)"></image>
 			</view>
 		</view>
+		<tabBar index='3'></tabBar>
 	</view>
 </template>
 

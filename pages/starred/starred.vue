@@ -11,12 +11,17 @@
 			<view class="list">
 				<view class="item" v-for="(item, index) in list"
 					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
+					<view class="star" @click.stop="setstar(item)">
+						<image v-if="item.isCollect == 0 ||item.isCollect == null" src="@/static/images/star.png"
+							mode="widthFix" />
+						<image v-else src="@/static/images/star_active.png" mode="widthFix" />
+					</view>
 					<img :src="item.eventpic" alt="">
 					<view class="item_info">
 						<view class="item_name">{{ item.eventname }}</view>
 						<view class="item_more">{{ item.eventaddr }}</view>
 					</view>
-					<image class="collect" src="../../static/images/collect.png" mode="widthFix"></image>
+					<!-- <image class="collect" src="../../static/images/collect.png" mode="widthFix"></image> -->
 				</view>
 			</view>
 		</view>
@@ -28,7 +33,9 @@
 		data() {
 			return {
 				tags: 1,
-				list: []
+				list: [{
+					ana:1
+				}]
 			}
 		},
 		onReady() {},
@@ -45,6 +52,22 @@
 					userid: this.userInfo.userId,
 				}).then(res => {
 					this.list = res.data
+				});
+			},
+			setstar(row) {
+				let url = ''
+				if (row.isCollect == 0 || row.isCollect == null) {
+					url = '/api/ma/calendar/insert'
+				} else {
+					url = '/api/ma/user/attend/uncollect'
+				}
+				this.request.postRequest(url, {
+					userid: this.userInfo.userId,
+					eventid: row.id,
+					caldate: row.eventtime
+				}).then(res => {
+					uni.$u.toast("success")
+					this.getData()
 				});
 			},
 		}
@@ -102,6 +125,20 @@
 			display: flex;
 			border-bottom: 2rpx solid black;
 			padding: 10rpx 20rpx;
+			min-height: 50rpx;
+
+			.star {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				right: 0;
+				padding: 20rpx;
+
+				image {
+					width: 40rpx;
+					height: 40rpx;
+				}
+			}
 
 			img {
 				max-width: 240rpx;

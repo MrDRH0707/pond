@@ -8,9 +8,12 @@
 				<view class="blue">{{query.dateStr}}</view>with
 				<view class="blue">{{query.dataStr}}</view>
 			</view>
+			<view class="tipmini">
+				<view>Click on any blue text to edit your prompt</view>
+			</view>
 		</view>
 		<view class="footer"
-			@click="navigatePage('/pages/attend/attendingStar',{ title: query.title,dateStr: query.dateStr,dataStr: query.dataStr,dataStrId: query.dataStrId,dateType: query.dateType })">
+			@click="navigatePage('/pages/buffer/buffer',{ pageurl:'/pages/attend/attendingStar',title: query.title,dateStr: query.dateStr,dataStr: query.dataStr,dataStrId: query.dataStrId,dateType: query.dateType })">
 			<view>
 				<image src="../../static/images/Logo6.png" class="left-img" alt="" mode="widthFix" />
 			</view>
@@ -34,7 +37,9 @@
 		onHide() {},
 		created() {},
 		mounted() {},
-		methods: {}
+		methods: {
+
+		}
 	}
 </script>
 
@@ -58,6 +63,14 @@
 			color: #237bff;
 			padding: 0 10rpx;
 		}
+	}
+
+	.tipmini {
+		margin: 50rpx auto 0;
+		width: 660rpx;
+		font-size: 26rpx;
+		font-weight: bold;
+		overflow: hidden;
 	}
 
 	.footer {

@@ -4,13 +4,15 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="blue">attend</view>an event in<view class="blue">{{ query.title }}</view>
+				on
+				<view class="blue">{{query.dateStr}}</view>
 				with
 				<view class="silver" v-if="data.length == 0">what</view>
 				<view class="blue" v-else>{{dataStr}}</view>
 			</view>
 			<view class="tipmini">
-				<view>Choose your event tags from the options below</view>
-				<view>The more specific, the better</view>
+				<view>Select one or multiple from the options below</view>
+				<view>curated based on your previous preferences</view>
 			</view>
 			<view class="list">
 				<view class="item" v-for="(item, index) in list" :key="index" @click="change(item)">
@@ -46,7 +48,6 @@
 		methods: {
 			getData() {
 				this.request.getRequest('/api/ma/tab/list', {}).then(res => {
-					console.log(119, res)
 					this.list = res.data
 				});
 			},

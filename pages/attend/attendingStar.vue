@@ -26,6 +26,7 @@
 			</view>
 			<view class="infoMap" v-show="tags == 2"></view>
 		</view>
+		<tabBar index='3'></tabBar>
 	</view>
 </template>
 
