@@ -4,7 +4,7 @@
 			<image class="logo" src="../../static/images/LOGO.png" mode="widthFix"></image>
 			<view class="cinput">
 				<view class="txt">
-					your phone is {{query.userName}}
+					your phone is {{query.phonenumber}}
 				</view>
 			</view>
 			<view class="cinput">

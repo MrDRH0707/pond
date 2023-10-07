@@ -34,15 +34,16 @@
 			return {
 				tags: 1,
 				list: [{
-					ana:1
+					ana: 1
 				}]
 			}
 		},
 		onReady() {},
-		onLoad() {
+		onLoad() {},
+		onShow() {
+			this.list = []
 			this.getData()
 		},
-		onShow() {},
 		onHide() {},
 		created() {},
 		mounted() {},

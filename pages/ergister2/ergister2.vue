@@ -11,7 +11,7 @@
 			</view>
 			<view style="margin-top: 35px;">Or</view>
 			<view class="nav flex-acenter">
-				<view @click="switchTabPage('/pages/homepage/homepage')">
+				<view @click="onfacebook()">
 					<image src="../../static/images/04-REGISTER2.png" mode="widthFix" />
 				</view>
 				<view>
@@ -23,6 +23,14 @@
 			</view>
 			<view style="margin-top: 55px;">Already have an account?
 				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
+			</view>
+		</view>
+		<view class="footer" @click="doSearch()">
+			<view>
+				<image src="../../static/images/Arrow-47left.png" class="left-img" alt="" mode="widthFix" />
+			</view>
+			<view class="footer-text">
+				Click to continue
 			</view>
 		</view>
 	</view>
@@ -49,7 +57,6 @@
 				}
 			},
 			doSearch() {
-				console.log(8201)
 				if (this.phonenumber == '') {
 					uni.$u.toast("Complete information")
 					return
@@ -57,6 +64,27 @@
 				this.navigatePage('/pages/register/register', {
 					phonenumber: this.phonenumber
 				})
+			},
+			onfacebook() {
+				uni.login({
+					provider: 'facebook',
+					success: function(loginRes) {
+						console.log('你倒是登录进来呀', loginRes)
+						// 登录成功
+						uni.getUserInfo({
+							provider: 'facebook',
+							success: function(info) {
+								console.log('用户的信息', loginRes)
+								// 获取用户信息成功, info.authResult保存用户信息
+								this.switchTabPage('/pages/homepage/homepage')
+							}
+						})
+					},
+					fail: function(err) {
+						// 登录授权失败  
+						// err.code是错误码
+					}
+				});
 			}
 		}
 	}
@@ -108,5 +136,22 @@
 		display: inline-block;
 		color: #ea5844;
 		text-decoration: underline;
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin: 30rpx 60rpx;
+		font-family: Neue Montreal;
+		font-size: 24rpx;
+		font-weight: 700;
+		line-height: 28rpx;
+		letter-spacing: 0em;
+
+		image {
+			width: 100rpx;
+			height: 100rpx;
+		}
 	}
 </style>
