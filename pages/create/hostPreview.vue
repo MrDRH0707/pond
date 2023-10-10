@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<pagerocker></pagerocker>
+		<view class="pagerocker">
+			<image src="../../static/images/return.png" mode="widthFix" @click="historyback()"></image>
+		</view>
 		<view class="container_main flex-center">
 			<view class="tipmini">
 				<view>This is what your event preview will look like from the attending portal.</view>

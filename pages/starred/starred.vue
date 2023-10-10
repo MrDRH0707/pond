@@ -64,8 +64,8 @@
 				}
 				this.request.postRequest(url, {
 					userid: this.userInfo.userId,
-					eventid: row.id,
-					caldate: row.eventtime
+					eventid: String(row.id),
+					caldate: row.eventtime,
 				}).then(res => {
 					uni.$u.toast("success")
 					this.getData()

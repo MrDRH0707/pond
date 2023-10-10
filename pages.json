@@ -20,6 +20,8 @@
 		}, {
 			"path": "pages/loginnext/loginnext"
 		}, {
+			"path": "pages/loginfb/loginfb"
+		}, {
 			"path": "pages/register/register"
 		}, {
 			"path": "pages/homepage/homepage"

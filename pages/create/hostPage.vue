@@ -1,9 +1,10 @@
 <template>
 	<view class="container">
-		<pagerocker></pagerocker>
+		<pagerockerdef @back='back' @next='submit()'></pagerockerdef>
 		<view class="container_main">
 			<view class="tipmini">
-				<view>Han, we've pre-populated your event page for you. Feel free to customise as you'd like.</view>
+				<view>{{userInfo.userName}}, we've pre-populated your event page for you. Feel free to customise as
+					you'd like.</view>
 			</view>
 			<view class="line"></view>
 			<view class="upload_main">
@@ -42,7 +43,7 @@
 							<textarea class="c_textarea" v-model="eventdesc"
 								placeholder="Insert event description here. Max 200 characters."></textarea>
 						</view>
-						<view class="more_info" @click="submit()">
+						<view class="more_info" @click="dialogshow = true">
 							<image src="../../static/images/Group8932watch.png" mode="widthFix" />
 							<view>More options</view>
 						</view>
@@ -62,9 +63,28 @@
 			</view>
 			<datatime ref="datatime" @change="datatimechange"></datatime>
 			<mi-map v-if="mapShow" ref="miMap" @updateAddress="updateAddress"></mi-map>
-			<view class="dialog" v-if="dialogshow1" @click="dialogshow1 = false">
+			<view class="dialog1" v-if="dialogshow1" @click="dialogshow1 = false">
 				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix" @click="setcal(eventtime)">
 				</image>
+			</view>
+			<view class="dialog" v-if="dialogshow">
+				<view class="dialog_main">
+					<view class="section">
+						Some more options to help you customise your event
+						Privacy settings
+					</view>
+					<view class="section" style="font-size: 40rpx;">
+						Sharing settings
+					</view>
+					<view class="section" style="font-size: 40rpx;">
+						Additional settings
+					</view>
+					<view class="soon">COMING SOON</view>
+					<view class="dialog_footer">
+						<image src="../../static/images/Arrow-47left.png" @click="dialogshow = false" class="left-img"
+							mode="widthFix" />
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -87,11 +107,24 @@
 				eventdesc: '',
 				mapShow: false,
 				positionObj: {},
-				dialogshow1: false
+				dialogshow1: false,
+				dialogshow: false
 			}
 		},
 		onReady() {},
-		onLoad() {},
+		onLoad() {
+			let Cache = this.getCache()
+			this.title = Cache.title || ''
+			this.dataStr = Cache.dataStr || ''
+			this.dataStrId = Cache.dataStrId || ''
+			this.fileimg = Cache.eventpic || ''
+			this.eventtime = Cache.eventtime || ''
+			this.positionObj.address = Cache.eventaddr || ''
+			this.positionObj.longitude = Cache.xpos || ''
+			this.positionObj.latitude = Cache.ypos || ''
+			this.details = Cache.details || ''
+			this.eventdesc = Cache.eventdesc || ''
+		},
 		onShow() {},
 		onHide() {},
 		created() {},
@@ -105,8 +138,8 @@
 						console.log('chooseImage', res)
 						const tempFilePaths = res.tempFilePaths[0];
 						uni.uploadFile({
-							// url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
-							url: _this.request.baseUrlfile + '/api/common/upload', //post请求的地址
+							url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
+							// url: _this.request.baseUrlfile + '/api/common/upload', //post请求的地址
 							filePath: tempFilePaths,
 							name: 'file',
 							formData: {},
@@ -205,6 +238,21 @@
 					details: this.details,
 					eventdesc: this.eventdesc,
 				})
+			},
+			back() {
+				this.setCache({
+					title: this.query.title,
+					dataStr: this.query.dataStr,
+					dataStrId: this.query.dataStrId,
+					eventpic: this.fileimg,
+					eventtime: this.eventtime,
+					eventaddr: this.positionObj.address,
+					xpos: this.positionObj.longitude,
+					ypos: this.positionObj.latitude,
+					details: this.details,
+					eventdesc: this.eventdesc,
+				})
+				this.historyback()
 			}
 		}
 	}
@@ -374,7 +422,7 @@
 		width: 500rpx;
 	}
 
-	.dialog {
+	.dialog1 {
 		position: fixed;
 		top: 0%;
 		bottom: 0%;
@@ -382,5 +430,78 @@
 		right: 0%;
 		margin: auto;
 		background-color: rgba(0, 0, 0, 0.6);
+	}
+
+	.dialog {
+		position: fixed;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		background-color: rgba(0, 0, 0, 0.5);
+
+		.dialog_main {
+			position: absolute;
+			top: 0%;
+			bottom: 0%;
+			left: 0%;
+			right: 0%;
+			margin: auto;
+			width: 600rpx;
+			height: 700rpx;
+			border-radius: 20rpx;
+			border: 4rpx solid black;
+			background-color: #F5F4F0;
+			box-sizing: border-box;
+			padding: 50rpx 80rpx;
+
+			.section {
+				font-family: Neue Montreal;
+				font-size: 24rpx;
+				font-weight: 700;
+				line-height: 36rpx;
+				letter-spacing: 0em;
+				text-align: left;
+				margin-bottom: 60rpx;
+			}
+
+			.soon {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				font-size: 45rpx;
+				color: #fff;
+				background-color: #076AFF;
+				transform: rotate(-30deg);
+				width: 360rpx;
+				height: 70rpx;
+				text-align: center;
+				line-height: 70rpx;
+			}
+		}
+
+		.dialog_footer {
+			position: absolute;
+			right: 30rpx;
+			bottom: 30rpx;
+			// display: flex;
+			// flex-direction: column;
+			// align-items: flex-end;
+			// margin: 30rpx 0;
+			font-family: Neue Montreal;
+			font-size: 24rpx;
+			font-weight: 700;
+			line-height: 28rpx;
+			letter-spacing: 0em;
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
 	}
 </style>

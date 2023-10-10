@@ -15,7 +15,8 @@
 				<view>curated based on your previous preferences</view>
 			</view>
 			<view class="list">
-				<view class="item" v-for="(item, index) in list" :key="index" @click="change(item)">
+				<view class="item" v-for="(item, index) in list" :key="index" :style="{fontSize:fsize(item.tabname)}"
+					@click="change(item)">
 					{{ item.tabname }}
 				</view>
 			</view>
@@ -65,6 +66,9 @@
 				var strid = dataid.join(',')
 				this.dataStr = str;
 				this.dataStrId = strid;
+			},
+			fsize(str) {
+				return (80 - 4 * str.length) + 'rpx'
 			},
 			submit() {
 				if (this.dataStr == '') {

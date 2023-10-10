@@ -16,7 +16,8 @@ export default {
 				} else {
 					let pages = getCurrentPages();
 					let whitelist = ['/pages/intro/intro', '/pages/entry/entry', '/pages/ergister/ergister',
-						'/pages/ergister2/ergister2','/pages/loginnext/loginnext','/pages/register/register'
+						'/pages/ergister2/ergister2', '/pages/loginnext/loginnext',
+						'/pages/register/register', '/pages/loginfb/loginfb'
 					]
 					if (whitelist.indexOf(pages[pages.length - 1].$page.path) == -1) {
 						uni.reLaunch({
@@ -94,6 +95,19 @@ export default {
 					}
 					return data;
 				},
+				setCache(row) {
+					let cache = JSON.parse(uni.getStorageSync('cache'))
+					let s = Object.assign(cache, row)
+					uni.setStorageSync('cache', JSON.stringify(s))
+				},
+				getCache() {
+					let cache = JSON.parse(uni.getStorageSync('cache'))
+					return cache
+				},
+				resetCache() {
+					uni.removeStorageSync('cache')
+					uni.setStorageSync('cache', '{}')
+				}
 			}
 		})
 	}

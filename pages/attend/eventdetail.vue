@@ -39,7 +39,7 @@
 						<view class="item" @click="dialogshow1 = true">
 							<image src="../../static/images/date.png" mode="widthFix" />
 						</view>
-						<view class="item" @click="dialogshow = true">
+						<view class="item" @click="dialogshow2 = true">
 							<image src="../../static/images/share.png" mode="widthFix" />
 						</view>
 					</view>
@@ -53,14 +53,36 @@
 					<view v-for="(item,index) in info.sysUsers">{{item.userName}},</view>
 				</view>
 			</view>
-			<view class="dialog" v-if="dialogshow" @click="dialogshow = false">
+			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
 				<view class="dialog_main_bottom">
 					<image src="@/static/images/ShareSheet.png" mode="widthFix"></image>
 				</view>
 			</view>
-			<view class="dialog" v-if="dialogshow1" @click="dialogshow1 = false">
+			<view class="dialog2" v-if="dialogshow1" @click="dialogshow1 = false">
 				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix"
 					@click="setcal(info.eventtime)"></image>
+			</view>
+			<view class="dialog" v-if="dialogshow">
+				<view class="dialog_main">
+					<view class="section">
+						These are all the events that fit your search. We’ve listed them in order of relevance.
+					</view>
+					<view class="section">
+						You can star events and view them later via your account profile.
+					</view>
+					<view class="section">
+						If you want to edit any part of your search, click the <text
+							style="color: #237BFF;margin:0 10rpx">blue</text> text and you will be taken back to
+						that section.
+					</view>
+					<view class="section">
+						Click into an event to see more information.
+					</view>
+					<view class="dialog_footer">
+						<image src="../../static/images/Arrow-47left.png" @click="dialogshow = false" class="left-img"
+							mode="widthFix" />
+					</view>
+				</view>
 			</view>
 		</view>
 		<tabBar index='3'></tabBar>
@@ -72,8 +94,9 @@
 		data() {
 			return {
 				info: {},
-				dialogshow: false,
+				dialogshow2: false,
 				dialogshow1: false,
+				dialogshow: true
 			}
 		},
 		onReady() {},
@@ -300,7 +323,7 @@
 		width: 500rpx;
 	}
 
-	.dialog {
+	.dialog2 {
 		position: fixed;
 		top: 0%;
 		bottom: 0%;
@@ -324,6 +347,59 @@
 
 			image {
 				width: 100%;
+			}
+		}
+	}
+
+	.dialog {
+		position: fixed;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		background-color: rgba(0, 0, 0, 0.5);
+
+		.dialog_main {
+			position: absolute;
+			top: 0%;
+			bottom: 0%;
+			left: 0%;
+			right: 0%;
+			margin: auto;
+			width: 600rpx;
+			height: 700rpx;
+			border-radius: 20rpx;
+			border: 4rpx solid black;
+			background-color: #F5F4F0;
+			box-sizing: border-box;
+			padding: 50rpx 80rpx;
+
+			.section {
+				font-family: Neue Montreal;
+				font-size: 24rpx;
+				font-weight: 700;
+				line-height: 36rpx;
+				letter-spacing: 0em;
+				text-align: left;
+				margin-bottom: 30rpx;
+			}
+		}
+
+		.dialog_footer {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin: 30rpx 0;
+			font-family: Neue Montreal;
+			font-size: 24rpx;
+			font-weight: 700;
+			line-height: 28rpx;
+			letter-spacing: 0em;
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
 			}
 		}
 	}

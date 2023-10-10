@@ -12,6 +12,25 @@
 			<view class="tipmini">
 				<view>Search for any place using neighbourhood, city, state or ZIP code</view>
 			</view>
+			<view class="dialog" v-if="dialogshow">
+				<view class="dialog_main">
+					<view class="section">
+						This is the attend portal, where you can narrow or broaden your event search using location,
+						date, and genre.
+					</view>
+					<view class="section">
+						If you want to edit any part of this search, click the blue text and you will be taken back to
+						that section.
+					</view>
+					<view class="section">
+						Click the POND icon if you want to go back to the homepage.
+					</view>
+					<view class="dialog_footer">
+						<image src="../../static/images/Arrow-47left.png" @click="dialogshow = false" class="left-img"
+							mode="widthFix" />
+					</view>
+				</view>
+			</view>
 		</view>
 		<view class="footer" @click="submit()">
 			<view>
@@ -28,7 +47,8 @@
 	export default {
 		data() {
 			return {
-				value: ''
+				value: '',
+				dialogshow: true
 			}
 		},
 		onReady() {},
@@ -109,6 +129,59 @@
 		font-size: 26rpx;
 		font-weight: bold;
 		overflow: hidden;
+	}
+
+	.dialog {
+		position: fixed;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		background-color: rgba(0, 0, 0, 0.6);
+
+		.dialog_main {
+			position: absolute;
+			top: 0%;
+			bottom: 0%;
+			left: 0%;
+			right: 0%;
+			margin: auto;
+			width: 600rpx;
+			height: 700rpx;
+			border-radius: 20rpx;
+			border: 4rpx solid black;
+			background-color: #F5F4F0;
+			box-sizing: border-box;
+			padding: 90rpx;
+
+			.section {
+				font-family: Neue Montreal;
+				font-size: 24rpx;
+				font-weight: 700;
+				line-height: 36rpx;
+				letter-spacing: 0em;
+				text-align: left;
+				margin-bottom: 30rpx;
+			}
+		}
+
+		.dialog_footer {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			margin: 30rpx 0;
+			font-family: Neue Montreal;
+			font-size: 24rpx;
+			font-weight: 700;
+			line-height: 28rpx;
+			letter-spacing: 0em;
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
 	}
 
 	.footer {

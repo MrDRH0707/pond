@@ -13,12 +13,30 @@
 				<view>The more specific, the better</view>
 			</view>
 			<view class="list">
-				<view class="item" v-for="(item, index) in list" :key="index" @click="change(item)">
+				<view class="item" v-for="(item, index) in list" :key="index" @click="change(item)"
+					:style="{fontSize:fsize(item.tabname)}">
 					{{ item.tabname }}
 				</view>
 			</view>
-			<view class="next" @click="submit()">
+			<view class="next" @click="dialogshow = true">
 				Create a custom tag
+			</view>
+			<view class="dialog" v-if="dialogshow">
+				<view class="dialog_main">
+					<input type="text" v-model="tabname" placeholder="tabname">
+					<view class="dialog_footer">
+						<image src="../../static/images/Arrow-47left.png" @click="addtag()" class="left-img"
+							mode="widthFix" />
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="footer" @click="submit()">
+			<view>
+				<image src="../../static/images/Arrow-47left.png" class="left-img" alt="" mode="widthFix" />
+			</view>
+			<view class="footer-text">
+				Click to continue
 			</view>
 		</view>
 	</view>
@@ -33,6 +51,8 @@
 				dataStr: '',
 				dataStrId: '',
 				list: [],
+				dialogshow: false,
+				tabname: ''
 			}
 		},
 		onReady() {},
@@ -64,6 +84,22 @@
 				var strid = dataid.join(',')
 				this.dataStr = str;
 				this.dataStrId = strid;
+			},
+			fsize(str) {
+				return (80 - 4 * str.length) + 'rpx'
+			},
+			addtag() {
+				if (this.tabname == '') {
+					uni.$u.toast("Complete information")
+					return
+				}
+				this.request.postRequest('/api/ma/tab/insert', {
+					tabname: this.tabname,
+				}).then(res => {
+					console.log(119, res)
+					this.dialogshow = false
+					this.getData()
+				});
 			},
 			submit() {
 				if (this.dataStr == '') {
@@ -163,5 +199,78 @@
 		text-align: center;
 		font-weight: bold;
 		margin: 40rpx 0 0 40rpx;
+	}
+
+	.dialog {
+		position: fixed;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		background-color: rgba(0, 0, 0, 0.6);
+
+		.dialog_main {
+			position: absolute;
+			top: 0%;
+			bottom: 0%;
+			left: 0%;
+			right: 0%;
+			margin: auto;
+			width: 600rpx;
+			height: 700rpx;
+			border-radius: 20rpx;
+			border: 4rpx solid black;
+			background-color: #F5F4F0;
+			box-sizing: border-box;
+			padding: 90rpx;
+
+			.section {
+				font-family: Neue Montreal;
+				font-size: 24rpx;
+				font-weight: 700;
+				line-height: 36rpx;
+				letter-spacing: 0em;
+				text-align: left;
+				margin-bottom: 30rpx;
+			}
+		}
+
+		.dialog_footer {
+			position: absolute;
+			right: 30rpx;
+			bottom: 30rpx;
+			// display: flex;
+			// flex-direction: column;
+			// align-items: flex-end;
+			// margin: 30rpx 0;
+			font-family: Neue Montreal;
+			font-size: 24rpx;
+			font-weight: 700;
+			line-height: 28rpx;
+			letter-spacing: 0em;
+
+			image {
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin: 30rpx 60rpx;
+		font-family: Neue Montreal;
+		font-size: 24rpx;
+		font-weight: 700;
+		line-height: 28rpx;
+		letter-spacing: 0em;
+
+		image {
+			width: 100rpx;
+			height: 100rpx;
+		}
 	}
 </style>

@@ -1,5 +1,5 @@
-const baseUrl = 'http://hmmobile.eastseastone.com' // 正式环境
-const baseUrlfile = 'http://hmmobile.eastseastone.com' // 正式文件地址
+const baseUrl = 'https://hmmobile.eastseastone.com' // 正式环境
+const baseUrlfile = 'https://hmmobile.eastseastone.com' // 正式文件地址
 // const baseUrl = 'https://2016kt6872.oicp.vip'
 // const baseUrlfile = 'https://2016kt6872.oicp.vip'
 // const baseUrl = 'http://c63database.mysql.database.azure.com'

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Facebook Login</title>
+		<meta charset="UTF-8">
+		<style type="text/css" media="screen">
+			hr {
+				border: none;
+			}
+		</style>
+		<!--<script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js"></script>-->
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+		<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js">
+		</script>
+	</head>
+
+	<body>
+		<script>
+			console.log(window.location.href)
+			var client_id = "869040044902747"; //facebook开发者获取 示例参数
+			var client_secret = "d7d9954ffee2907870383cb99917ac24"; //facebook开发者获取 示例参数
+			var redirect_uri = "https://hmmobile.eastseastone.com/api/ma/code"; //获取Facebook用户信息后回调地址,客户服务器的链接（此处为示例）
+			document.addEventListener('UniAppJSBridgeReady', function() {
+				// This is called with the results from from FB.getLoginStatus().
+				function statusChangeCallback(response) {
+					var code = getUrlParam("code");
+					console.log("response1=" + JSON.stringify(response));
+					console.log(code);
+					if (code != '' && code != null && code != undefined) {
+						if (response.status === 'connected') {
+							testAPI(response.authResponse.accessToken);
+						} else {
+							$.get("https://graph.facebook.com/v18.0/oauth/access_token?client_id=" + client_id +
+								"&client_secret=" + client_secret + "&redirect_uri=" + redirect_uri + "&code=" +
+								code,
+								function(e) {
+									var token = e.access_token;
+									testAPI(token);
+									console.log("token=" + token);
+									// 		FB.logout(statusChangeCallback);
+								});
+						}
+					} else {
+						window.location.href = "https://www.facebook.com/v18.0/dialog/oauth?client_id=" + client_id +
+							"&redirect_uri=" + redirect_uri + "&state=";
+					}
+				}
+
+				// 初始化FB
+				window.fbAsyncInit = function() {
+					FB.init({
+						appId: client_id,
+						cookie: false, // enable cookies to allow the server to access
+						xfbml: true, // parse social plugins on this page
+						version: 'v11.0' // use graph api version 2.8
+					});
+
+					//查询登录状态
+					FB.getLoginStatus(statusChangeCallback);
+
+				};
+				// 加载facebook SDK
+				(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src =
+						'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v18.0&appId=147783480672784&autoLogAppEvents=1';
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+				// 注销
+				function logout(token) {
+					FB.logout(function(response) {
+						console.log("logout1=" + JSON.stringify(response));
+						// FB.Auth.setAuthResponse(null, 'unknown');
+					});
+				}
+				// 获取用户信息
+				function testAPI(token) {
+					FB.api('/me', 'GET', {
+						access_token: token,
+						fields: 'first_name,last_name,name,id,email'
+					}, function(response) {
+						// document.getElementById('status').innerHTML = JSON.stringify(response);
+						// 获取到的数据
+						console.log(response);
+						var s = response;
+
+						var data = {
+							oauth: 'facebook',
+							id: response.id,
+							name: response.name,
+							email: response.name,
+						}
+						// 请求自己的登录接口
+						$.post("https://www.ceshi.com/api/Login/sffacebook", data, function(res) {
+							console.log(res);
+							uni.postMessage({
+								data: res
+							})
+						})
+					});
+				}
+				/*获取地址栏参数*/
+				function getUrlParam(name) {
+					var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+					var r = window.location.search.substr(1).match(reg); //匹配目标参数
+					if (r != null) return unescape(r[2]);
+					return null; //返回参数值
+				}
+			})
+		</script>
+	</body>
+
+</html>
