@@ -12,9 +12,7 @@
 				<view class="item" v-for="(item, index) in list"
 					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
 					<view class="star" @click.stop="setstar(item)">
-						<image v-if="item.isCollect == 0 ||item.isCollect == null" src="@/static/images/star.png"
-							mode="widthFix" />
-						<image v-else src="@/static/images/star_active.png" mode="widthFix" />
+						<image src="@/static/images/star_active.png" mode="widthFix" />
 					</view>
 					<img :src="item.eventpic" alt="">
 					<view class="item_info">
@@ -56,13 +54,7 @@
 				});
 			},
 			setstar(row) {
-				let url = ''
-				if (row.isCollect == 0 || row.isCollect == null) {
-					url = '/api/ma/calendar/insert'
-				} else {
-					url = '/api/ma/user/attend/uncollect'
-				}
-				this.request.postRequest(url, {
+				this.request.postRequest('/api/ma/user/attend/uncollect', {
 					userid: this.userInfo.userId,
 					eventid: String(row.id),
 					caldate: row.eventtime,

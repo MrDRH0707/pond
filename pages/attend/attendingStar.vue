@@ -14,7 +14,12 @@
 			<view class="list" v-show="tags == 1">
 				<view class="item" v-for="(item, index) in list"
 					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
-					<image :src="item.eventpic" alt="" mode="aspectFit" />
+					<view class="star" @click.stop="setstar(item)">
+						<image v-if="item.isCollect == 0 ||item.isCollect == null" src="@/static/images/star.png"
+							mode="widthFix" />
+						<image v-else src="@/static/images/star_active.png" mode="widthFix" />
+					</view>
+					<image class="imagemain" :src="item.eventpic" alt="" mode="aspectFit" />
 					<view class="item_info">
 						<view class="_info1">
 							<view>{{ item.eventname }}</view>
@@ -58,6 +63,22 @@
 					// tabList: this.query.dataStrId,
 				}).then(res => {
 					this.list = res.data
+				});
+			},
+			setstar(row) {
+				let url = ''
+				if (row.isCollect == 0 || row.isCollect == null) {
+					url = '/api/ma/calendar/insert'
+				} else {
+					url = '/api/ma/user/attend/uncollect'
+				}
+				this.request.postRequest(url, {
+					userid: this.userInfo.userId,
+					eventid: String(row.id),
+					caldate: row.eventtime
+				}).then(res => {
+					uni.$u.toast("success")
+					this.getData(this.query.id)
 				});
 			},
 		}
@@ -117,6 +138,7 @@
 		flex-wrap: wrap;
 
 		.item {
+			position: relative;
 			flex: 0 0 340rpx;
 			margin: 10rpx;
 			height: 322rpx;
@@ -126,9 +148,22 @@
 			padding: 10rpx;
 			box-sizing: border-box;
 
-			image {
+			.imagemain {
 				width: 100%;
 				height: 122rpx;
+			}
+
+			.star {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				right: 0;
+				padding: 20rpx;
+
+				image {
+					width: 40rpx;
+					height: 40rpx;
+				}
 			}
 
 			.item_info {
