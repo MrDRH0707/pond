@@ -66,7 +66,41 @@
 				})
 			},
 			onfacebook() {
-				this.navigatePage('/pages/loginfb/loginfb')
+				var facebook = uni.requireNativePlugin("sn-facebook");
+				console.log(19999,facebook)
+				// facebook.isLoggedIn((e) => {
+				//   if (e == true) {
+				    
+				// 	console.log(1922,e)
+				//   }
+				// });
+				// facebook.getKeyHash((e) => {
+				//   if (e.code == 0) {
+				//     let keyhash = e.keyHash[0];
+				//     console.log("keyhash", keyhash);
+				//   }
+				// });
+				// facebook.login((e) => {
+				//   // e 对象如下
+				//   // {
+				//   //     result: true,
+				//   //     data: {
+				//   //         token: '',
+				//   //         userId: '',
+				//   //         name: '',
+				//   //         email: '',
+				//   //         gender: '',
+				//   //         birthday: ''
+				//   //         photo: ''
+				//   //     }
+				//   // }
+				
+				//   uni.showToast({
+				//     icon: "none",
+				//     title: JSON.stringify(e),
+				//   });
+				// });
+				// this.navigatePage('/pages/loginfb/loginfb')
 				// uni.login({
 				// 	provider: 'facebook',
 				// 	success: function(loginRes) {

@@ -1,6 +1,6 @@
 {
     "name" : "pond",
-    "appid" : "__UNI__519FCA0",
+    "appid" : "__UNI__2F8FAEF",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : 100,
@@ -21,7 +21,6 @@
         },
         /* 模块配置 */
         "modules" : {
-            "OAuth" : {},
             "Maps" : {},
             "Geolocation" : {}
         },
@@ -75,11 +74,7 @@
                     }
                 },
                 "share" : {},
-                "oauth" : {
-                    "facebook" : {
-                        "appid" : "869040044902747"
-                    }
-                }
+                "oauth" : {}
             },
             "icons" : {
                 "android" : {
@@ -120,7 +115,41 @@
         "uniStatistics" : {
             "enable" : true
         },
-        "nativePlugins" : {}
+        "nativePlugins" : {
+            "sn-facebook" : {
+                "applicationId" : "869040044902747",
+                "applicationName" : "cs61_test1",
+                "clientToken" : "123123123123",
+                "__plugin_info__" : {
+                    "name" : "Facebook登录、分享、统计、深度链接 - [试用版，仅用于自定义调试基座]",
+                    "description" : "提供facebook登录、分享、事件统计、深度链接等功能",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=3639",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 0,
+                    "pid" : "3639",
+                    "parameters" : {
+                        "applicationId" : {
+                            "des" : "Facebook应用编号",
+                            "key" : "FacebookAppID",
+                            "value" : ""
+                        },
+                        "applicationName" : {
+                            "des" : "Facebook应用名称",
+                            "key" : "FacebookDisplayName",
+                            "value" : ""
+                        },
+                        "clientToken" : {
+                            "des" : "FacebookClientToken",
+                            "key" : "FacebookClientToken",
+                            "value" : ""
+                        }
+                    }
+                }
+            }
+        }
     },
     /* 快应用特有相关 */
     "quickapp" : {},
