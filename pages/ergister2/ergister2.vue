@@ -66,41 +66,6 @@
 				})
 			},
 			onfacebook() {
-				var facebook = uni.requireNativePlugin("sn-facebook");
-				console.log(19999,facebook)
-				// facebook.isLoggedIn((e) => {
-				//   if (e == true) {
-				    
-				// 	console.log(1922,e)
-				//   }
-				// });
-				// facebook.getKeyHash((e) => {
-				//   if (e.code == 0) {
-				//     let keyhash = e.keyHash[0];
-				//     console.log("keyhash", keyhash);
-				//   }
-				// });
-				// facebook.login((e) => {
-				//   // e 对象如下
-				//   // {
-				//   //     result: true,
-				//   //     data: {
-				//   //         token: '',
-				//   //         userId: '',
-				//   //         name: '',
-				//   //         email: '',
-				//   //         gender: '',
-				//   //         birthday: ''
-				//   //         photo: ''
-				//   //     }
-				//   // }
-				
-				//   uni.showToast({
-				//     icon: "none",
-				//     title: JSON.stringify(e),
-				//   });
-				// });
-				// this.navigatePage('/pages/loginfb/loginfb')
 				// uni.login({
 				// 	provider: 'facebook',
 				// 	success: function(loginRes) {
@@ -120,6 +85,54 @@
 				// 		// err.code是错误码
 				// 	}
 				// });
+				// this.navigatePage('/pages/loginfb/loginfb')
+				const facebook = uni.requireNativePlugin("sn-facebook");
+				console.log(19999, facebook)
+				setTimeout(() => {
+					// facebook.fetchDeferredAppLink((e) => {
+					// 	if (e.code == 0) {
+					// 		console.log('eee', e)
+					// 		// e.url // for iOS
+					// 		// e.data // for Android
+					// 	}
+					// });
+					// facebook.getKeyHash((e) => {
+					// 	if (e.code == 0) {
+					// 		let keyhash = e.keyHash[0];
+					// 		console.log("keyhash", keyhash);
+					// 	}
+					// });
+					facebook.login((e) => {
+						console.log("login", e);
+						// e 对象如下
+						// {
+						//     result: true,
+						//     data: {
+						//         token: '',
+						//         userId: '',
+						//         name: '',
+						//         email: '',
+						//         gender: '',
+						//         birthday: ''
+						//         photo: ''
+						//     }
+						// }
+					});
+					// facebook.isLoggedIn((e) => {
+					// 	if (e == true) {
+					// 		// 已登录
+					// 		console.log("isLoggedIn", e);
+					// 	}
+					// });
+					// facebook.getUserInfo({
+					// 		// 返回字段，更多字段请查看 https://developers.facebook.com/docs/graph-api/reference/user/
+					// 		fields: "id, name, email, gender, birthday, picture", // 可选参数，示例是默认值
+					// 	},
+					// 	(e) => {
+					// 		console.log("getUserInfo", e);
+					// 	},
+					// );
+				}, 800)
 			}
 		}
 	}
