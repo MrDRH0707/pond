@@ -3,13 +3,13 @@
 		<view class="container_main">
 			<view class="header">
 				<view class="info">
-					<view class="infoTitle">Han Magotra</view>
+					<view class="infoTitle">{{userInfo.userName}}</view>
 					<view>Member since 2023</view>
 					<view>Personal account</view>
 				</view>
 				<view class="iocimg">
 					<image src="../../static/images/icoimg.png" mode="widthFix" />
-					<view>@hannahmagotra</view>
+					<view>{{userInfo.email}}</view>
 				</view>
 			</view>
 			<view class="tag">

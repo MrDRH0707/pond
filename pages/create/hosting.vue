@@ -5,7 +5,7 @@
 			<view class="tiptxt">
 				<view>I want to</view>
 				<view class="green">create</view>
-				<view class="mr_10">an event calledg</view>
+				<view class="mr_10">an event called</view>
 				<view class="tipinput" :style="{ width: spanWidth }">
 					<textarea v-model="value" :style="{ width: spanWidth }" :auto-height="true" @input="getValue"
 						@keydown.enter="submit()" placeholder="what?" />
