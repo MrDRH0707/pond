@@ -25,6 +25,8 @@
 			"path": "pages/loginfb/loginfb"
 		}, {
 			"path": "pages/register/register"
+		},  {
+			"path": "pages/register2/register2"
 		}, {
 			"path": "pages/homepage/homepage"
 		}, {

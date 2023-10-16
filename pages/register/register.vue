@@ -10,12 +10,6 @@
 			<view class="cinput">
 				<input type="text" v-model="email" placeholder="email">
 			</view>
-			<view class="cinput">
-				<input type="text" v-model="userName" placeholder="Name">
-			</view>
-			<view class="cinput">
-				<input type="password" v-model="password" placeholder="password">
-			</view>
 		</view>
 		<view class="footer" @click="submit()">
 			<view>
@@ -45,21 +39,17 @@
 		mounted() {},
 		methods: {
 			submit() {
-				if (this.email == '' || this.userName == '' || this.password == '') {
+				if (this.email == '') {
 					uni.$u.toast("Complete information")
 					return
 				}
-				this.request.postRequest('/api/ma/sysUser/register', {
-					phonenumber: this.query.phonenumber,
+				this.request.getRequest('/api/ma/sysUser/mailCode', {
 					email: this.email,
-					userName: this.userName,
-					nickName: this.userName,
-					password: this.password,
 				}).then(res => {
-					uni.$u.toast("Successful operation")
-					setTimeout(() => {
-						this.navigatePage('/pages/loginnext/loginnext')
-					}, 1800)
+					this.navigatePage('/pages/register2/register2', {
+						phonenumber: this.query.phonenumber,
+						email: this.email,
+					})
 				});
 			},
 		}

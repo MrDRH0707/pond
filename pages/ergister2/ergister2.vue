@@ -24,8 +24,6 @@
 			<view style="margin-top: 55px;">Already have an account?
 				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
 			</view>
-			<view class="ahref" style="margin-top: 25px;" @click="navigatePage('/pages/password/password')">forgot
-				password</view>
 		</view>
 		<view class="footer" @click="doSearch()">
 			<view>
@@ -71,74 +69,22 @@
 				})
 			},
 			onfacebook() {
-				// uni.login({
-				// 	provider: 'facebook',
-				// 	success: function(loginRes) {
-				// 		console.log('你倒是登录进来呀', loginRes)
-				// 		// 登录成功
-				// 		uni.getUserInfo({
-				// 			provider: 'facebook',
-				// 			success: function(info) {
-				// 				console.log('用户的信息', loginRes)
-				// 				// 获取用户信息成功, info.authResult保存用户信息
-				// 				this.switchTabPage('/pages/homepage/homepage')
-				// 			}
-				// 		})
-				// 	},
-				// 	fail: function(err) {
-				// 		// 登录授权失败  
-				// 		// err.code是错误码
-				// 	}
-				// });
-				// this.navigatePage('/pages/loginfb/loginfb')
+				var _this = this
 				facebook.getKeyHash((e) => {
 					if (e.code == 0) {
 						let keyhash = e.keyHash[0];
 						console.log("keyhash", keyhash);
 					}
 				});
-				setTimeout(() => {
-					facebook.login((e) => {
-						console.log("login", e);
-						// e 对象如下
-						// {
-						//     result: true,
-						//     data: {
-						//         token: '',
-						//         userId: '',
-						//         name: '',
-						//         email: '',
-						//         gender: '',
-						//         birthday: ''
-						//         photo: ''
-						//     }
-						// }
+				facebook.login((e) => {
+					_this.request.postRequest('/api/ma/sysUser/login', {
+						loginType: "FBlogin",
+						fbData: e.data
+					}).then(res => {
+						uni.setStorageSync('token', res.token)
+						this.getUserInfo()
 					});
-
-					// facebook.fetchDeferredAppLink((e) => {
-					// 	if (e.code == 0) {
-					// 		console.log('eee', e)
-					// 		// e.url // for iOS
-					// 		// e.data // for Android
-					// 	}
-					// });
-
-
-					// facebook.isLoggedIn((e) => {
-					// 	if (e == true) {
-					// 		// 已登录
-					// 		console.log("isLoggedIn", e);
-					// 	}
-					// });
-					// facebook.getUserInfo({
-					// 		// 返回字段，更多字段请查看 https://developers.facebook.com/docs/graph-api/reference/user/
-					// 		fields: "id, name, email, gender, birthday, picture", // 可选参数，示例是默认值
-					// 	},
-					// 	(e) => {
-					// 		console.log("getUserInfo", e);
-					// 	},
-					// );
-				}, 800)
+				});
 			},
 			onInstagram() {
 				plus.globalEvent.addEventListener('TestEvent', function(e) {
@@ -158,6 +104,15 @@
 							duration: 1.5
 						});
 					})
+			},
+			// 获取用户信息
+			getUserInfo() {
+				this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
+					console.log(res)
+					let userInfo = res.user
+					uni.setStorageSync('userInfo', JSON.stringify(userInfo))
+					this.switchTabPage('/pages/homepage/homepage')
+				});
 			}
 		}
 	}

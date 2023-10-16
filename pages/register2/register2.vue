@@ -3,13 +3,21 @@
 		<view class="container_main  flex-center">
 			<image class="logo" src="../../static/images/LOGO.png" mode="widthFix"></image>
 			<view class="cinput">
-				<input type="text" v-model="oldPassword" placeholder="old password">
+				<view class="txt">
+					your phone is {{query.phonenumber}}
+				</view>
 			</view>
 			<view class="cinput">
-				<input type="text" v-model="newPassword" placeholder="new password">
+				<input type="text" :value="query.email" placeholder="email" disabled>
 			</view>
 			<view class="cinput">
-				<input type="text" v-model="newPassword2" placeholder="again password">
+				<input type="text" v-model="userName" placeholder="Name">
+			</view>
+			<view class="cinput">
+				<input type="password" v-model="password" placeholder="password">
+			</view>
+			<view class="cinput">
+				<input type="text" v-model="code" placeholder="code">
 			</view>
 		</view>
 		<view class="footer" @click="submit()">
@@ -27,9 +35,9 @@
 	export default {
 		data() {
 			return {
-				oldPassword: "",
-				newPassword: "",
-				newPassword2: "",
+				userName: "",
+				password: "",
+				code: "",
 			}
 		},
 		onReady() {},
@@ -40,21 +48,22 @@
 		mounted() {},
 		methods: {
 			submit() {
-				if (this.oldPassword == '' || this.newPassword == '' || this.newPassword2 == '') {
+				if (this.userName == '' || this.password == '' || this.code == '') {
 					uni.$u.toast("Complete information")
 					return
-				} else if (this.newPassword != this.newPassword2) {
-					uni.$u.toast("Password inconsistency")
-					return
 				}
-				this.request.postRequest('/api/ma/sysUser/updatePwd', {
-					oldPassword: this.oldPassword,
-					newPassword: this.newPassword,
+				this.request.postRequest('/api/ma/sysUser/register', {
+					phonenumber: this.query.phonenumber,
+					email: this.query.email,
+					userName: this.userName,
+					nickName: this.userName,
+					password: this.password,
+					code: this.code,
 				}).then(res => {
 					uni.$u.toast("Successful operation")
 					setTimeout(() => {
-						this.historyback()
-					}, 1500)
+						this.navigatePage('/pages/loginnext/loginnext')
+					}, 1800)
 				});
 			},
 		}
