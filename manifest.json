@@ -120,7 +120,7 @@
             "sn-facebook" : {
                 "applicationId" : "869040044902747",
                 "applicationName" : "cs61_test1",
-                "clientToken" : "123123123123",
+                "clientToken" : "95043d7d4cab716da530780cb05d9f24",
                 "__plugin_info__" : {
                     "name" : "Facebook登录、分享、统计、深度链接 - [试用版，仅用于自定义调试基座]",
                     "description" : "提供facebook登录、分享、事件统计、深度链接等功能",
@@ -148,6 +148,20 @@
                             "value" : ""
                         }
                     }
+                }
+            },
+            "BenBen-InstagramLogin" : {
+                "__plugin_info__" : {
+                    "name" : "Instagram登录分享 - [试用版，仅用于自定义调试基座]",
+                    "description" : "Instagram登录分享",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=9739",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 0,
+                    "pid" : "9739",
+                    "parameters" : {}
                 }
             }
         }

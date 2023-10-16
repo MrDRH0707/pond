@@ -6,7 +6,7 @@
 				<view>sharing!</view>
 			</view>
 			<image class="return" src="../../static/images/return.png" mode="widthFix"
-				@click="switchTabPage('/pages/homepage/homepage')"></image>
+				@click="historyback(2)"></image>
 		</view>
 		<tabBar index='3'></tabBar>
 	</view>

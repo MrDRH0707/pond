@@ -4,7 +4,7 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="blue">attend</view>an event in
-				<view class="blue">{{query.title}}</view>
+				<view class="blue" @click="historyback()">{{query.title}}</view>
 				<view class="gray" v-if="dateStr == '' || dateType == '4'">on</view>
 				<view class="blue">{{dateStr}}</view>
 			</view>

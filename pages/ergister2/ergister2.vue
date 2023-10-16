@@ -14,7 +14,7 @@
 				<view @click="onfacebook()">
 					<image src="../../static/images/04-REGISTER2.png" mode="widthFix" />
 				</view>
-				<view>
+				<view @click="onInstagram()">
 					<image src="../../static/images/04-REGISTER3.png" mode="widthFix" />
 				</view>
 				<view>
@@ -24,6 +24,8 @@
 			<view style="margin-top: 55px;">Already have an account?
 				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
 			</view>
+			<view class="ahref" style="margin-top: 25px;" @click="navigatePage('/pages/password/password')">forgot
+				password</view>
 		</view>
 		<view class="footer" @click="doSearch()">
 			<view>
@@ -37,6 +39,9 @@
 </template>
 
 <script>
+	const facebook = uni.requireNativePlugin("sn-facebook");
+	const instagramModule = uni.requireNativePlugin("BenBen-InstagramLogin")
+	const modal = uni.requireNativePlugin('modal');
 	export default {
 		data() {
 			return {
@@ -86,22 +91,13 @@
 				// 	}
 				// });
 				// this.navigatePage('/pages/loginfb/loginfb')
-				const facebook = uni.requireNativePlugin("sn-facebook");
-				console.log(19999, facebook)
+				facebook.getKeyHash((e) => {
+					if (e.code == 0) {
+						let keyhash = e.keyHash[0];
+						console.log("keyhash", keyhash);
+					}
+				});
 				setTimeout(() => {
-					// facebook.fetchDeferredAppLink((e) => {
-					// 	if (e.code == 0) {
-					// 		console.log('eee', e)
-					// 		// e.url // for iOS
-					// 		// e.data // for Android
-					// 	}
-					// });
-					// facebook.getKeyHash((e) => {
-					// 	if (e.code == 0) {
-					// 		let keyhash = e.keyHash[0];
-					// 		console.log("keyhash", keyhash);
-					// 	}
-					// });
 					facebook.login((e) => {
 						console.log("login", e);
 						// e 对象如下
@@ -118,6 +114,16 @@
 						//     }
 						// }
 					});
+
+					// facebook.fetchDeferredAppLink((e) => {
+					// 	if (e.code == 0) {
+					// 		console.log('eee', e)
+					// 		// e.url // for iOS
+					// 		// e.data // for Android
+					// 	}
+					// });
+
+
 					// facebook.isLoggedIn((e) => {
 					// 	if (e == true) {
 					// 		// 已登录
@@ -133,6 +139,25 @@
 					// 	},
 					// );
 				}, 800)
+			},
+			onInstagram() {
+				plus.globalEvent.addEventListener('TestEvent', function(e) {
+					modal.toast({
+						message: "TestEvent收到：" + e.msg,
+						duration: 1.5
+					});
+				});
+				instagramModule.instagramLogin({
+						'instagram_client_id': '869040044902747',
+						'instagram_secret': '95043d7d4cab716da530780cb05d9f24',
+						'instagram_redirect_url': 'https://www.instagram.com'
+					},
+					(ret) => {
+						modal.toast({
+							message: ret,
+							duration: 1.5
+						});
+					})
 			}
 		}
 	}

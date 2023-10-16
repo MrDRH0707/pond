@@ -26,6 +26,7 @@
 				<view>Help</view>
 				<view>Legal stuff</view>
 				<view style="color: blue;" @click="signout()">Log out</view>
+				<view class="more">Restart prototype </view>
 			</view>
 			<view class="list" v-if="tags == 2">
 				<view class="item" v-for="(item, index) in list"
@@ -135,6 +136,11 @@
 		font-size: 32rpx;
 		line-height: 60rpx;
 		font-weight: bold;
+		.more{
+			font-size: 20rpx;
+			color: #C0BDB3;
+			text-align: right;
+		}
 	}
 
 	.list {

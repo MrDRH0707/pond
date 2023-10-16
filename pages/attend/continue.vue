@@ -4,16 +4,15 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				I want to<view class="blue">attend</view>an event in
-				<view class="blue">{{query.title}}</view>on
-				<view class="blue">{{query.dateStr}}</view>with
-				<view class="blue">{{query.dataStr}}</view>
+				<view class="blue" @click="historyback(3)">{{query.title}}</view>on
+				<view class="blue" @click="historyback(2)">{{query.dateStr}}</view>with
+				<view class="blue" @click="historyback()">{{query.dataStr}}</view>
 			</view>
 			<view class="tipmini">
 				<view>Click on any blue text to edit your prompt</view>
 			</view>
 		</view>
-		<view class="footer"
-			@click="navigatePage('/pages/buffer/buffer',{ pageurl:'/pages/attend/attendingStar',title: query.title,dateStr: query.dateStr,dataStr: query.dataStr,dataStrId: query.dataStrId,dateType: query.dateType })">
+		<view class="footer" @click="submit()">
 			<view>
 				<image src="../../static/images/Logo6.png" class="left-img" alt="" mode="widthFix" />
 			</view>
@@ -38,7 +37,16 @@
 		created() {},
 		mounted() {},
 		methods: {
-
+			submit() {
+				this.navigatePage('/pages/buffer/buffer', {
+					pageurl: '/pages/attend/attendingStar',
+					title: this.query.title,
+					dateStr: this.query.dateStr,
+					dataStr: this.query.dataStr,
+					dataStrId: this.query.dataStrId,
+					dateType: this.query.dateType
+				})
+			}
 		}
 	}
 </script>

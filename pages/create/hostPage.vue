@@ -8,7 +8,7 @@
 			</view>
 			<view class="line"></view>
 			<view class="upload_main">
-				<image class="load_img" v-if="fileimg" :src="fileimg" mode="aspectFit" />
+				<image class="load_img" v-if="fileimg" :src="fileimg" mode="aspectFit" @click="uploadinfo()" />
 				<view class="upload_btn" v-else @click="uploadinfo()">
 					Insert event artwork here
 				</view>

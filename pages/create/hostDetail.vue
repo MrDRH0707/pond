@@ -9,8 +9,13 @@
 				<image :src="query.eventpic" mode="aspectFit"></image>
 				<!-- <image src="../../static/images/IMG_70884.png" mode="widthFix" /> -->
 			</view>
-			<view class="btn" @click="navigatePage('/pages/create/feedback')">
+			<view class="btn" @click="dialogshow2 = true">
 				Share with my network
+			</view>
+			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
+				<view class="dialog_main_bottom">
+					<image src="@/static/images/ShareSheet.png" mode="widthFix"  @click="navigatePage('/pages/create/feedback')"></image>
+				</view>
 			</view>
 		</view>
 		<tabBar></tabBar>
@@ -21,7 +26,7 @@
 	export default {
 		data() {
 			return {
-
+				dialogshow2: false
 			}
 		},
 		onReady() {},
@@ -33,21 +38,7 @@
 		created() {},
 		mounted() {},
 		methods: {
-			submit() {
-				this.request.getRequest('/api/ma/event/insert', {
-					eventname: this.query.title, // 活动名称
-					eventpic: this.query.eventpic, // 活动图片
-					eventtime: this.query.eventtime, // 活动时间
-					eventaddr: this.query.eventaddr, // 活动地址
-					xpos: this.query.xpos, // x坐标
-					ypos: this.query.ypos, // y坐标
-					details: this.query.details, // who
-					eventdesc: this.query.eventdesc, // 事件描述
-					tabList: this.query.dataStrId.split(',') // 标签
-				}).then(res => {
-					this.navigatePage('/pages/create/hostDetail')
-				});
-			}
+
 		}
 	}
 </script>
@@ -89,5 +80,33 @@
 		background-color: #fff;
 		line-height: 80rpx;
 		margin-top: 200rpx;
+	}
+
+	.dialog2 {
+		position: fixed;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		background-color: rgba(0, 0, 0, 0.6);
+
+		.dialog_main_bottom {
+			position: absolute;
+			bottom: 0%;
+			left: 0%;
+			right: 0%;
+			margin: auto;
+			width: 100%;
+			border-radius: 20rpx;
+			border: 4rpx solid black;
+			background-color: #F5F4F0;
+			box-sizing: border-box;
+			padding: 30rpx;
+
+			image {
+				width: 100%;
+			}
+		}
 	}
 </style>

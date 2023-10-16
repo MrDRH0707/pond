@@ -16,6 +16,8 @@
 		}, {
 			"path": "pages/ergister2/ergister2"
 		}, {
+			"path": "pages/password/password"
+		}, {
 			"path": "pages/login/login"
 		}, {
 			"path": "pages/loginnext/loginnext"

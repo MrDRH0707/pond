@@ -1,4 +1,4 @@
-证书包：com.pond
+证书包：io.dcloud.pond
 别名：pond
 密码：123456
 包：pond.keystore
