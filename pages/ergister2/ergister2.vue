@@ -17,9 +17,9 @@
 				<view @click="onInstagram()">
 					<image src="../../static/images/04-REGISTER3.png" mode="widthFix" />
 				</view>
-				<view>
+				<!-- <view>
 					<image src="../../static/images/Apple_logo_black.png" mode="widthFix" />
-				</view>
+				</view> -->
 			</view>
 			<view style="margin-top: 55px;">Already have an account?
 				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
@@ -62,6 +62,11 @@
 			doSearch() {
 				if (this.phonenumber == '') {
 					uni.$u.toast("Complete information")
+					return
+				}
+				const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
+				if(!phoneReg.test(this.phonenumber)){
+					uni.$u.toast("Incorrect format")
 					return
 				}
 				this.navigatePage('/pages/register/register', {

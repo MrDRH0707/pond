@@ -10,12 +10,6 @@
 			oHtml.style.fontSize = iWidth / 7.5 + "px";
 		</script>
 		<script src="./vue.js"></script>
-		<script src="./webview.js"></script>
-		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-		<script
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx0gmbWRB0jXQ6qm9LoUqzruR9IuXb1dY&callback=initMap&libraries=&v=weekly"
-			defer>
-		</script>
 		<style>
 			* {
 				margin: 0;
@@ -206,6 +200,10 @@
 			}
 		</style>
 	</head>
+	<script src="./webview.js"></script>
+	<script type="text/javascript"
+		src="http://api.map.baidu.com/api?v=1.0&type=webgl&ak=mF9xg3SG2LtulPhLErXczgwpadBNSi1a"></script>
+	<script src="http://unpkg.com/mapvgl/dist/mapvgl.min.js"></script>
 	<body>
 		<div class="container" id="app">
 			<div class="container_main">
@@ -238,7 +236,7 @@
 					</div>
 				</div>
 				<div class="infoMap" v-show="tags == 2">
-					<div class="map" id="cmap"></div>
+					<div class="map" id="bd_map"></div>
 				</div>
 			</div>
 			<div class="footer">
@@ -248,18 +246,15 @@
 			</div>
 			<div class="toast" v-if="toastoff">{{toastname}}</div>
 		</div>
-		<script>
-			function initMap() {
-				console.log('init')
-			}
 
+		<script>
 			new Vue({
 				el: '#app',
 				data: {
 					query: {},
 					tags: 1,
 					list: [],
-					cmap: null,
+					bmap: null,
 					mapstarPos: '../images/star_active.png',
 					mapPos: '../images/area.png',
 					tabList: [{
@@ -288,8 +283,8 @@
 					timer: null
 				},
 				created() {
-					this.getData()
 					console.log('href', window.location.href)
+					this.getData()
 				},
 				methods: {
 					getData() {
@@ -307,37 +302,29 @@
 					},
 					getmap() {
 						var that = this
-						this.cmap = new google.maps.Map(document.getElementById("cmap"), {
-							zoom: 16,
-							center: {
-								// lat: Number('-33.8688197000'),
-								// lng: Number('151.2092955000')
-								lat: Number('39.9148840962'),
-								lng: Number('116.403883218')
+						this.map = new BMapGL.Map("bd_map"); // 创建Map实例
+						this.map.centerAndZoom(new BMapGL.Point(116.403883218, 39.9148840962), 10);
+						this.map.enableScrollWheelZoom(true);
+						this.getRequest('/api/ma/event/list', {
+							eventname: this.getUrlParam('title'),
+							// dateType: this.query.dateType,
+							// tabList: this.query.dataStrId,
+						}).then(res => {
+							let areadata = res.data
+							for (let i in areadata) {
+								var pt = new BMapGL.Point(Number(areadata[i].xpos), Number(areadata[i]
+									.ypos));
+								var myIcon = new BMapGL.Icon((areadata[i].isCollect == 0 || areadata[i].isCollect == null) ?
+									that.mapPos:that.mapstarPos, new BMapGL.Size(22, 22));
+								var marker = new BMapGL.Marker(pt, {
+									icon: myIcon
+								});
+								that.map.addOverlay(marker)
+								marker.addEventListener('click', function(e) {
+									that.details(areadata[i].id)
+								});
 							}
 						});
-						let list = this.list
-						console.log(314)
-						for (let i in list) {
-							console.log(284,list[i])
-							var shopMarker = new google.maps.Marker({
-								position: {
-									lat: Number(list[i].ypos),
-									lng: Number(list[i].xpos),
-								},
-								map: this.cmap,
-								icon: {
-									url: (list[i].isCollect == 0 || list[i].isCollect == null) ?
-										that.mapPos : that.mapstarPos,
-									scaledSize: new google.maps.Size(50, 50),
-									origin: new google.maps.Point(0, 0),
-									anchor: new google.maps.Point(0, 0)
-								}
-							});
-							google.maps.event.addListener(shopMarker, "click", function() {
-								that.details(list[i].id)
-							});
-						}
 					},
 					setstar(row) {
 						let url = ''
