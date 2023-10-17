@@ -109,7 +109,7 @@ const postRequest = (url, date, loding = true) => {
 const handle = (response, callback) => {
 	if (response[1].statusCode == 200) {
 		if (response[1].data.code != 200) {
-			uni.$u.toast("error")
+			uni.$u.toast(response[1].data.msg || "error")
 			return false;
 		}
 		let [error, res] = response;

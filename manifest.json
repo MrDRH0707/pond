@@ -7,6 +7,8 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
+        "animationType" : "fade-in",
+        "animationDuration" : 50,
         "usingComponents" : true,
         "nvueStyleCompiler" : "uni-app",
         "compilerVersion" : 3,
