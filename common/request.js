@@ -91,8 +91,10 @@ const postRequest = (url, date, loding = true) => {
 				clearTimeout(timer)
 				uni.hideLoading();
 			}
+			// console.log(137, baseUrl, response)
 			handle(response, (res) => resolve(res))
 		}).catch(error => {
+			// console.log(1371, baseUrl, error)
 			let [err, res] = error;
 			reject(err)
 		})

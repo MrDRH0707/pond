@@ -77,6 +77,7 @@
 					}
 				});
 				facebook.login((e) => {
+					console.log('facebooklogin', e)
 					_this.request.postRequest('/api/ma/sysUser/login', {
 						loginType: "FBlogin",
 						fbData: e.data

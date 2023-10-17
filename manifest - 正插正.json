@@ -134,9 +134,9 @@
                 }
             },
             "sn-facebook" : {
-                "applicationId" : "869040044902747",
-                "applicationName" : "cs61_test1",
-                "clientToken" : "95043d7d4cab716da530780cb05d9f24",
+                "applicationId" : "738395181461761",
+                "applicationName" : "cs61",
+                "clientToken" : "bb6e74df0cdccbf9d30de5be0caadb59",
                 "__plugin_info__" : {
                     "name" : "Facebook登录、分享、统计、深度链接",
                     "description" : "提供facebook登录、分享、事件统计、深度链接等功能。离线包￥500。加微信：zhuzheVIP1",
