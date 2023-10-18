@@ -21,8 +21,8 @@
 					<view class="item_value">{{ eventtime }}</view>
 				</view>
 				<view class="line"></view>
-				<!-- @click="navigatePage('/pages/create/selarea')" -->
-				<view class="item" @click="mapShow=true" >
+				<!-- <view class="item" @click="mapShow=true" > -->
+				<view class="item" @click="navigatePage('/pages/create/selarea')">
 					<view class="item_label">Where?</view>
 					<view class="item_value">
 						<input class="c_input" v-model="positionObj.address" type="text" disabled
@@ -107,7 +107,11 @@
 				details: '',
 				eventdesc: '',
 				mapShow: false,
-				positionObj: {},
+				positionObj: {
+					address: '',
+					longitude: '',
+					latitude: '',
+				},
 				dialogshow1: false,
 				dialogshow: false
 			}
@@ -126,7 +130,16 @@
 			this.details = Cache.details || ''
 			this.eventdesc = Cache.eventdesc || ''
 		},
-		onShow() {},
+		onShow() {
+			let that = this
+			uni.$on('updateData', function(data) {
+				console.log(512)
+				that.positionObj.address = data.address || ''
+				that.positionObj.longitude = data.lng || ''
+				that.positionObj.latitude = data.lat || ''
+				console.log(12311, that.positionObj)
+			})
+		},
 		onHide() {},
 		created() {},
 		mounted() {},

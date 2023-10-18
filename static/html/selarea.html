@@ -28,11 +28,47 @@
 				height: 100%;
 			}
 
-			#app {
+			.container {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
 				width: 100%;
 				height: 100%;
 				padding-top: 1rem;
 				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				background-color: #F5F4F0;
+				color: #2c3e50;
+				padding-top: 0.3rem;
+			}
+
+			.head {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.3rem;
+				box-sizing: border-box;
+			}
+
+			.off {
+				width: 0.6rem;
+				height: 0.6rem;
+			}
+
+			.next {
+				right: 0.3rem;
+				width: 0.8rem;
+			}
+
+			.map {
+				flex: 1;
+				width: 100%;
+				position: relative;
+
 			}
 
 			#cmap {
@@ -40,13 +76,17 @@
 				height: 100%;
 			}
 
-			.off {
+			.maininfo {
 				position: absolute;
-				z-index: 99;
-				top: 0.3rem;
-				left: 0.3rem;
-				width: 0.6rem;
-				height: 0.6rem;
+				z-index: 9999999;
+				bottom: 0.3rem;
+				left: 0.5rem;
+				right: 1.1rem;
+				padding: 0.3rem;
+				box-sizing: border-box;
+				background-color: #fff;
+				font-size: 0.4rem;
+				border-radius: 0.1rem;
 			}
 
 			.toast {
@@ -64,10 +104,15 @@
 	</head>
 	<body>
 		<div class="container" id="app">
-			<img class="off" @click="onback()" src="../../static/images/off.png" alt="">
-			<div class="map" id="cmap"></div>
+			<div class="head">
+				<img class="off" @click="onback()" src="../../static/images/off.png" alt="">
+				<img class="next" @click="onnext()" src="../../static/images/Arrow-47left.png" alt="">
+			</div>
+			<div class="map">
+				<div id="cmap"></div>
+			</div>
 			<div class="maininfo">
-
+				<div>my area:{{area.address}}</div>
 			</div>
 			<div class="toast" v-if="toastoff">{{toastname}}</div>
 		</div>
@@ -85,7 +130,11 @@
 					query: {},
 					mapstarPos: '../images/star_active.png',
 					mapPos: '../images/area.png',
-					area: {},
+					area: {
+						address: '',
+						lat: '',
+						lng: ''
+					},
 					toastname: '提示的',
 					toastoff: false,
 					timer: null
@@ -109,7 +158,7 @@
 					},
 					getmap() {
 						// this.getRequest('/api/url', {}).then(res => {});
-						var that = this
+						var _this = this
 						this.cmap = new google.maps.Map(document.getElementById("cmap"), {
 							zoom: 16,
 							center: {
@@ -120,8 +169,18 @@
 							}
 						});
 						google.maps.event.addListener(this.cmap, 'click', function(e) {
-							that.reverseGeocode(e.latLng.lat(), e.latLng.lng())
+							_this.reverseGeocode(e.latLng.lat(), e.latLng.lng())
 						})
+						// this.cmap.addListener("center_changed", (e) => {
+						// 	console.log(123, e)
+						// 	console.log(1232, _this.cmap.setCenter())
+						// 	console.log(1231, e.latLng.lat(), e.latLng.lng())
+						// 	// // 3 seconds after the center of the map has changed, pan back to the
+						// 	// // marker.
+						// 	// window.setTimeout(() => {
+						// 	//   map.panTo(marker.getPosition());
+						// 	// }, 3000);
+						// });
 						// let list = []
 						// for (let i in list) {
 						// 	var shopMarker = new google.maps.Marker({
@@ -132,19 +191,20 @@
 						// 		map: this.cmap,
 						// 		icon: {
 						// 			url: (list[i].isCollect == 0 || list[i].isCollect == null) ?
-						// 				that.mapPos : that.mapstarPos,
+						// 				_this.mapPos : _this.mapstarPos,
 						// 			scaledSize: new google.maps.Size(50, 50),
 						// 			origin: new google.maps.Point(0, 0),
 						// 			anchor: new google.maps.Point(0, 0)
 						// 		}
 						// 	});
 						// 	google.maps.event.addListener(shopMarker, "click", function() {
-						// 		that.details(list[i].id)
+						// 		_this.details(list[i].id)
 						// 	});
 						// }
 					},
 					reverseGeocode(lat, lng) {
-						var that = this
+						console.log(lat, lng)
+						var _this = this
 						var geocoder = new google.maps.Geocoder();
 						var latlng = new google.maps.LatLng(lat, lng);
 						// 调用地理编码服务的geocode方法
@@ -158,7 +218,7 @@
 										lat: lat,
 										lng: lng
 									}
-									obj.setMap(null);
+									console.log(123, obj)
 									let shopMarker = new google.maps.Marker({
 										position: {
 											lat: obj.lat,
@@ -166,13 +226,13 @@
 										},
 										map: this.cmap,
 										icon: {
-											url: that.mapPos,
+											url: _this.mapPos,
 											scaledSize: new google.maps.Size(50, 50),
 											origin: new google.maps.Point(0, 0),
 											anchor: new google.maps.Point(0, 0)
 										}
 									});
-									that.area = obj
+									_this.area = obj
 								} else {
 									console.log('未找到地址');
 								}
@@ -253,6 +313,20 @@
 						uni.postMessage({
 							data: {
 								type: 'historyback',
+							}
+						});
+					},
+					onnext() {
+						if (this.area.address == '') {
+							this.toast("Complete information")
+							return
+						}
+						uni.postMessage({
+							data: {
+								type: 'details',
+								address: this.area.address,
+								lat: this.area.lat,
+								lng: this.area.lng,
 							}
 						});
 					}

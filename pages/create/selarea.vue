@@ -41,6 +41,12 @@
 				if (msgquery.type == 'historyback') {
 					this.historyback();
 				}
+				if (msgquery.type == 'details') {
+					setTimeout(() => {
+						uni.$emit('updateData', msgquery)
+					}, 800)
+					this.historyback();
+				}
 			},
 		}
 	}
