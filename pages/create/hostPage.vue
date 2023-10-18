@@ -21,7 +21,8 @@
 					<view class="item_value">{{ eventtime }}</view>
 				</view>
 				<view class="line"></view>
-				<view class="item" @click="mapShow=true">
+				<!-- @click="navigatePage('/pages/create/selarea')" -->
+				<view class="item" @click="mapShow=true" >
 					<view class="item_label">Where?</view>
 					<view class="item_value">
 						<input class="c_input" v-model="positionObj.address" type="text" disabled
