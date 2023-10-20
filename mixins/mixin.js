@@ -43,7 +43,9 @@ export default {
 						url = `${url}?${query.join('&')}`;
 					}
 					uni.navigateTo({
-						url
+						url,
+						animationType: 'fade-in',
+						animationDuration: 50
 					})
 				},
 				/**
@@ -62,7 +64,9 @@ export default {
 						url = `${url}?${query.join('&')}`;
 					}
 					uni.switchTab({
-						url
+						url,
+						animationType: 'fade-in',
+						animationDuration: 50
 					})
 				},
 				/**
@@ -70,7 +74,9 @@ export default {
 				 */
 				historyback(delta = 1) {
 					uni.navigateBack({
-						delta
+						delta,
+						animationType: 'fade-in',
+						animationDuration: 50
 					})
 				},
 				/**
