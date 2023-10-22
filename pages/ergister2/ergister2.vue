@@ -98,15 +98,12 @@
 					});
 				});
 				instagramModule.instagramLogin({
-						'instagram_client_id': '869040044902747',
-						'instagram_secret': '95043d7d4cab716da530780cb05d9f24',
-						'instagram_redirect_url': 'https://www.instagram.com'
+						'instagram_client_id': '638527651770995',
+						'instagram_secret': '69588721a43db01d246cb54fce3861c3',
+						'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code'
 					},
 					(ret) => {
-						modal.toast({
-							message: ret,
-							duration: 1.5
-						});
+						console.log(373, ret)
 					})
 			},
 			// 获取用户信息
