@@ -14,7 +14,8 @@
 			</view>
 			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
 				<view class="dialog_main_bottom">
-					<image src="@/static/images/ShareSheet.png" mode="widthFix"  @click="navigatePage('/pages/create/feedback')"></image>
+					<image src="@/static/images/ShareSheet.png" mode="widthFix"
+						@click="navigatePage('/pages/create/feedback',{id:query.id})"></image>
 				</view>
 			</view>
 		</view>

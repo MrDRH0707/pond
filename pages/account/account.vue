@@ -8,8 +8,9 @@
 					<view>Personal account</view>
 				</view>
 				<view class="iocimg">
-					<image src="../../static/images/icoimg.png" mode="widthFix" />
-					<view>{{userInfo.email}}</view>
+					<!-- <image src="../../static/images/icoimg.png" mode="widthFix" @click="uploadinfo()" /> -->
+					<image :src="info.avatar?info.avatar:'../../static/images/icoimg.png'" mode="widthFix"
+						@click="uploadinfo()" />
 				</view>
 			</view>
 			<view class="tag">
@@ -25,9 +26,9 @@
 				<view>Invite friends</view>
 				<view>Help</view>
 				<view>Legal stuff</view>
-				<view @click="navigatePage('/pages/password/password')">forgot password</view>
+				<view @click="navigatePage('/pages/password/password')">Forgot password</view>
 				<view style="color: blue;" @click="signout()">Log out</view>
-				<view class="more">Restart prototype </view>
+				<!-- <view class="more">Restart prototype </view> -->
 			</view>
 			<view class="list" v-if="tags == 2">
 				<view class="item" v-for="(item, index) in list"
@@ -47,12 +48,14 @@
 	export default {
 		data() {
 			return {
+				info: {},
 				tags: 1,
 				list: []
 			}
 		},
 		onReady() {},
 		onLoad() {
+			this.getinfo()
 			this.getData()
 		},
 		onShow() {},
@@ -67,6 +70,41 @@
 					this.list = res.data
 				});
 			},
+			uploadinfo() {
+				let _this = this
+				uni.chooseImage({
+					count: 1,
+					success: (res) => {
+						console.log('chooseImage', res)
+						const tempFilePaths = res.tempFilePaths[0];
+						uni.uploadFile({
+							url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
+							// url: _this.request.baseUrlfile + '/api/common/upload', //post请求的地址
+							filePath: tempFilePaths,
+							name: 'file',
+							formData: {},
+							success: (uploadFileRes) => {
+								let data = JSON.parse(uploadFileRes.data)
+								_this.request.postRequest('/api/ma/sysUser', {
+									userId: this.userInfo.userId,
+									avatar: data.url
+								}).then(res => {
+									_this.getinfo()
+								});
+							},
+							fail: (err) => {
+								console.log('err', err)
+							}
+						})
+					}
+				})
+			},
+			getinfo() {
+				this.request.getRequest('/api/ma/sysUser/' + this.userInfo.userId, {}).then(res => {
+					this.info = res.user
+					this.info.avatar = res.user.avatar.replace('http', 'https');
+				});
+			},
 			// 提出登录
 			signout() {
 				uni.clearStorageSync('token')
@@ -78,101 +116,102 @@
 </script>
 
 <style lang="less" scoped>
-	.header {
-		margin-top: 100px;
+	.container_main {
 		display: flex;
-
-		.info {
-			flex: 1;
-			padding-left: 40px;
-			box-sizing: border-box;
-			font-weight: bold;
-
-			.infoTitle {
-				font-size: 37rpx;
-			}
-		}
-
-		.iocimg {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-
-			image {
-				width: 80px;
-			}
-		}
+		flex-direction: column;
 	}
 
+	.header {
+		height: 30%;
+		padding-top: 6rem;
+		padding-bottom: 1.2rem;
+		box-sizing: border-box;
+		display: flex;
+	}
 
+	.header .info {
+		flex: 1;
+		padding-left: 40px;
+		box-sizing: border-box;
+		font-weight: bold;
+	}
 
+	.header .info .infoTitle {
+		font-size: 1.11rem;
+	}
+
+	.header .iocimg {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.header .iocimg image {
+		width: 5rem;
+		height: 5rem;
+	}
 
 	.tag {
-		margin-top: 30px;
 		width: 100%;
 		display: flex;
+	}
 
-		.item {
-			flex: 1;
-			height: 60rpx;
-			line-height: 60rpx;
-			text-align: center;
-			font-size: 28rpx;
-			font-weight: bold;
-			border-radius: 20rpx 20rpx 0 0;
-			border: 2rpx solid #000;
-			color: silver;
-		}
+	.tag .item {
+		flex: 1;
+		height: 1.8rem;
+		line-height: 1.8rem;
+		text-align: center;
+		font-size: 0.84rem;
+		font-weight: bold;
+		border-radius: 0.6rem 0.6rem 0 0;
+		border: 0.06rem solid #000;
+		color: silver;
+	}
 
-		.active {
-			border-bottom: none;
-			color: #000;
-		}
+	.tag .active {
+		border-bottom: none;
+		color: #000;
 	}
 
 	.list_menu {
-		padding: 80rpx 60rpx 60rpx 80rpx;
+		padding: 2.4rem 1.8rem 1.8rem 2.4rem;
 		box-sizing: border-box;
-		font-size: 32rpx;
-		line-height: 60rpx;
+		font-size: 0.96rem;
+		line-height: 1.8rem;
 		font-weight: bold;
-
-		.more {
-			font-size: 20rpx;
-			color: #C0BDB3;
-			text-align: right;
-		}
 	}
 
-	.list {
-		.item {
-			display: flex;
-			border-bottom: 2rpx solid black;
-			padding: 10rpx 20rpx;
+	.list_menu .more {
+		font-size: 0.6rem;
+		color: #C0BDB3;
+		text-align: right;
+	}
 
-			img {
-				max-width: 240rpx;
-				max-height: 120rpx;
-				object-fit: contain;
+	.list .item {
+		display: flex;
+		border-bottom: 0.06rem solid black;
+		padding: 0.3rem 0.6rem;
+	}
 
-			}
+	.list .item img {
+		max-width: 7.2rem;
+		max-height: 3.6rem;
+		object-fit: contain;
+	}
 
-			.item_info {
-				flex: 1;
-				margin-left: 40rpx;
+	.list .item .item_info {
+		flex: 1;
+		margin-left: 1.2rem;
+	}
 
+	.list .item .item_info .item_name {
+		font-size: 0.96rem;
+		font-weight: bold;
+	}
 
-				.item_name {
-					font-size: 32rpx;
-					font-weight: bold;
-				}
-
-				.item_more {
-					margin-top: 20rpx;
-					font-size: 28rpx;
-				}
-			}
-		}
+	.list .item .item_info .item_more {
+		margin-top: 0.6rem;
+		font-size: 0.84rem;
 	}
 </style>

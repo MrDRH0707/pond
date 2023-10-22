@@ -3,12 +3,11 @@
 		<pagerockerdef @back='back' @next='submit()'></pagerockerdef>
 		<view class="container_main">
 			<view class="tipmini">
-				<view>{{userInfo.userName}}, we've pre-populated your event page for you. Feel free to customise as
-					you'd like.</view>
+				<view>{{userInfo.userName}}, We’ve populated your event page for you</view>
 			</view>
 			<view class="line"></view>
 			<view class="upload_main">
-				<image class="load_img" v-if="fileimg" :src="fileimg" mode="aspectFit" @click="uploadinfo()" />
+				<image class="load_img" v-if="fileimg" :src="fileimg" mode="aspectFill" @click="uploadinfo()" />
 				<view class="upload_btn" v-else @click="uploadinfo()">
 					Insert event artwork here
 				</view>
@@ -33,7 +32,7 @@
 				<view class="item">
 					<view class="item_label">Who?</view>
 					<view class="item_value">
-						<input class="c_input" v-model="details" type="text" placeholder="Insert host details">
+						<input class="c_input" v-model="details" disabled type="text" placeholder="Insert host details">
 					</view>
 				</view>
 				<view class="line"></view>
@@ -44,7 +43,7 @@
 							<textarea class="c_textarea" v-model="eventdesc"
 								placeholder="Insert event description here. Max 200 characters."></textarea>
 						</view>
-						<view class="more_info" @click="dialogshow = true">
+						<view class="more_info fadeInUp animated" @click="dialogshow = true">
 							<image src="../../static/images/Group8932watch.png" mode="widthFix" />
 							<view>More options</view>
 						</view>
@@ -63,13 +62,14 @@
 				</view>
 			</view>
 			<datatime ref="datatime" @change="datatimechange"></datatime>
-			<mi-map v-if="mapShow" ref="miMap" @updateAddress="updateAddress"></mi-map>
+			<!-- <mi-map v-if="mapShow" ref="miMap" @updateAddress="updateAddress"></mi-map> -->
 			<view class="dialog1" v-if="dialogshow1" @click="dialogshow1 = false">
-				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix" @click="setcal(eventtime)">
+				<image class="Alertdate fadeInUp animated" src="@/static/images/Alert.png" mode="widthFix"
+					@click="setcal(eventtime)">
 				</image>
 			</view>
 			<view class="dialog" v-if="dialogshow">
-				<view class="dialog_main">
+				<view class="dialog_main fadeInUp animated">
 					<view class="section">
 						Some more options to help you customise your event
 						Privacy settings
@@ -106,7 +106,7 @@
 				wherename: '',
 				details: '',
 				eventdesc: '',
-				mapShow: false,
+				// mapShow: false,
 				positionObj: {
 					address: '',
 					longitude: '',
@@ -119,6 +119,7 @@
 		onReady() {},
 		onLoad() {
 			let Cache = this.getCache()
+			this.details = this.userInfo.userName
 			this.title = Cache.title || ''
 			this.dataStr = Cache.dataStr || ''
 			this.dataStrId = Cache.dataStrId || ''
@@ -127,18 +128,21 @@
 			this.positionObj.address = Cache.eventaddr || ''
 			this.positionObj.longitude = Cache.xpos || ''
 			this.positionObj.latitude = Cache.ypos || ''
-			this.details = Cache.details || ''
 			this.eventdesc = Cache.eventdesc || ''
 		},
 		onShow() {
 			let that = this
 			uni.$on('updateData', function(data) {
-				console.log(512)
 				that.positionObj.address = data.address || ''
 				that.positionObj.longitude = data.lng || ''
 				that.positionObj.latitude = data.lat || ''
-				console.log(12311, that.positionObj)
 			})
+
+			// #ifndef APP-PLUS
+			that.positionObj.address = '华龙区金辉职高生活区(政和一路北)'
+			that.positionObj.longitude = '115.02089142246793'
+			that.positionObj.latitude = '35.77559943073253'
+			// #endif
 		},
 		onHide() {},
 		created() {},
@@ -178,20 +182,20 @@
 			datatimechange(row) {
 				this.eventtime = row.slice(0, 13)
 			},
-			// 更新地址并关闭地图
-			updateAddress(addressObj) {
-				this.mapShow = false
-				// #ifdef APP-PLUS
-				this.positionObj = addressObj
-				//#endif
-				// #ifndef APP-PLUS
-				this.positionObj = {
-					"longitude": 115.02089142246793,
-					"latitude": 35.77559943073253,
-					"address": "华龙区金辉职高生活区(政和一路北)"
-				}
-				// #endif
-			},
+			// // 更新地址并关闭地图
+			// updateAddress(addressObj) {
+			// 	this.mapShow = false
+			// 	// #ifdef APP-PLUS
+			// 	this.positionObj = addressObj
+			// 	//#endif
+			// 	// #ifndef APP-PLUS
+			// 	this.positionObj = {
+			// 		"longitude": 115.02089142246793,
+			// 		"latitude": 35.77559943073253,
+			// 		"address": "华龙区金辉职高生活区(政和一路北)"
+			// 	}
+			// 	// #endif
+			// },
 			setcal(time) {
 				if (time == '') {
 					uni.$u.toast("Complete information")
@@ -235,7 +239,7 @@
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);
 			},
 			submit() {
-				if (this.fileimg == '' || this.eventtime == '' || this.positionObj.address == '' || this.details == '' ||
+				if (this.fileimg == '' || this.eventtime == '' || this.positionObj.address == '' ||
 					this.eventdesc == '') {
 					uni.$u.toast("Complete information")
 					return
@@ -263,7 +267,6 @@
 					eventaddr: this.positionObj.address,
 					xpos: this.positionObj.longitude,
 					ypos: this.positionObj.latitude,
-					details: this.details,
 					eventdesc: this.eventdesc,
 				})
 				this.historyback()

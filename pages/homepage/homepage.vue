@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main flex-center">
-			<view class="p6_main1">
+			<view class="p6_main1 rollIn animated">
 				I want to...
 			</view>
 			<view class="btn flex-center" @click="createpond()" style="margin-top: 60px;">
@@ -14,20 +14,22 @@
 				browse
 			</view>
 			<view class="dialog" v-if="dialogshow">
-				<view class="dialog_main">
-					<view class="size top">
-						Welcome to your homepage!
-					</view>
-					<view class="size top">
-						Here, you'll have the option to
-					</view>
-					<view class="size top">
-						<view class="list">
-							<view>Create new events</view>
-							<view>Attend events</view>
-							<view>Browse events via maps and your network</view>
-							<view>Access your account profile</view>
-							<view>Access your starred events as well as the events you've created</view>
+				<view class="dialog_main fadeInUp animated">
+					<view class="dialog_content">
+						<view class="size top">
+							Welcome to your homepage!
+						</view>
+						<view class="size top">
+							Here, you'll have the option to
+						</view>
+						<view class="size top">
+							<view class="list">
+								<view>Create new events</view>
+								<view>Attend events</view>
+								<view>Browse events via maps and your network</view>
+								<view>Access your account profile</view>
+								<view>Access your starred events as well as the events you've created</view>
+							</view>
 						</view>
 					</view>
 					<view class="dialog_footer">
@@ -44,11 +46,15 @@
 	export default {
 		data() {
 			return {
-				dialogshow: true
+				dialogshow: false
 			}
 		},
 		onReady() {},
-		onLoad() {},
+		onLoad() {
+			setTimeout(() => {
+				this.dialogshow = true
+			}, 1000)
+		},
 		onShow() {},
 		onHide() {},
 		created() {},
@@ -64,74 +70,69 @@
 
 <style lang="less" scoped>
 	.container_main {
-		font-size: 30rpx;
+		font-size: 0.9rem;
 		font-weight: bold;
 	}
 
 	.p6_main1 {
-		width: 560rpx;
+		width: 16.8rem;
 	}
 
 	.btn {
-		width: 400rpx;
-		height: 200rpx;
+		width: 12rem;
+		height: 6rem;
 		background-color: #fff;
-		border-radius: 40rpx;
+		border-radius: 1.2rem;
 	}
 
 	.size {
 		font-family: Neue Montreal;
-		font-size: 24rpx;
+		font-size: 0.72rem;
 		font-weight: 700;
-		line-height: 36rpx;
+		line-height: 1.08rem;
 		letter-spacing: 0em;
 		text-align: left;
 	}
 
 	.top {
-		margin-top: 20rpx;
+		margin-top: 0.4rem;
 	}
 
 	.list {
-		line-height: 40rpx;
-		margin-left: 50rpx;
-
-		view {
-
-			&::before {
-				content: '';
-				display: inline-block;
-				width: 12rpx;
-				height: 12rpx;
-				border-radius: 12rpx;
-				background-color: #2c3e50;
-				margin-right: 26rpx;
-			}
-		}
+		line-height: 1.6rem;
+		margin-left: 1.5rem;
 	}
 
-
+	.list view::before {
+		content: "";
+		display: inline-block;
+		width: 0.36rem;
+		height: 0.36rem;
+		border-radius: 0.36rem;
+		background-color: #2c3e50;
+		margin-right: 0.78rem;
+	}
 
 	.left-img {
-		width: 100rpx;
-		height: 100rpx;
+		width: 3rem;
+		height: 3rem;
 	}
 
 	.dialog_footer {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
-		margin: 30rpx 0;
+		margin: 0.9rem 0 0;
 		font-family: Neue Montreal;
-		font-size: 24rpx;
+		font-size: 0.72rem;
 		font-weight: 700;
-		line-height: 28rpx;
+		line-height: 0.84rem;
 		letter-spacing: 0em;
+	}
 
-		image {
-			width: 100rpx;
-			height: 100rpx;
-		}
+	.dialog_footer image {
+		width: 3rem;
+		height: 3rem;
 	}
 
 	.dialog {
@@ -142,21 +143,28 @@
 		right: 0%;
 		margin: auto;
 		background-color: rgba(0, 0, 0, 0.6);
+	}
 
-		.dialog_main {
-			position: absolute;
-			top: 0%;
-			bottom: 0%;
-			left: 0%;
-			right: 0%;
-			margin: auto;
-			width: 600rpx;
-			height: 700rpx;
-			border-radius: 20rpx;
-			border: 4rpx solid black;
-			background-color: #F5F4F0;
-			box-sizing: border-box;
-			padding: 30rpx;
+	.dialog .dialog_main {
+		position: absolute;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		width: 18rem;
+		height: 21rem;
+		border-radius: 0.6rem;
+		border: 0.12rem solid black;
+		background-color: #F5F4F0;
+		box-sizing: border-box;
+		padding: 0.9rem;
+		overflow: auto;
+		display: flex;
+		flex-direction: column;
+
+		.dialog_content {
+			flex: 1;
 		}
 	}
 </style>

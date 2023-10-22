@@ -4,7 +4,7 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				<view>I want to</view>
-				<view class="blue">attend</view>an event in<view class="mr_10"></view>
+				<view class="blue fadeInUpBig animated">attend</view>an event in<view class="mr_10"></view>
 				<view class="tipinput">
 					<textarea v-model="value" :auto-height="true" @keydown.enter="submit()" placeholder="what?" />
 				</view>
@@ -13,7 +13,7 @@
 				<view>Search for any place using neighbourhood, city, state or ZIP code</view>
 			</view>
 			<view class="dialog" v-if="dialogshow">
-				<view class="dialog_main">
+				<view class="dialog_main fadeInUpBig animated">
 					<view class="section">
 						This is the attend portal, where you can narrow or broaden your event search using location,
 						date, and genre.
@@ -48,11 +48,15 @@
 		data() {
 			return {
 				value: '',
-				dialogshow: true
+				dialogshow: false
 			}
 		},
 		onReady() {},
-		onLoad() {},
+		onLoad() {
+			setTimeout(() => {
+				this.dialogshow = true
+			}, 1000)
+		},
 		onShow() {},
 		onHide() {},
 		created() {},
@@ -81,7 +85,6 @@
 		letter-spacing: 0em;
 		text-align: left;
 		vertical-align: bottom;
-		overflow: hidden;
 
 		view {
 			display: inline-block;

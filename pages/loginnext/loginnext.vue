@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="container_main  flex-center">
-			<image class="logo" src="../../static/images/LOGO.png" mode="widthFix"></image>
+			<image class="logo flipInX animated" src="../../static/images/LOGO.png" mode="widthFix"></image>
 			<view class="cinput">
 				<input type="text" v-model="username" placeholder="userName">
 			</view>
@@ -45,13 +45,12 @@
 					password: this.password,
 				}).then(res => {
 					uni.setStorageSync('token', res.token)
-					this.getUserInfo()
+					this.getUserInfoData()
 				});
 			},
 			// 获取用户信息
-			getUserInfo() {
+			getUserInfoData() {
 				this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
-					console.log(res)
 					let userInfo = res.user
 					uni.setStorageSync('userInfo', JSON.stringify(userInfo))
 					this.switchTabPage('/pages/homepage/homepage')

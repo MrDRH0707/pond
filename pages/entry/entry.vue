@@ -2,19 +2,17 @@
 	<view class="container">
 		<view class="container_main flex-center">
 			<view class="p2_main1">
-				Welcome to the
+				Welcome to
 			</view>
 			<view class="logo_main">
-				<image class="p2_ioc1" src="../../static/images/p2_ioc1.png" mode="widthFix" />
+				<image class="p2_ioc1 fadeInLeft animated" src="../../static/images/p2_ioc1.png" mode="widthFix" />
 				<image class="logoico" src="../../static/images/LOGO.png" mode="widthFix" />
 			</view>
-			<view class="btn p2_btn1 animate__fadeInUpBig animate__animated"
-				@click="navigatePage('/pages/ergister/ergister')">
+			<view class="btn p2_btn1 flipInX animated" @click="navigatePage('/pages/ergister/ergister')">
 				<view>This is my</view>
 				<view>first time here</view>
 			</view>
-			<view class="btn p2_btn2 animate__flipInX animate__animated"
-				@click="navigatePage('/pages/ergister2/ergister2')">
+			<view class="btn p2_btn2 flipInX animated" @click="navigatePage('/pages/ergister2/ergister2')">
 				<view>l already have</view>
 				<view>an account</view>
 			</view>

@@ -248,205 +248,198 @@
 			</div>
 			<div class="toast" v-if="toastoff">{{toastname}}</div>
 		</div>
-		<script>
-			function initMap() {
-				console.log('init')
-			}
+	</body>
+	<script>
+		function initMap() {
+			console.log('init')
+		}
 
-			new Vue({
-				el: '#app',
-				data: {
-					query: {},
-					tags: 1,
-					list: [],
-					cmap: null,
-					mapstarPos: '../images/star_active.png',
-					mapPos: '../images/area.png',
-					tabList: [{
-							img: '../images/home.png',
-							img_active: '../images/home_acitve.png',
-							link: '/pages/homepage/homepage'
-						},
-						{
-							img: '../images/shares.png',
-							img_active: '../images/shares_active.png',
-							link: '/pages/shares/shares'
-						},
-						{
-							img: '../images/starred.png',
-							img_active: '../images/starred_active.png',
-							link: '/pages/starred/starred'
-						},
-						{
-							img: '../images/account.png',
-							img_active: '../images/account_active.png',
-							link: '/pages/account/account'
-						},
-					],
-					toastname: '提示的',
-					toastoff: false,
-					timer: null
+		new Vue({
+			el: '#app',
+			data: {
+				query: {},
+				tags: 1,
+				list: [],
+				cmap: null,
+				mapstarPos: '../images/star_active.png',
+				mapPos: '../images/area.png',
+				tabList: [{
+						img: '../images/home.png',
+						img_active: '../images/home_acitve.png',
+						link: '/pages/homepage/homepage'
+					},
+					{
+						img: '../images/shares.png',
+						img_active: '../images/shares_active.png',
+						link: '/pages/shares/shares'
+					},
+					{
+						img: '../images/starred.png',
+						img_active: '../images/starred_active.png',
+						link: '/pages/starred/starred'
+					},
+					{
+						img: '../images/account.png',
+						img_active: '../images/account_active.png',
+						link: '/pages/account/account'
+					},
+				],
+				toastname: '提示的',
+				toastoff: false,
+				timer: null
+			},
+			created() {
+				this.getData()
+				console.log('href', window.location.href)
+			},
+			methods: {
+				getData() {
+					// eventname:活动名称
+					// eventaddr:活动地址
+					// tabList:[1,2,3]  标签
+					// dateType:传数字   1今天  2明天  3本周
+					this.getRequest('/api/ma/event/list', {
+						eventname: this.getUrlParam('title'),
+						// dateType: this.query.dateType,
+						// tabList: this.query.dataStrId,
+					}).then(res => {
+						this.list = res.data
+					});
 				},
-				created() {
-					this.getData()
-					console.log('href', window.location.href)
-				},
-				methods: {
-					getData() {
-						// eventname:活动名称
-						// eventaddr:活动地址
-						// tabList:[1,2,3]  标签
-						// dateType:传数字   1今天  2明天  3本周
-						this.getRequest('/api/ma/event/list', {
-							eventname: this.getUrlParam('title'),
-							// dateType: this.query.dateType,
-							// tabList: this.query.dataStrId,
-						}).then(res => {
-							this.list = res.data
-						});
-					},
-					getmap() {
-						var that = this
-						this.cmap = new google.maps.Map(document.getElementById("cmap"), {
-							zoom: 16,
-							center: {
-								// lat: Number('-33.8688197000'),
-								// lng: Number('151.2092955000')
-								lat: Number('39.9148840962'),
-								lng: Number('116.403883218')
-							}
-						});
-						let list = this.list
-						console.log(314)
-						for (let i in list) {
-							console.log(284,list[i])
-							var shopMarker = new google.maps.Marker({
-								position: {
-									lat: Number(list[i].ypos),
-									lng: Number(list[i].xpos),
-								},
-								map: this.cmap,
-								icon: {
-									url: (list[i].isCollect == 0 || list[i].isCollect == null) ?
-										that.mapPos : that.mapstarPos,
-									scaledSize: new google.maps.Size(50, 50),
-									origin: new google.maps.Point(0, 0),
-									anchor: new google.maps.Point(0, 0)
-								}
-							});
-							google.maps.event.addListener(shopMarker, "click", function() {
-								that.details(list[i].id)
-							});
+				getmap() {
+					var that = this
+					this.cmap = new google.maps.Map(document.getElementById("cmap"), {
+						zoom: 16,
+						center: {
+							lat: Number('-33.8688197000'),
+							lng: Number('151.2092955000')
+							// lat: Number('39.9148840962'),
+							// lng: Number('116.403883218')
 						}
-					},
-					setstar(row) {
-						let url = ''
-						if (row.isCollect == 0 || row.isCollect == null) {
-							url = '/api/ma/calendar/insert'
-						} else {
-							url = '/api/ma/user/attend/uncollect'
-						}
-						this.postRequest(url, {
-							userid: this.getUrlParam('userid'),
-							eventid: String(row.id),
-							caldate: row.eventtime
-						}).then(res => {
-							this.toast("success")
-							this.getData()
-						});
-					},
-					getUrlParam(name) {
-						// console.log(6, name)
-						// var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-						// var s = window.location.href.split('?')[1];
-						// var r = s.substr(1).match(reg);
-						// console.log(7, r)
-						// if (r != null) return decodeURIComponent(unescape(r[2]));
-						// return null;
-						var s = window.location.href.split('?')[1];
-						return (
-							decodeURIComponent(
-								(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec("?" + s) || [, ''])[1]
-								.replace(/\+/g, '%20')
-							) || null
-						);
-					},
-					getRequest(url, params) {
-						return new Promise((resolve, reject) => {
-							var getxhr;
-							if (window.XMLHttpRequest) {
-								getxhr = new window.XMLHttpRequest();
-							} else {
-								getxhr = new ActiveXObject('Microsoft.XMLHttp');
-							}
-							let query = [];
-							for (var p in params) {
-								if (params.hasOwnProperty(p)) {
-									query.push(encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
-								}
-							}
-							var querydata = ''
-							if (query.length) {
-								querydata = `?${query.join('&')}`;
-							}
-							var setURL = this.getUrlParam('baseUrl') + url + querydata;
-							getxhr.open('get', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
-							getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
-							getxhr.send('');
-							getxhr.onreadystatechange = function() {
-								if (getxhr.readyState == 4 && getxhr.status == 200) {
-									resolve(JSON.parse(getxhr.responseText))
-								}
+					});
+					let list = this.list
+					console.log(314)
+					for (let i in list) {
+						console.log(284, list[i])
+						var shopMarker = new google.maps.Marker({
+							position: {
+								lat: Number(list[i].ypos),
+								lng: Number(list[i].xpos),
+							},
+							map: this.cmap,
+							icon: {
+								url: (list[i].isCollect == 0 || list[i].isCollect == null) ?
+									that.mapPos : that.mapstarPos,
+								scaledSize: new google.maps.Size(50, 50),
+								origin: new google.maps.Point(0, 0),
+								anchor: new google.maps.Point(0, 0)
 							}
 						});
-					},
-					postRequest(url, params) {
-						return new Promise((resolve, reject) => {
-							var getxhr;
-							if (window.XMLHttpRequest) {
-								getxhr = new window.XMLHttpRequest();
-							} else {
-								getxhr = new ActiveXObject('Microsoft.XMLHttp');
-							}
-							var setURL = this.getUrlParam('baseUrl') + url;
-							getxhr.open('post', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
-							getxhr.setRequestHeader('Content-Type', 'application/json');
-							getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
-							getxhr.send(JSON.stringify(params));
-							getxhr.onreadystatechange = function() {
-								if (getxhr.readyState == 4 && getxhr.status == 200) {
-									resolve(JSON.parse(getxhr.responseText))
-								}
-							}
-						});
-					},
-					toast(name) {
-						this.toastname = name;
-						this.toastoff = true
-						if (this.timer) clearTimeout(timer);
-						this.timer = setTimeout(() => {
-							this.toastoff = false
-						}, 2000)
-					},
-					details(id) {
-						uni.postMessage({
-							data: {
-								type: 'navigatePage',
-								url: '/pages/attend/eventdetail?id=' + id
-							}
-						});
-					},
-					// 切换tab栏
-					changTab(row) {
-						uni.postMessage({
-							data: {
-								type: 'switchTab',
-								url: row.link
-							}
+						google.maps.event.addListener(shopMarker, "click", function() {
+							that.details(list[i].id)
 						});
 					}
+				},
+				setstar(row) {
+					let url = ''
+					if (row.isCollect == 0 || row.isCollect == null) {
+						url = '/api/ma/calendar/insert'
+					} else {
+						url = '/api/ma/user/attend/uncollect'
+					}
+					this.postRequest(url, {
+						userid: this.getUrlParam('userid'),
+						eventid: String(row.id),
+						caldate: row.eventtime
+					}).then(res => {
+						this.toast("success")
+						this.getData()
+					});
+				},
+				getUrlParam(name) {
+					var s = window.location.href.split('?')[1];
+					return (
+						decodeURIComponent(
+							(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec("?" + s) || [, ''])[1]
+							.replace(/\+/g, '%20')
+						) || null
+					);
+				},
+				getRequest(url, params) {
+					return new Promise((resolve, reject) => {
+						var getxhr;
+						if (window.XMLHttpRequest) {
+							getxhr = new window.XMLHttpRequest();
+						} else {
+							getxhr = new ActiveXObject('Microsoft.XMLHttp');
+						}
+						let query = [];
+						for (var p in params) {
+							if (params.hasOwnProperty(p)) {
+								query.push(encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
+							}
+						}
+						var querydata = ''
+						if (query.length) {
+							querydata = `?${query.join('&')}`;
+						}
+						var setURL = this.getUrlParam('baseUrl') + url + querydata;
+						getxhr.open('get', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
+						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
+						getxhr.send('');
+						getxhr.onreadystatechange = function() {
+							if (getxhr.readyState == 4 && getxhr.status == 200) {
+								resolve(JSON.parse(getxhr.responseText))
+							}
+						}
+					});
+				},
+				postRequest(url, params) {
+					return new Promise((resolve, reject) => {
+						var getxhr;
+						if (window.XMLHttpRequest) {
+							getxhr = new window.XMLHttpRequest();
+						} else {
+							getxhr = new ActiveXObject('Microsoft.XMLHttp');
+						}
+						var setURL = this.getUrlParam('baseUrl') + url;
+						getxhr.open('post', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
+						getxhr.setRequestHeader('Content-Type', 'application/json');
+						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
+						getxhr.send(JSON.stringify(params));
+						getxhr.onreadystatechange = function() {
+							if (getxhr.readyState == 4 && getxhr.status == 200) {
+								resolve(JSON.parse(getxhr.responseText))
+							}
+						}
+					});
+				},
+				toast(name) {
+					this.toastname = name;
+					this.toastoff = true
+					if (this.timer) clearTimeout(timer);
+					this.timer = setTimeout(() => {
+						this.toastoff = false
+					}, 2000)
+				},
+				details(id) {
+					uni.postMessage({
+						data: {
+							type: 'navigatePage',
+							url: '/pages/attend/eventdetail?id=' + id
+						}
+					});
+				},
+				// 切换tab栏
+				changTab(row) {
+					uni.postMessage({
+						data: {
+							type: 'switchTab',
+							url: row.link
+						}
+					});
 				}
-			});
-		</script>
-	</body>
+			}
+		});
+	</script>
 </html>

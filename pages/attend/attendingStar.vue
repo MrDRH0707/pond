@@ -39,6 +39,7 @@
 				console.log('接收到的消息：', e.detail.data[0]);
 				let msgquery = e.detail.data[0]
 				if (msgquery.type == 'navigatePage') {
+					console.log(231, msgquery)
 					this.navigatePage(msgquery.url);
 				}
 				if (msgquery.type == 'switchTab') {

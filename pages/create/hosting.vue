@@ -4,7 +4,7 @@
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
 				<view>I want to</view>
-				<view class="green">create</view>
+				<view class="green fadeInUpBig animated">create</view>
 				<view class="mr_10">an event called</view>
 				<view class="tipinput" :style="{ width: spanWidth }">
 					<textarea v-model="value" :style="{ width: spanWidth }" :auto-height="true" @input="getValue"
@@ -13,12 +13,14 @@
 				</view>
 			</view>
 			<view class="dialog" v-if="dialogshow">
-				<view class="dialog_main">
+				<view class="dialog_main fadeInUp animated">
 					<view class="section">
-						This is the creator portal, where you can customise your event listing using location, date, and lots more.
+						This is the creator portal, where you can customise your event listing using location, date, and
+						lots more.
 					</view>
 					<view class="section">
-						If you want to edit any part of this search, click the green text and you will be taken back to that section.
+						If you want to edit any part of this search, click the green text and you will be taken back to
+						that section.
 					</view>
 					<view class="section">
 						Click the POND icon if you want to go back to the homepage.
@@ -48,11 +50,15 @@
 				value: '',
 				spanText: '',
 				spanWidth: uni.upx2px(160) + 'px',
-				dialogshow: true
+				dialogshow: false
 			}
 		},
 		onReady() {},
-		onLoad() {},
+		onLoad() {
+			setTimeout(() => {
+				this.dialogshow = true
+			}, 1000)
+		},
 		onShow() {},
 		onHide() {},
 		created() {},
@@ -65,7 +71,7 @@
 				setTimeout(() => {
 					let view = uni.createSelectorQuery().select(".spanText");
 					view.boundingClientRect(data => {
-						console.log(123, data.width)
+						// console.log(123, data.width)
 						this.spanWidth = data.width + "px";
 						if (data.width < 80) {
 							this.spanWidth = 80 + 'px'
@@ -90,55 +96,53 @@
 
 <style lang="less" scoped>
 	.tiptxt {
-		width: 660rpx;
+		width: 19.8rem;
 		font-family: Neue Montreal;
-		font-size: 50rpx;
+		font-size: 1.5rem;
 		font-weight: 700;
-		line-height: 66rpx;
+		line-height: 1.98rem;
 		letter-spacing: 0em;
 		text-align: left;
 		vertical-align: bottom;
-		overflow: hidden;
+	}
 
-		view {
-			display: inline-block;
-		}
+	.tiptxt view {
+		display: inline-block;
+	}
 
-		.green {
-			color: #03A727;
-			padding: 0 10rpx;
-		}
+	.tiptxt .green {
+		color: #03A727;
+		padding: 0 0.3rem;
+	}
 
-		.mr_10 {
-			margin-right: 10rpx;
-		}
+	.tiptxt .mr_10 {
+		margin-right: 0.3rem;
+	}
 
-		.tipinput {
-			max-width: 100%;
-			margin-bottom: -14rpx;
-			vertical-align: middle;
+	.tiptxt .tipinput {
+		max-width: 100%;
+		margin-bottom: -0.42rem;
+		vertical-align: middle;
+	}
 
-			textarea {
-				max-width: 100%;
-				border: none;
-				outline: none;
-				background-color: transparent;
-				box-shadow: none;
-				display: inline-block;
-				font-size: 50rpx;
-				color: #03A727;
-				line-height: 66rpx;
-			}
+	.tiptxt .tipinput textarea {
+		max-width: 100%;
+		border: none;
+		outline: none;
+		background-color: transparent;
+		box-shadow: none;
+		display: inline-block;
+		font-size: 1.5rem;
+		color: #03A727;
+		line-height: 1.98rem;
+	}
 
-			.spanText {
-				font-size: 50rpx;
-				position: absolute;
-				left: 0;
-				padding: 0 15px;
-				white-space: nowrap;
-				visibility: hidden;
-			}
-		}
+	.tiptxt .tipinput .spanText {
+		font-size: 1.5rem;
+		position: absolute;
+		left: 0;
+		white-space: nowrap;
+		visibility: hidden;
 	}
 
 	.dialog {
@@ -149,65 +153,65 @@
 		right: 0%;
 		margin: auto;
 		background-color: rgba(0, 0, 0, 0.5);
+	}
 
-		.dialog_main {
-			position: absolute;
-			top: 0%;
-			bottom: 0%;
-			left: 0%;
-			right: 0%;
-			margin: auto;
-			width: 600rpx;
-			height: 700rpx;
-			border-radius: 20rpx;
-			border: 4rpx solid black;
-			background-color: #F5F4F0;
-			box-sizing: border-box;
-			padding: 50rpx 80rpx;
+	.dialog .dialog_main {
+		position: absolute;
+		top: 0%;
+		bottom: 0%;
+		left: 0%;
+		right: 0%;
+		margin: auto;
+		width: 18rem;
+		height: 21rem;
+		border-radius: 0.6rem;
+		border: 0.12rem solid black;
+		background-color: #F5F4F0;
+		box-sizing: border-box;
+		padding: 1.5rem 2.4rem;
+	}
 
-			.section {
-				font-family: Neue Montreal;
-				font-size: 24rpx;
-				font-weight: 700;
-				line-height: 36rpx;
-				letter-spacing: 0em;
-				text-align: left;
-				margin-bottom: 30rpx;
-			}
-		}
+	.dialog .dialog_main .section {
+		font-family: Neue Montreal;
+		font-size: 0.72rem;
+		font-weight: 700;
+		line-height: 1.08rem;
+		letter-spacing: 0em;
+		text-align: left;
+		margin-bottom: 0.9rem;
+	}
 
-		.dialog_footer {
-			display: flex;
-			flex-direction: column;
-			align-items: flex-end;
-			margin: 30rpx 0;
-			font-family: Neue Montreal;
-			font-size: 24rpx;
-			font-weight: 700;
-			line-height: 28rpx;
-			letter-spacing: 0em;
+	.dialog .dialog_footer {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		margin: 0.9rem 0;
+		font-family: Neue Montreal;
+		font-size: 0.72rem;
+		font-weight: 700;
+		line-height: 0.84rem;
+		letter-spacing: 0em;
+	}
 
-			image {
-				width: 100rpx;
-				height: 100rpx;
-			}
-		}
+	.dialog .dialog_footer image {
+		width: 3rem;
+		height: 3rem;
 	}
 
 	.footer {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
-		margin: 30rpx 60rpx;
+		margin: 0.9rem 1.8rem;
 		font-family: Neue Montreal;
-		font-size: 24rpx;
+		font-size: 0.72rem;
 		font-weight: 700;
-		line-height: 28rpx;
+		line-height: 0.84rem;
 		letter-spacing: 0em;
+	}
 
-		image {
-			width: 100rpx;
-			height: 100rpx;
-		}
+	.footer image {
+		width: 3rem;
+		height: 3rem;
 	}
 </style>

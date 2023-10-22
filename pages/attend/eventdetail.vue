@@ -1,6 +1,8 @@
 <template>
 	<view class="container">
-		<pagerocker></pagerocker>
+		<view class="pagerocker">
+			<image src="../../static/images/return.png" mode="widthFix" @click="historyback()"></image>
+		</view>
 		<view class="container_main">
 			<view class="upload_main">
 				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFit" />
@@ -90,6 +92,11 @@
 </template>
 
 <script>
+	var calanderURL = "content://com.android.calendar/calendars";
+	var calanderEventURL = "content://com.android.calendar/events";
+	var calanderRemiderURL = "content://com.android.calendar/reminders";
+	var calId;
+
 	export default {
 		data() {
 			return {
@@ -132,6 +139,7 @@
 				});
 			},
 			setcal(time) {
+
 				if (time == '') {
 					uni.$u.toast("Complete information")
 					return
@@ -140,6 +148,7 @@
 				let endtime = time
 				starttime = Date.parse(new Date(time + ':00'))
 				endtime = new Date(time + ':00').getTime() - 2 * 60 * 60 * 1000
+				console.log(97, starttime, endtime)
 				let that = this;
 				var Uri = plus.android.importClass("android.net.Uri");
 				var main = plus.android.runtimeMainActivity();

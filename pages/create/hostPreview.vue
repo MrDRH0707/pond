@@ -70,6 +70,7 @@
 					// 	eventpic: this.query.eventpic,
 					// })
 					this.navigatePage('/pages/buffer/buffer', {
+						id: res.data.id,
 						pageurl: '/pages/create/hostDetail',
 						eventname: this.query.title,
 						eventpic: this.query.eventpic,

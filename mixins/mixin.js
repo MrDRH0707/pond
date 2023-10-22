@@ -28,6 +28,15 @@ export default {
 			},
 			methods: {
 				/**
+				 * 获取用户信息
+				 */
+				getUserInfo() {
+					this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
+						this.userInfo = res.user
+						uni.setStorageSync('userInfo', JSON.stringify(res.user))
+					});
+				},
+				/**
 				 * 页面跳转
 				 * @param {String} url  跳转地址
 				 * @param {Object} params  跳转参数
@@ -45,7 +54,7 @@ export default {
 					uni.navigateTo({
 						url,
 						animationType: 'fade-in',
-						animationDuration: 50
+						animationDuration: 500
 					})
 				},
 				/**
@@ -65,8 +74,6 @@ export default {
 					}
 					uni.switchTab({
 						url,
-						animationType: 'fade-in',
-						animationDuration: 50
 					})
 				},
 				/**
@@ -75,8 +82,6 @@ export default {
 				historyback(delta = 1) {
 					uni.navigateBack({
 						delta,
-						animationType: 'fade-in',
-						animationDuration: 50
 					})
 				},
 				/**

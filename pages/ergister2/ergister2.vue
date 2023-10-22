@@ -1,7 +1,8 @@
 <template>
 	<view class="container">
 		<view class="container_main  flex-center">
-			<view>Create an account here.Its free</view>
+			<view>Create an account here.</view>
+			<view>It's free.</view>
 			<view class="btn" v-if="!focu" @click="focu = true">
 				<view>Enter your phone or email</view>
 				<view>here</view>
@@ -11,26 +12,23 @@
 			</view>
 			<view style="margin-top: 35px;">Or</view>
 			<view class="nav flex-acenter">
-				<view @click="onfacebook()">
+				<view class="slideInLeft animated" @click="onfacebook()">
 					<image src="../../static/images/04-REGISTER2.png" mode="widthFix" />
 				</view>
-				<view @click="onInstagram()">
+				<view class="slideInRight animated" @click="onInstagram()">
 					<image src="../../static/images/04-REGISTER3.png" mode="widthFix" />
 				</view>
 				<!-- <view>
 					<image src="../../static/images/Apple_logo_black.png" mode="widthFix" />
 				</view> -->
 			</view>
-			<view style="margin-top: 55px;">Already have an account?
-				<view class="ahref" @click="navigatePage('/pages/loginnext/loginnext')">Login</view>
+			<view style="margin-top: 55px;">Already have an account?</view>
+			<view class="ahref fadeInUpBig animated" @click="navigatePage('/pages/loginnext/loginnext')">Login
 			</view>
 		</view>
 		<view class="footer" @click="doSearch()">
 			<view>
 				<image src="../../static/images/Arrow-47left.png" class="left-img" alt="" mode="widthFix" />
-			</view>
-			<view class="footer-text">
-				Click to continue
 			</view>
 		</view>
 	</view>
@@ -65,7 +63,7 @@
 					return
 				}
 				const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
-				if(!phoneReg.test(this.phonenumber)){
+				if (!phoneReg.test(this.phonenumber)) {
 					uni.$u.toast("Incorrect format")
 					return
 				}
@@ -88,7 +86,7 @@
 						fbData: e.data
 					}).then(res => {
 						uni.setStorageSync('token', res.token)
-						this.getUserInfo()
+						this.getUserInfoData()
 					});
 				});
 			},
@@ -112,7 +110,7 @@
 					})
 			},
 			// 获取用户信息
-			getUserInfo() {
+			getUserInfoData() {
 				this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
 					console.log(res)
 					let userInfo = res.user
