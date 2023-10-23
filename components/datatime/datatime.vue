@@ -1,9 +1,9 @@
 /**
-* 全选择日期
+* 选择年月日
 */
 <template>
 	<view>
-		<u-datetime-picker mode="datetime" v-model="dataTime" cancelText="cancel" confirmText="confirm" :show="showtype" v-if="showtype" @confirm="confirmtime"
+		<u-datetime-picker mode="date" v-model="dataTime" :show="showtype" cancelText="cancel" confirmText="confirm" @confirm="confirmtime"
 			@cancel="showtype = false">
 		</u-datetime-picker>
 	</view>
@@ -36,10 +36,7 @@
 				var y = time.getFullYear();
 				var m = time.getMonth() + 1;
 				var d = time.getDate();
-				var h = time.getHours();
-				var mm = time.getMinutes();
-				var s = time.getSeconds();
-				return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+				return y + '-' + add0(m) + '-' + add0(d);
 			},
 		}
 	}

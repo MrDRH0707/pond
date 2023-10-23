@@ -18,8 +18,8 @@
 				<view class="item" @click="change('Tomorrow', '2')">
 					<view>Tomorrow</view>
 				</view>
-				<view class="item" @click="change('This Weekend', '3')">
-					<view>This Weekend</view>
+				<view class="item" @click="change('This weekend', '3')">
+					<view>This weekend</view>
 				</view>
 			</view>
 			<view class="next" @click="ondatatime()">
@@ -63,7 +63,7 @@
 			},
 			// 完整日期回调
 			datatimechange(row) {
-				this.dateStr = row.slice(0, 13)
+				this.dateStr = row.split('-').reverse().join('/')
 				this.dateType = '4';
 			},
 			submit() {

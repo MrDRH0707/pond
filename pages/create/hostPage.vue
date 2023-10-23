@@ -180,7 +180,7 @@
 			},
 			// 完整日期回调
 			datatimechange(row) {
-				this.eventtime = row.slice(0, 13)
+				this.eventtime = row.split('-').reverse().join('/')
 			},
 			// // 更新地址并关闭地图
 			// updateAddress(addressObj) {

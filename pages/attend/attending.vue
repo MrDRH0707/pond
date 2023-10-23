@@ -14,16 +14,19 @@
 			</view>
 			<view class="dialog" v-if="dialogshow">
 				<view class="dialog_main fadeInUpBig animated">
-					<view class="section">
-						This is the attend portal, where you can narrow or broaden your event search using location,
-						date, and genre.
-					</view>
-					<view class="section">
-						If you want to edit any part of this search, click the blue text and you will be taken back to
-						that section.
-					</view>
-					<view class="section">
-						Click the POND icon if you want to go back to the homepage.
+					<view class="dialog_content">
+						<view class="section">
+							This is the attend portal, where you can narrow or broaden your event search using location,
+							date, and genre.
+						</view>
+						<view class="section">
+							If you want to edit any part of this search, click the blue text and you will be taken back
+							to
+							that section.
+						</view>
+						<view class="section">
+							Click the POND icon if you want to go back to the homepage.
+						</view>
 					</view>
 					<view class="dialog_footer">
 						<image src="../../static/images/Arrow-47left.png" @click="dialogshow = false" class="left-img"
@@ -53,9 +56,9 @@
 		},
 		onReady() {},
 		onLoad() {
-			setTimeout(() => {
-				this.dialogshow = true
-			}, 1000)
+			// setTimeout(() => {
+			// 	this.dialogshow = true
+			// }, 1000)
 		},
 		onShow() {},
 		onHide() {},
@@ -156,7 +159,14 @@
 			border: 4rpx solid black;
 			background-color: #F5F4F0;
 			box-sizing: border-box;
-			padding: 90rpx;
+			padding: 70rpx;
+			overflow: auto;
+			display: flex;
+			flex-direction: column;
+
+			.dialog_content {
+				flex: 1;
+			}
 
 			.section {
 				font-family: Neue Montreal;
@@ -173,7 +183,7 @@
 			display: flex;
 			flex-direction: column;
 			align-items: flex-end;
-			margin: 30rpx 0;
+			margin: 30rpx 0 0;
 			font-family: Neue Montreal;
 			font-size: 24rpx;
 			font-weight: 700;

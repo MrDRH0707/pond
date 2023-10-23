@@ -55,9 +55,9 @@
 		},
 		onReady() {},
 		onLoad() {
-			setTimeout(() => {
-				this.dialogshow = true
-			}, 1000)
+			// setTimeout(() => {
+			// 	this.dialogshow = true
+			// }, 1000)
 		},
 		onShow() {},
 		onHide() {},

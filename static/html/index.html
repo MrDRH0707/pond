@@ -230,9 +230,11 @@
 							<div class="item_info">
 								<div class="_info1">
 									<div>{{ item.eventname }}</div>
+								</div>
+								<div class="_info2">
+									<div>{{ item.details }}</div>
 									<div>{{ item.eventaddr }}</div>
 								</div>
-								<div class="_info2">{{ item.details }}</div>
 							</div>
 						</div>
 					</div>
@@ -257,7 +259,6 @@
 		new Vue({
 			el: '#app',
 			data: {
-				query: {},
 				tags: 1,
 				list: [],
 				cmap: null,
@@ -289,19 +290,22 @@
 				timer: null
 			},
 			created() {
+				console.log(323, this.getUrlParam('dataStrId').split(','))
 				this.getData()
 				console.log('href', window.location.href)
 			},
 			methods: {
 				getData() {
 					// eventname:活动名称
-					// eventaddr:活动地址
-					// tabList:[1,2,3]  标签
 					// dateType:传数字   1今天  2明天  3本周
+					// tabList:[1,2,3]  标签
+					// eventTime:自定义日期
 					this.getRequest('/api/ma/event/list', {
 						eventname: this.getUrlParam('title'),
-						// dateType: this.query.dateType,
-						// tabList: this.query.dataStrId,
+						dateType: this.getUrlParam('dateType'),
+						tabStr: this.getUrlParam('dataStrId'),
+						eventTime: this.getUrlParam('dateType') == '4' ? this.getUrlParam('dateStr') :
+							undefined,
 					}).then(res => {
 						this.list = res.data
 					});
