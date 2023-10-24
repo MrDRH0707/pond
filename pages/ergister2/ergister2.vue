@@ -94,12 +94,21 @@
 				plus.globalEvent.addEventListener('TestEvent', function(e) {
 					console.log('TestEvent收到：', e.msg)
 				});
+
 				instagramModule.instagramLogin({
 					'instagram_client_id': '638527651770995',
 					'instagram_secret': '69588721a43db01d246cb54fce3861c3',
-					'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code'
+					// 'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code',
+					'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/callback?this=that&another=true&client_id=638527651770995',
+					// 'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code/?this=that&another=true&client_id=638527651770995',
+					// 'instagram_client_id': '694108222630985',
+					// 'instagram_secret': 'ee8a7ad9d68a9b80ac9374c79e7a4a51',
+					// 'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code?this=that&another=true&client_id=694108222630985'
+					// 'instagram_redirect_url': 'https://hmmobile.eastseastone.com/api/ma/code'
 				}, (ret) => {
-					console.log(373, ret)
+					console.log('back', ret)
+				}, (err) => {
+					console.log('errback', err)
 				})
 			},
 			// 获取用户信息

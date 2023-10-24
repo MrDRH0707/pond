@@ -57,12 +57,12 @@
 			</view>
 			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
 				<view class="dialog_main_bottom">
-					<image src="@/static/images/ShareSheet.png" mode="widthFix"></image>
+					<image src="@/static/images/ShareSheet.png" mode="widthFix" @click="share"></image>
 				</view>
 			</view>
 			<view class="dialog2" v-if="dialogshow1" @click="dialogshow1 = false">
 				<image class="Alertdate" src="@/static/images/Alert.png" mode="widthFix"
-					@click="setcal(info.eventtime)"></image>
+					@click="getplatform(info.eventtime)"></image>
 			</view>
 			<view class="dialog" v-if="dialogshow">
 				<view class="dialog_main">
@@ -92,10 +92,12 @@
 </template>
 
 <script>
+	import permision from "@/js_sdk/wa-permission/permission.js"
 	var calanderURL = "content://com.android.calendar/calendars";
 	var calanderEventURL = "content://com.android.calendar/events";
 	var calanderRemiderURL = "content://com.android.calendar/reminders";
 	var calId;
+	const facebook = uni.requireNativePlugin("sn-facebook");
 
 	export default {
 		data() {
@@ -108,6 +110,11 @@
 		},
 		onReady() {},
 		onLoad() {
+			// #ifdef APP-PLUS
+			let that = this;
+			that.requestAndroidPermission('android.permission.READ_CALENDAR'); // 读取日历
+			that.requestAndroidPermission('android.permission.WRITE_CALENDAR'); // 写入日历
+			// #endif
 			this.getData(this.query.id)
 		},
 		onShow() {},
@@ -117,6 +124,17 @@
 
 		},
 		methods: {
+			// 网址的代码 copy 
+			async requestAndroidPermission(permisionID) {
+				var result = await permision.requestAndroidPermission(permisionID)
+				if (result == 1) {
+					// "已获得授权"
+				} else if (result == 0) {
+					uni.$u.toast("未获得授权");
+				} else {
+					uni.$u.toast("被永久拒绝权限");
+				}
+			},
 			getData(id) {
 				this.request.getRequest('/api/ma/event/' + id).then(res => {
 					this.info = res.data
@@ -138,33 +156,44 @@
 					this.getData(this.query.id)
 				});
 			},
+			getplatform(time) {
+				uni.getSystemInfo({
+					success: res => {
+						if (res.platform === 'android') {
+							this.setcal(time)
+						}
+					}
+				})
+			},
 			setcal(time) {
-
 				if (time == '') {
 					uni.$u.toast("Complete information")
 					return
 				}
-				let starttime = time
-				let endtime = time
-				starttime = Date.parse(new Date(time + ':00'))
-				endtime = new Date(time + ':00').getTime() - 2 * 60 * 60 * 1000
-				console.log(97, starttime, endtime)
+				let newtime = time.split('/').reverse().join('-')
+				let starttime = newtime
+				let endtime = newtime
+				starttime = Date.parse(new Date(newtime + ' 12:00:00'))
+				endtime = new Date(newtime + ' 12:00:00').getTime() - 2 * 60 * 60 * 1000
+
 				let that = this;
 				var Uri = plus.android.importClass("android.net.Uri");
 				var main = plus.android.runtimeMainActivity();
 				var userCursor = plus.android.invoke(main.getContentResolver(), "query", Uri.parse(calanderURL),
 					null, null, null, null);
 				plus.android.invoke(userCursor, "moveToLast");
+
 				calId = plus.android.invoke(userCursor, "getString", plus.android.invoke(userCursor,
 					"getColumnIndex",
 					"_id"));
 				var ContentValues = plus.android.importClass("android.content.ContentValues");
 				var events = new ContentValues();
-				events.put("title", "提醒内容");
-				events.put("description", "提醒描述");
+				events.put("title", "活动提醒");
+				events.put("description", "pond为您提醒您选择的活动");
 				// 插入账户  
 				events.put("calendar_id", calId);
 				//位置  可不填
+				console.log(129, starttime, endtime)
 				// events.put("eventLocation", "位置");
 				events.put("dtstart", starttime); //时间戳 到毫秒的时间戳
 				events.put("dtend", endtime); //时间戳 到毫秒的时间戳
@@ -180,8 +209,22 @@
 				// 提前15分钟有提醒  
 				values.put("minutes", "15");
 				values.put("method", "1");
+				console.log(1223, values)
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);
+				uni.$u.toast("success")
 			},
+			share() {
+				console.log(23)
+				facebook.share({
+						type: 0,
+						url: "https://m.facebook.com",
+						quote: "test"
+					},
+					(e) => {
+						console.log(e)
+					},
+				);
+			}
 		}
 	}
 </script>

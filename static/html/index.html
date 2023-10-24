@@ -10,7 +10,6 @@
 			oHtml.style.fontSize = iWidth / 7.5 + "px";
 		</script>
 		<script src="./vue.js"></script>
-		<script src="./webview.js"></script>
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 		<script
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx0gmbWRB0jXQ6qm9LoUqzruR9IuXb1dY&callback=initMap&libraries=&v=weekly"
@@ -251,6 +250,7 @@
 			<div class="toast" v-if="toastoff">{{toastname}}</div>
 		</div>
 	</body>
+	<script src="./webview.js"></script>
 	<script>
 		function initMap() {
 			console.log('init')
@@ -421,12 +421,13 @@
 				toast(name) {
 					this.toastname = name;
 					this.toastoff = true
-					if (this.timer) clearTimeout(timer);
+					if (this.timer) clearTimeout(this.timer);
 					this.timer = setTimeout(() => {
 						this.toastoff = false
 					}, 2000)
 				},
 				details(id) {
+					console.log(123321)
 					uni.postMessage({
 						data: {
 							type: 'navigatePage',

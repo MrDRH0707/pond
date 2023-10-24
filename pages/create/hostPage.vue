@@ -157,7 +157,6 @@
 						const tempFilePaths = res.tempFilePaths[0];
 						uni.uploadFile({
 							url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
-							// url: _this.request.baseUrlfile + '/api/common/upload', //post请求的地址
 							filePath: tempFilePaths,
 							name: 'file',
 							formData: {},
