@@ -124,7 +124,6 @@
 
 		},
 		methods: {
-			// 网址的代码 copy 
 			async requestAndroidPermission(permisionID) {
 				var result = await permision.requestAndroidPermission(permisionID)
 				if (result == 1) {
@@ -193,7 +192,6 @@
 				// 插入账户  
 				events.put("calendar_id", calId);
 				//位置  可不填
-				console.log(129, starttime, endtime)
 				// events.put("eventLocation", "位置");
 				events.put("dtstart", starttime); //时间戳 到毫秒的时间戳
 				events.put("dtend", endtime); //时间戳 到毫秒的时间戳
@@ -209,12 +207,10 @@
 				// 提前15分钟有提醒  
 				values.put("minutes", "15");
 				values.put("method", "1");
-				console.log(1223, values)
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);
 				uni.$u.toast("success")
 			},
 			share() {
-				console.log(23)
 				facebook.share({
 						type: 0,
 						url: "https://m.facebook.com",
