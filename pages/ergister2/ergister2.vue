@@ -15,12 +15,12 @@
 				<view class="slideInLeft animated" @click="onfacebook()">
 					<image src="../../static/images/04-REGISTER2.png" mode="widthFix" />
 				</view>
-				<view class="slideInRight animated" @click="onInstagram()">
+				<!-- <view class="slideInRight animated" @click="onInstagram()">
 					<image src="../../static/images/04-REGISTER3.png" mode="widthFix" />
-				</view>
-				<!-- <view>
-					<image src="../../static/images/Apple_logo_black.png" mode="widthFix" />
 				</view> -->
+				<view>
+					<image src="../../static/images/Apple_logo_black.png" mode="widthFix" />
+				</view>
 			</view>
 			<view style="margin-top: 55px;">Already have an account?</view>
 			<view class="ahref fadeInUpBig animated" @click="navigatePage('/pages/loginnext/loginnext')">Login
