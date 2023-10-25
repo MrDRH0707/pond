@@ -10,7 +10,7 @@
 			</view>
 			<view class="main">
 				<view class="box">
-					<image :src="query.eventpic" mode="aspectFit"></image>
+					<image :src="query.eventpic" mode="aspectFill"></image>
 					<!-- <view class="info">
 						<view class="infol">{{query.dataStr}}</view>
 						<view class="infor">{{query.eventaddr}} {{query.eventtime}}</view>

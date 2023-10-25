@@ -6,16 +6,18 @@
 				<view>You can view or edit this event from your account page.</view>
 			</view>
 			<view class="main">
-				<image :src="query.eventpic" mode="aspectFit"></image>
+				<image :src="query.eventpic" mode="aspectFill"></image>
 				<!-- <image src="../../static/images/IMG_70884.png" mode="widthFix" /> -->
 			</view>
 			<view class="btn" @click="dialogshow2 = true">
 				Share with my network
 			</view>
+			<view class="more">
+				<view @click="navigatePage('/pages/create/feedback',{id:query.id})">Got feedback?</view>
+			</view>
 			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
 				<view class="dialog_main_bottom">
-					<image src="@/static/images/ShareSheet.png" mode="widthFix"
-						@click="navigatePage('/pages/create/feedback',{id:query.id})"></image>
+					<image src="@/static/images/ShareSheet.png" mode="widthFix" @click="share"></image>
 				</view>
 			</view>
 		</view>
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+	const facebook = uni.requireNativePlugin("sn-facebook");
 	export default {
 		data() {
 			return {
@@ -39,7 +42,17 @@
 		created() {},
 		mounted() {},
 		methods: {
-
+			share() {
+				facebook.share({
+						type: 0,
+						url: "https://m.facebook.com",
+						quote: "pond"
+					},
+					(e) => {
+						console.log(e)
+					},
+				);
+			}
 		}
 	}
 </script>
@@ -81,6 +94,20 @@
 		background-color: #fff;
 		line-height: 80rpx;
 		margin-top: 200rpx;
+	}
+
+	.more {
+		margin-top: 1.6rem;
+		width: 100%;
+		text-align: right;
+		padding: 0 1rem;
+		box-sizing: border-box;
+
+		view {
+			display: inline-block;
+			color: #C0BDB3;
+			font-size: 0.8rem;
+		}
 	}
 
 	.dialog2 {

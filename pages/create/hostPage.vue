@@ -190,8 +190,7 @@
 							success: (uploadFileRes) => {
 								let data = JSON.parse(uploadFileRes.data)
 								console.log('uploadFileRes', data)
-								// _this.fileimg = data.url.replace('http', 'https');
-								_this.fileimg = data.url;
+								_this.fileimg = data.url.replace('http', 'https');
 							},
 							fail: (err) => {
 								console.log('err', err)

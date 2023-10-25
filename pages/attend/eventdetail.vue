@@ -214,7 +214,7 @@
 				facebook.share({
 						type: 0,
 						url: "https://m.facebook.com",
-						quote: "test"
+						quote: "pond"
 					},
 					(e) => {
 						console.log(e)
