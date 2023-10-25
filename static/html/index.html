@@ -285,7 +285,7 @@
 						link: '/pages/account/account'
 					},
 				],
-				toastname: '提示的',
+				toastname: '',
 				toastoff: false,
 				timer: null
 			},
@@ -296,10 +296,6 @@
 			},
 			methods: {
 				getData() {
-					// eventname:活动名称
-					// dateType:传数字   1今天  2明天  3本周
-					// tabList:[1,2,3]  标签
-					// eventTime:自定义日期
 					this.getRequest('/api/ma/event/list', {
 						eventname: this.getUrlParam('title'),
 						dateType: this.getUrlParam('dateType'),
@@ -388,7 +384,7 @@
 							querydata = `?${query.join('&')}`;
 						}
 						var setURL = this.getUrlParam('baseUrl') + url + querydata;
-						getxhr.open('get', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
+						getxhr.open('get', setURL, true);
 						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
 						getxhr.send('');
 						getxhr.onreadystatechange = function() {
@@ -407,7 +403,7 @@
 							getxhr = new ActiveXObject('Microsoft.XMLHttp');
 						}
 						var setURL = this.getUrlParam('baseUrl') + url;
-						getxhr.open('post', setURL, true); //载入请求get方法：请求方式，请求地址，是否异步
+						getxhr.open('post', setURL, true);
 						getxhr.setRequestHeader('Content-Type', 'application/json');
 						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
 						getxhr.send(JSON.stringify(params));
@@ -435,7 +431,6 @@
 						}
 					});
 				},
-				// 切换tab栏
 				changTab(row) {
 					uni.postMessage({
 						data: {

@@ -1,9 +1,9 @@
-let _this = null; // this指向
+let _this = null;
 
 
 /**
- * 带入this指向
- * @param {Object} vm_this  this
+ * 
+ * @param {Object} vm_this  
  */
 const sendThis = (vm_this) => {
 	_this = vm_this;
@@ -11,8 +11,8 @@ const sendThis = (vm_this) => {
 
 
 /**
- * app获取定位
- * @param {function} callback  成功回调
+ * app Locationa
+ * @param {function} callback  
  */
 const getLocationa = (callback) => {
 	uni.getLocation({

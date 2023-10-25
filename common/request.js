@@ -1,5 +1,5 @@
-const baseUrl = 'https://hmmobile.eastseastone.com' // 正式环境
-const baseUrlfile = 'https://hmmobile.eastseastone.com' // 正式文件地址
+const baseUrl = 'https://hmmobile.eastseastone.com'
+const baseUrlfile = 'https://hmmobile.eastseastone.com'
 // const baseUrl = 'https://2016kt6872.oicp.vip'
 // const baseUrlfile = 'https://2016kt6872.oicp.vip'
 // const baseUrl = 'http://c63database.mysql.database.azure.com'
@@ -20,10 +20,10 @@ const sendThis = (vm_this) => {
 
 
 /**
- * GET接口
- * @param {String} url  接口地址
- * @param {object} date  请求参数对象
- * @param {boolean} loding  是否显示加载中loding（默认显示，true显示，false隐藏）
+ * GET
+ * @param {String} url  
+ * @param {object} date  
+ * @param {boolean} loding 
  */
 const getRequest = (url, date, loding = true) => {
 	if (loding) {
@@ -36,9 +36,9 @@ const getRequest = (url, date, loding = true) => {
 		}, 300)
 	}
 	let baseDefaultOpts = {
-		url: baseUrl + url, // 请求接口地址
-		data: date, // 传入请求参数
-		method: 'GET', // 请求方式
+		url: baseUrl + url,
+		data: date,
+		method: 'GET',
 		header: {
 			'X-GcSoft-Token': uni.getStorageSync('token'),
 		},
@@ -61,10 +61,10 @@ const getRequest = (url, date, loding = true) => {
 
 
 /**
- * POST接口
- * @param {String} url  接口地址
- * @param {object} date  请求参数对象
- * @param {boolean} loding  是否显示加载中loding（默认显示，true显示，false隐藏）
+ * POST
+ * @param {String} url  
+ * @param {object} date  
+ * @param {boolean} loding  
  */
 const postRequest = (url, date, loding = true) => {
 	if (loding) {
@@ -77,9 +77,9 @@ const postRequest = (url, date, loding = true) => {
 		}, 300)
 	}
 	let baseDefaultOpts = {
-		url: baseUrl + url, // 请求接口地址
-		data: date, // 传入请求参数
-		method: 'POST', // 请求方式
+		url: baseUrl + url,
+		data: date,
+		method: 'POST',
 		header: {
 			'X-GcSoft-Token': uni.getStorageSync('token'),
 		},
@@ -91,10 +91,8 @@ const postRequest = (url, date, loding = true) => {
 				clearTimeout(timer)
 				uni.hideLoading();
 			}
-			// console.log(137, baseUrl, response)
 			handle(response, (res) => resolve(res))
 		}).catch(error => {
-			// console.log(1371, baseUrl, error)
 			let [err, res] = error;
 			reject(err)
 		})
@@ -104,9 +102,9 @@ const postRequest = (url, date, loding = true) => {
 
 
 /**
- * 接口数据返回处理
- * @param {object} response  返回的数据
- * @param {function} callback  回调
+ * callback data
+ * @param {object} response  
+ * @param {function} callback  
  */
 const handle = (response, callback) => {
 	if (response[1].statusCode == 200) {
