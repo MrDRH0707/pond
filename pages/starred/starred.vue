@@ -1,167 +1,50 @@
 <template>
-	<view class="container">
-		<view class="container_main">
-			<view class="tipmini">
-				<view class="samlltxt">Your Starred Events</view>
-			</view>
-			<view class="tag">
-				<view class="item" :class="{ 'active': tags == 1 }" @click.stop="tags = 1">By date</view>
-				<view class="item" :class="{ 'active': tags == 2 }" @click.stop="tags = 2">By location</view>
-			</view>
-			<view class="list">
-				<view class="item" v-for="(item, index) in list"
-					@click="navigatePage('/pages/attend/eventdetail',{id:item.id})">
-					<view class="star" @click.stop="setstar(item)">
-						<image src="@/static/images/star_active.png" mode="widthFix" />
-					</view>
-					<img :src="item.eventpic" alt="">
-					<view class="item_info">
-						<view class="item_name">{{ item.eventname }}</view>
-						<view class="item_more">{{ item.eventaddr }}</view>
-					</view>
-					<!-- <image class="collect" src="../../static/images/collect.png" mode="widthFix"></image> -->
-				</view>
-			</view>
-		</view>
+	<view>
+		<web-view v-if="websrc" :src="websrc" @message="handleMessage"></web-view>
 	</view>
 </template>
-
 <script>
 	export default {
 		data() {
 			return {
-				tags: 1,
-				list: [{
-					ana: 1
-				}]
-			}
+				websrc: ''
+			};
 		},
-		onReady() {},
-		onLoad() {},
-		onShow() {
-			this.list = []
-			this.getData()
+		onLoad() {
+			this.seturl(Object.assign({
+				weburl: '/static/html/starred.html#/',
+				unititle: 'starred',
+				baseUrl: this.request.baseUrl,
+				token: uni.getStorageSync('token'),
+				userid: this.userInfo.userId,
+			}, this.query))
 		},
-		onHide() {},
-		created() {},
-		mounted() {},
 		methods: {
-			getData() {
-				this.request.getRequest('/api/ma/user/attend/list', {
-					userid: this.userInfo.userId,
-				}).then(res => {
-					this.list = res.data
-				});
+			seturl(option) {
+				var keys = Object.keys(option)
+				var str = ""
+				for (var i = 0; i < keys.length; i++) {
+					if (keys[i] == "unititle") {
+						uni.setNavigationBarTitle({
+							title: option[keys[i]]
+						})
+						continue
+					}
+					if (keys[i] == "weburl") continue
+					str += ("&" + keys[i] + "=" + option[keys[i]])
+				}
+				this.websrc = option.weburl + "?" + str.slice(1, str.length);
 			},
-			setstar(row) {
-				this.request.postRequest('/api/ma/user/attend/uncollect', {
-					userid: this.userInfo.userId,
-					eventid: String(row.id),
-					caldate: row.eventtime,
-				}).then(res => {
-					uni.$u.toast("success")
-					this.getData()
-				});
+			handleMessage(e) {
+				console.log('接收到的消息：', e.detail.data[0]);
+				let msgquery = e.detail.data[0]
+				if (msgquery.type == 'navigatePage') {
+					this.navigatePage(msgquery.url);
+				}
+				if (msgquery.type == 'switchTab') {
+					this.switchTabPage(msgquery.url);
+				}
 			},
 		}
 	}
 </script>
-
-<style lang="less" scoped>
-	.tipmini {
-		margin: 50rpx auto 0;
-		width: 660rpx;
-		font-size: 14rpx;
-		font-weight: bold;
-		overflow: hidden;
-
-		.samlltxt {
-			margin-bottom: 30rpx;
-			font-size: 44rpx;
-		}
-	}
-
-	.tag {
-		margin-top: 30px;
-		width: 100%;
-		display: flex;
-
-		.item {
-			flex: 1;
-			height: 60rpx;
-			line-height: 60rpx;
-			text-align: center;
-			font-size: 28rpx;
-			font-weight: bold;
-			border-radius: 20rpx 20rpx 0 0;
-			border: 2rpx solid #000;
-			color: silver;
-		}
-
-		.active {
-			border-bottom: none;
-			color: #000;
-		}
-	}
-
-	.list_menu {
-		padding: 80rpx 60rpx 60rpx 80rpx;
-		box-sizing: border-box;
-		font-size: 32rpx;
-		line-height: 60rpx;
-		font-weight: bold;
-	}
-
-	.list {
-		.item {
-			position: relative;
-			display: flex;
-			border-bottom: 2rpx solid black;
-			padding: 10rpx 20rpx;
-			min-height: 50rpx;
-
-			.star {
-				position: absolute;
-				z-index: 1;
-				top: 0;
-				right: 0;
-				padding: 20rpx;
-
-				image {
-					width: 40rpx;
-					height: 40rpx;
-				}
-			}
-
-			img {
-				max-width: 240rpx;
-				max-height: 120rpx;
-				object-fit: contain;
-
-			}
-
-			.item_info {
-				flex: 1;
-				margin-left: 40rpx;
-
-
-				.item_name {
-					font-size: 32rpx;
-					font-weight: bold;
-				}
-
-				.item_more {
-					margin-top: 20rpx;
-					font-size: 28rpx;
-				}
-			}
-
-			.collect {
-				position: absolute;
-				right: 20rpx;
-				top: 20rpx;
-				width: 50rpx;
-			}
-		}
-	}
-</style>

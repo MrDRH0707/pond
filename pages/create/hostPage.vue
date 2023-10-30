@@ -156,9 +156,9 @@
 			})
 
 			// #ifndef APP-PLUS
-			that.positionObj.address = '华龙区金辉职高生活区(政和一路北)'
-			that.positionObj.longitude = '115.02089142246793'
-			that.positionObj.latitude = '35.77559943073253'
+			that.positionObj.address = 'Cape York 1 Loyalty Beach Road, New Mapoon QLD 4876澳大利亚'
+			that.positionObj.longitude = '142.3837876'
+			that.positionObj.latitude = '-10.8341935'
 			// #endif
 		},
 		onHide() {},

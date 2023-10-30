@@ -26,7 +26,7 @@
 				<view>Invite friends</view>
 				<view>Help</view>
 				<view>Legal stuff</view>
-				<view @click="navigatePage('/pages/password/password')">Forgot password</view>
+				<view @click="navigatePage('/pages/password/password')">Reset password</view>
 				<view style="color: blue;" @click="signout()">Log out</view>
 				<!-- <view class="more">Restart prototype </view> -->
 			</view>

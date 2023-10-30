@@ -155,6 +155,20 @@
                         }
                     }
                 }
+            },
+            "JY-GoogleSignin" : {
+                "__plugin_info__" : {
+                    "name" : "JY-GoogleSignin 谷歌登录 支持安卓iOS - [试用版，仅用于自定义调试基座]",
+                    "description" : "谷歌登录，一键支持",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=2244",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 0,
+                    "pid" : "2244",
+                    "parameters" : {}
+                }
             }
         }
     },
