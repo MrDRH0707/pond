@@ -40,7 +40,7 @@
 <script>
 const facebook = uni.requireNativePlugin("sn-facebook");
 const instagramModule = uni.requireNativePlugin("BenBen-InstagramLogin")
-const JYGoogleSignin = uni.requireNativePlugin('JY-GoogleSignin');
+// const JYGoogleSignin = uni.requireNativePlugin('JY-GoogleSignin');
 export default {
 	data() {
 		return {
@@ -50,13 +50,13 @@ export default {
 	},
 	onReady() { },
 	onLoad() {
-		JYGoogleSignin.jy_init({
-			//  安卓的client_id应该是谷歌开发者后台默认Web应用的；iOS的client_id应该是谷歌开发者后台iOS对应的
-			client_id: "myproject-402308"
-			// client_id: "165096753251"
-		}, res => {
-			console.log(832)
-		})
+		// JYGoogleSignin.jy_init({
+		// 	//  安卓的client_id应该是谷歌开发者后台默认Web应用的；iOS的client_id应该是谷歌开发者后台iOS对应的
+		// 	client_id: "myproject-402308"
+		// 	// client_id: "165096753251"
+		// }, res => {
+		// 	console.log(832)
+		// })
 	},
 	onShow() { },
 	onHide() { },
@@ -102,15 +102,14 @@ export default {
 			});
 		},
 		onGoogle() {
-
-			JYGoogleSignin.jy_startLogin(res => {
-				//  这里会返回登录的结果，如果errorCode = 1，代表错误，可检查msg返回的数据判断；如果errorCode = 0，代表成功，也会在data里面返回登录数据
-				console.log(JSON.stringify(res));
-				uni.showToast({
-					icon: 'none',
-					title: JSON.stringify(res)
-				})
-			})
+			// JYGoogleSignin.jy_startLogin(res => {
+			// 	//  这里会返回登录的结果，如果errorCode = 1，代表错误，可检查msg返回的数据判断；如果errorCode = 0，代表成功，也会在data里面返回登录数据
+			// 	console.log(JSON.stringify(res));
+			// 	uni.showToast({
+			// 		icon: 'none',
+			// 		title: JSON.stringify(res)
+			// 	})
+			// })
 		},
 		onInstagram() {
 			plus.globalEvent.addEventListener('TestEvent', function (e) {
