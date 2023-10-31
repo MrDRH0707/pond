@@ -300,7 +300,7 @@
 						eventname: this.getUrlParam('title'),
 						dateType: this.getUrlParam('dateType'),
 						tabStr: this.getUrlParam('dataStrId'),
-						eventTime: this.getUrlParam('dateType') == '4' ? this.getUrlParam('dateStr') :
+						eventtimeParam: this.getUrlParam('dateType') == '4' ? this.getUrlParam('dateStr') :
 							undefined,
 					}).then(res => {
 						this.list = res.data

@@ -5,7 +5,7 @@
 		</view>
 		<view class="container_main">
 			<view class="upload_main">
-				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFit" />
+				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFill" />
 			</view>
 			<view class="forminfo">
 				<view class="title">{{info.eventname}}</view>
