@@ -109,6 +109,17 @@ const postRequest = (url, date, loding = true) => {
 const handle = (response, callback) => {
 	if (response[1].statusCode == 200) {
 		if (response[1].data.code != 200) {
+			if (response[1].data.code == 600) {
+				uni.$u.toast("Login expired, please log in again")
+				setTimeout(() => {
+					uni.clearStorageSync('token')
+					uni.clearStorageSync('userInfo')
+					uni.reLaunch({
+						url: '/pages/intro/intro'
+					})
+				}, 1000)
+				return false;
+			}
 			uni.$u.toast(response[1].data.msg || "error")
 			return false;
 		}

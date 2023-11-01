@@ -229,6 +229,9 @@
 							<div class="item_info">
 								<div class="_info1">
 									<div>{{ item.eventname }}</div>
+									<div>
+										<span v-for="(item1, index1) in item.tabtbEntityList">{{item1.tabname}}</span>
+									</div>
 								</div>
 								<div class="_info2">
 									<div>{{ item.details }}</div>

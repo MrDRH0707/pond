@@ -36,6 +36,11 @@
 					</view>
 				</view>
 				<view class="line"></view>
+				<view class="item">
+					<view class="item_label">tab</view>
+					<view class="item_value">{{ dataStr }}</view>
+				</view>
+				<view class="line"></view>
 				<view class="more_item">
 					<view class="item_l">
 						<view class="item_label">Event description</view>
@@ -137,9 +142,7 @@
 			// #endif
 			let Cache = this.getCache()
 			this.details = this.userInfo.userName
-			this.title = Cache.title || ''
-			this.dataStr = Cache.dataStr || ''
-			this.dataStrId = Cache.dataStrId || ''
+			this.dataStr = this.query.dataStr || ''
 			this.fileimg = Cache.eventpic || ''
 			this.eventtime = Cache.eventtime || ''
 			this.positionObj.address = Cache.eventaddr || ''

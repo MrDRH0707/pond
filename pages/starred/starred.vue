@@ -10,14 +10,17 @@
 				websrc: ''
 			};
 		},
-		onLoad() {
-			this.seturl(Object.assign({
-				weburl: '/static/html/starred.html#/',
-				unititle: 'starred',
-				baseUrl: this.request.baseUrl,
-				token: uni.getStorageSync('token'),
-				userid: this.userInfo.userId,
-			}, this.query))
+		onShow() {
+			this.websrc = ''
+			setTimeout(() => {
+				this.seturl(Object.assign({
+					weburl: '/static/html/starred.html#/',
+					unititle: 'starred',
+					baseUrl: this.request.baseUrl,
+					token: uni.getStorageSync('token'),
+					userid: this.userInfo.userId,
+				}, this.query))
+			}, 500)
 		},
 		methods: {
 			seturl(option) {

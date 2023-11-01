@@ -128,6 +128,7 @@
 			}
 
 			.list .item .item_info {
+				width: 100%;
 				margin-top: 0.1rem;
 				display: flex;
 			}
@@ -136,6 +137,10 @@
 				flex: 0 0 50%;
 				font-size: 0.22rem;
 				font-weight: bold;
+			}
+
+			._info1 span {
+				display: inline-block;
 			}
 
 			.list .item .item_info ._info2 {
@@ -182,13 +187,15 @@
 					<div class="list">
 						<div class="item" v-for="(item, index) in list" @click="details(item.id)">
 							<div class="star" @click.stop="setstar(item)">
-								<img v-if="item.isCollect == 0 ||item.isCollect == null" src="../images/star.png" />
-								<img v-else src="../images/star_active.png" />
+								<img src="../images/star_active.png" />
 							</div>
 							<img class="imgmain" :src="item.eventpic" alt="" />
 							<div class="item_info">
 								<div class="_info1">
 									<div>{{ item.eventname }}</div>
+									<div>
+										<span v-for="(item1, index1) in item.tabtbEntityList">{{item1.tabname}}</span>
+									</div>
 								</div>
 								<div class="_info2">
 									<div>{{ item.details }}</div>
@@ -255,8 +262,7 @@
 							},
 							map: this.cmap,
 							icon: {
-								url: (list[i].isCollect == 0 || list[i].isCollect == null) ?
-									that.mapPos : that.mapstarPos,
+								url: that.mapstarPos,
 								scaledSize: new google.maps.Size(50, 50),
 								origin: new google.maps.Point(0, 0),
 								anchor: new google.maps.Point(0, 0)
@@ -268,13 +274,7 @@
 					}
 				},
 				setstar(row) {
-					let url = ''
-					if (row.isCollect == 0 || row.isCollect == null) {
-						url = '/api/ma/calendar/insert'
-					} else {
-						url = '/api/ma/user/attend/uncollect'
-					}
-					this.postRequest(url, {
+					this.postRequest('/api/ma/user/attend/uncollect', {
 						userid: this.getUrlParam('userid'),
 						eventid: String(row.id),
 						caldate: row.eventtime

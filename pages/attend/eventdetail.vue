@@ -25,6 +25,13 @@
 					<view class="item_value">{{ info.details }}</view>
 				</view>
 				<view class="line"></view>
+				<view class="item">
+					<view class="item_label">tab?</view>
+					<view class="item_value">
+						<view class="spanview" v-for="(item,index) in info.tabtbEntityList">{{item.tabname}}</view>
+					</view>
+				</view>
+				<view class="line"></view>
 				<view class="more_item">
 					<view class="item_l">
 						<view class="item_label">Event description</view>
@@ -284,6 +291,10 @@
 			line-height: 26rpx;
 			letter-spacing: 0em;
 			text-align: left;
+		}
+		
+		.spanview{
+			display: inline-block;
 		}
 
 		.c_input {

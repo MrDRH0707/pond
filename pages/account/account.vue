@@ -9,8 +9,7 @@
 				</view>
 				<view class="iocimg">
 					<!-- <image src="../../static/images/icoimg.png" mode="widthFix" @click="uploadinfo()" /> -->
-					<image :src="info.avatar?info.avatar:'../../static/images/icoimg.png'" mode="widthFix"
-						@click="uploadinfo()" />
+					<image :src="info.avatar?info.avatar:'../../static/images/icoimg.png'" @click="uploadinfo()" />
 				</view>
 			</view>
 			<view class="tag">
@@ -36,6 +35,9 @@
 					<img :src="item.eventpic" alt="">
 					<view class="item_info">
 						<view class="item_name">{{ item.eventname }}</view>
+						<view class="item_more">
+							<view class="spanview" v-for="(item1,index) in item.tabtbEntityList">{{item1.tabname}}</view>
+						</view>
 						<view class="item_more">{{ item.eventaddr }}</view>
 					</view>
 				</view>
@@ -56,9 +58,10 @@
 		onReady() {},
 		onLoad() {
 			this.getinfo()
+		},
+		onShow() {
 			this.getData()
 		},
-		onShow() {},
 		onHide() {},
 		created() {},
 		mounted() {},
@@ -141,15 +144,19 @@
 	}
 
 	.header .iocimg {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		// display: flex;
+		// flex-direction: column;
+		// align-items: center;
+		width: 150rpx;
+		height: 150rpx;
+		border-radius: 150rpx;
+		overflow: hidden;
+		margin-right: 40px;
 	}
 
 	.header .iocimg image {
-		width: 5rem;
-		height: 5rem;
+		width: 150rpx;
+		height: 150rpx;
 	}
 
 	.tag {
@@ -208,6 +215,10 @@
 	.list .item .item_info .item_name {
 		font-size: 0.96rem;
 		font-weight: bold;
+	}
+	
+	.spanview{
+		display: inline-block;
 	}
 
 	.list .item .item_info .item_more {
