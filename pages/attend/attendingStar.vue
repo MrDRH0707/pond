@@ -10,14 +10,17 @@
 				websrc: ''
 			};
 		},
-		onLoad() {
-			this.seturl(Object.assign({
-				weburl: '/static/html/attendingStar.html#/',
-				unititle: 'attendingStar',
-				baseUrl: this.request.baseUrl,
-				token: uni.getStorageSync('token'),
-				userid: this.userInfo.userId,
-			}, this.query))
+		onShow() {
+			this.websrc = ''
+			setTimeout(() => {
+				this.seturl(Object.assign({
+					weburl: '/static/html/attendingStar.html#/',
+					unititle: 'attendingStar',
+					baseUrl: this.request.baseUrl,
+					token: uni.getStorageSync('token'),
+					userid: this.userInfo.userId,
+				}, this.query))
+			}, 500)
 		},
 		methods: {
 			seturl(option) {
@@ -36,7 +39,7 @@
 				this.websrc = option.weburl + "?" + str.slice(1, str.length);
 			},
 			handleMessage(e) {
-				console.log('接收到的消息：', e.detail.data[0]);
+				console.log('data：', e.detail.data[0]);
 				let msgquery = e.detail.data[0]
 				if (msgquery.type == 'navigatePage') {
 					this.navigatePage(msgquery.url);

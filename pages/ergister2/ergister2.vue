@@ -73,11 +73,11 @@ export default {
 				uni.$u.toast("Complete information")
 				return
 			}
-			const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
-			if (!phoneReg.test(this.phonenumber)) {
-				uni.$u.toast("Incorrect format")
-				return
-			}
+			// const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
+			// if (!phoneReg.test(this.phonenumber)) {
+			// 	uni.$u.toast("Incorrect format")
+			// 	return
+			// }
 			this.navigatePage('/pages/register/register', {
 				phonenumber: this.phonenumber
 			})

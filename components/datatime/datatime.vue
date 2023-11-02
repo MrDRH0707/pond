@@ -3,8 +3,8 @@
 */
 <template>
 	<view>
-		<u-datetime-picker mode="date" v-model="dataTime" :show="showtype" cancelText="cancel" confirmText="confirm" @confirm="confirmtime"
-			@cancel="showtype = false">
+		<u-datetime-picker mode="date" v-model="dataTime" :show="showtype" cancelText="cancel" confirmText="confirm"
+			@confirm="confirmtime" @cancel="showtype = false">
 		</u-datetime-picker>
 	</view>
 </template>
@@ -33,6 +33,7 @@
 					return m < 10 ? '0' + m : m
 				}
 				var time = new Date(val);
+				console.log(123, time)
 				var y = time.getFullYear();
 				var m = time.getMonth() + 1;
 				var d = time.getDate();
