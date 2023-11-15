@@ -19,7 +19,7 @@
 			let pages = getCurrentPages();
 			if (pages[pages.length - 2]) {
 				this.nexturl = pages[pages.length - 2].route
-				console.log(72,this.nexturl)
+				console.log(72, this.nexturl)
 				this.shownext = true
 			}
 		},

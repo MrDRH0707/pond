@@ -59,21 +59,19 @@
 		},
 		data() {
 			return {
-				mapH: 0, // 地图高度，可在initMapH()中设置高度
-				mapW: 0, // 屏幕宽度
-				longitude: 0, // 初始经度
-				latitude: 0, // 初始纬度
-				myAddress: '', // 初始地址信息
-				addressObj: { // 地图选点信息
+				mapH: 0,
+				mapW: 0,
+				longitude: 0,
+				latitude: 0,
+				myAddress: '',
+				addressObj: {
 					longitude: '',
 					latitude: '',
 					address: 'Please select location'
 				},
-
-				// cover-image的默认 超出屏幕外 不然会有闪烁出现
 				controlsLeft: 1000,
 				controlsTop: 1000,
-				controls: [], // 地图中心点图标, 可更换iconPath, 详情见官方文档关于map组件的介绍
+				controls: [],
 
 			};
 		},
@@ -83,17 +81,14 @@
 			this.initPositionIcon()
 		},
 		methods: {
-			// 初始化地图中心位置的定位图片
 			initPositionIcon() {
 
 				setTimeout(() => {
-					// H5 微信小程序 使用<cover-image>
 					// #ifndef APP-PLUS
 					this.controlsLeft = this.mapW / 2 - 10
 					this.controlsTop = this.mapH / 2
 					// #endif
 
-					// App使用map的controls
 					// #ifdef APP-PLUS
 					var controls = {
 						id: '1',
@@ -111,11 +106,10 @@
 					// #endif
 				}, 100)
 			},
-			// 查询现在的位置
 			getLocation() {
 				let this_ = this
 				uni.getLocation({
-					// type: 'gcj02', // 返回国测局坐标
+					// type: 'gcj02', 
 					geocode: true,
 					success: function(res) {
 						this_.initMap(res)
@@ -130,7 +124,6 @@
 				})
 			},
 
-			// 初始化我的位置
 			async initMap(res) {
 				this.longitude = res.longitude;
 				this.latitude = res.latitude;
@@ -143,17 +136,15 @@
 				})
 			},
 
-			// 地图选择位置后 查询地点名称
 			async checkMap(res) {
 				this.addressObj = Object.assign({}, this.addressObj, {
 					longitude: res.longitude,
 					latitude: res.latitude,
 					address: await this.getAddressName(res)
 				})
-				console.log('当前位置:' + res.latitude + '|' + res.longitude);
+				console.log('current location:' + res.latitude + '|' + res.longitude);
 			},
 
-			// 监听地图位置变化
 			mapChange(e) {
 				let that = this
 				clearTimeout(this.timer)
@@ -172,7 +163,6 @@
 					}
 				}, 200)
 			},
-			// 查询地图中心点的名称
 			getAddressName(addressObj) {
 				return new Promise((res) => {
 					// #ifdef APP-PLUS
@@ -194,7 +184,6 @@
 					// #endif
 
 					// #ifdef H5
-					// ======================== jsonp跨域 ======================== 
 					const KEY = 'LXCBZ-NNIKD-UZ64F-H6AFI-UNJLH-OCFGE'
 					let locationObj = addressObj.latitude + ',' + addressObj.longitude
 					let url =
@@ -233,7 +222,6 @@
 				})
 
 			},
-			// 计算地图的高度
 			initMapH() {
 				// #ifdef APP-PLUS
 				this.mapW = uni.getSystemInfoSync().windowWidth
@@ -249,7 +237,6 @@
 				this.mapH = uni.getSystemInfoSync().windowHeight - 210;
 				// #endif
 			},
-			// 移动到我的位置
 			toMyLocation() {
 				this.getLocation()
 			},

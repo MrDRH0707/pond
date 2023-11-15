@@ -20,7 +20,7 @@
 							<view>{{ query.title }}</view>
 							<view>{{ query.dataStr }}</view>
 						</view>
-						<view class="_info2">{{query.eventaddr}} {{query.eventtime}}</view>
+						<view class="_info2">{{ query.eventaddr }} {{ query.eventtime }}</view>
 					</view>
 				</view>
 				<!-- <image src="../../static/images/Eventlisting.png" class="left-img" alt="" mode="widthFix" /> -->
@@ -55,15 +55,15 @@
 		methods: {
 			submit() {
 				this.request.postRequest('/api/ma/event/insert', {
-					eventname: this.query.title, // 活动名称
-					eventpic: this.query.eventpic, // 活动图片
-					eventtime: this.query.eventtime, // 活动时间
-					eventaddr: this.query.eventaddr, // 活动地址
-					xpos: this.query.xpos, // x坐标
-					ypos: this.query.ypos, // y坐标
-					details: this.query.details, // who
-					eventdesc: this.query.eventdesc, // 事件描述
-					tabList: this.query.dataStrId.split(',') // 标签
+					eventname: this.query.title,
+					eventpic: this.query.eventpic,
+					eventtime: this.query.eventtime,
+					eventaddr: this.query.eventaddr,
+					xpos: this.query.xpos,
+					ypos: this.query.ypos,
+					details: this.query.details,
+					eventdesc: this.query.eventdesc,
+					tabList: this.query.dataStrId.split(',')
 				}).then(res => {
 					// this.navigatePage('/pages/create/hostDetail', {
 					// 	eventname: this.query.title,

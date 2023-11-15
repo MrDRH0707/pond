@@ -5,8 +5,7 @@
 				<view>Thanks for</view>
 				<view>sharing!</view>
 			</view>
-			<image class="return" src="../../static/images/return.png" mode="widthFix"
-				@click="historyback(2)"></image>
+			<image class="return" src="../../static/images/return.png" mode="widthFix" @click="historyback(2)"></image>
 		</view>
 		<tabBar index='3'></tabBar>
 	</view>

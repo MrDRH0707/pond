@@ -24,7 +24,7 @@
 		created() {},
 		mounted() {},
 		methods: {
-			
+
 		}
 	}
 </script>

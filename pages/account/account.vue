@@ -36,7 +36,8 @@
 					<view class="item_info">
 						<view class="item_name">{{ item.eventname }}</view>
 						<view class="item_more">
-							<view class="spanview" v-for="(item1,index) in item.tabtbEntityList">{{item1.tabname}}</view>
+							<view class="spanview" v-for="(item1,index) in item.tabtbEntityList">{{item1.tabname}}
+							</view>
 						</view>
 						<view class="item_more">{{ item.eventaddr }}</view>
 					</view>
@@ -216,8 +217,8 @@
 		font-size: 0.96rem;
 		font-weight: bold;
 	}
-	
-	.spanview{
+
+	.spanview {
 		display: inline-block;
 	}
 

@@ -42,7 +42,7 @@
 	export default {
 		data() {
 			return {
-				dateStr: "", //要显示的时间值
+				dateStr: "",
 				dateType: "",
 			}
 		},
@@ -57,11 +57,9 @@
 				this.dateStr = str;
 				this.dateType = i;
 			},
-			// 选择完整日期
 			ondatatime(e) {
 				this.$refs.datatime.openpicker(e);
 			},
-			// 完整日期回调
 			datatimechange(row) {
 				this.dateStr = row.split('-').reverse().join('/')
 				this.dateType = '4';

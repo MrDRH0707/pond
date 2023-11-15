@@ -1,6 +1,3 @@
-/**
-* 自定义底部切换
-*/
 <template>
 	<view class="footer">
 		<view v-for="(item,i) in tabList" :key="i" @click="changTab(item.link)">
@@ -39,7 +36,6 @@
 			}
 		},
 		methods: {
-			// 切换tab栏
 			changTab(url) {
 				uni.switchTab({
 					url

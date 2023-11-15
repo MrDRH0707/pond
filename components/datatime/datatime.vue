@@ -1,6 +1,3 @@
-/**
-* 选择年月日
-*/
 <template>
 	<view>
 		<u-datetime-picker mode="date" v-model="dataTime" :show="showtype" cancelText="cancel" confirmText="confirm"
@@ -18,16 +15,13 @@
 			};
 		},
 		methods: {
-			// 打开
 			openpicker() {
 				this.showtype = true
 			},
-			// 选择返回
 			confirmtime(e) {
 				this.$emit("change", this.format(e.value))
 				this.showtype = false
 			},
-			// 日期转换
 			format(val) {
 				let add0 = (m) => {
 					return m < 10 ? '0' + m : m

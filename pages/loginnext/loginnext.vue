@@ -48,7 +48,6 @@
 					this.getUserInfoData()
 				});
 			},
-			// 获取用户信息
 			getUserInfoData() {
 				this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
 					let userInfo = res.user

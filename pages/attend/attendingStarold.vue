@@ -53,14 +53,10 @@
 		mounted() {},
 		methods: {
 			getData() {
-				// eventname:活动名称
-				// eventaddr:活动地址
-				// tabList:[1,2,3]  标签
-				// dateType:传数字   1今天  2明天  3本周
 				this.request.getRequest('/api/ma/event/list', {
 					eventname: this.query.title,
-					// dateType: this.query.dateType,
-					// tabList: this.query.dataStrId,
+					dateType: this.query.dateType,
+					tabList: this.query.dataStrId,
 				}).then(res => {
 					this.list = res.data
 				});

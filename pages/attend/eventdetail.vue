@@ -8,7 +8,7 @@
 				<image class="load_img" v-if="info.eventpic" :src="info.eventpic" mode="aspectFill" />
 			</view>
 			<view class="forminfo">
-				<view class="title">{{info.eventname}}</view>
+				<view class="title">{{ info.eventname }}</view>
 				<view class="line"></view>
 				<view class="item">
 					<view class="item_label">When?</view>
@@ -28,7 +28,7 @@
 				<view class="item">
 					<view class="item_label">tab?</view>
 					<view class="item_value">
-						<view class="spanview" v-for="(item,index) in info.tabtbEntityList">{{item.tabname}}</view>
+						<view class="spanview" v-for="(item, index) in info.tabtbEntityList">{{ item.tabname }}</view>
 					</view>
 				</view>
 				<view class="line"></view>
@@ -41,7 +41,7 @@
 					</view>
 					<view class="item_r">
 						<view class="item" @click="setstar()">
-							<image v-if="info.isCollect == 0 ||info.isCollect == null" src="@/static/images/star.png"
+							<image v-if="info.isCollect == 0 || info.isCollect == null" src="@/static/images/star.png"
 								mode="widthFix" />
 							<image v-else src="@/static/images/star_active.png" mode="widthFix" />
 						</view>
@@ -55,11 +55,11 @@
 				</view>
 			</view>
 			<view class="moreporson" v-if="info.sysUsers">
-				<view class="item_ico" v-for="(item,index) in info.sysUsers">
+				<view class="item_ico" v-for="(item, index) in info.sysUsers">
 					<image :src="item.avatar" mode="aspectFill"></image>
 				</view>
 				<view class="item_name">
-					<view v-for="(item,index) in info.sysUsers">{{item.userName}},</view>
+					<view v-for="(item, index) in info.sysUsers">{{ item.userName }},</view>
 				</view>
 			</view>
 			<view class="dialog2" v-if="dialogshow2" @click="dialogshow2 = false">
@@ -119,8 +119,8 @@
 		onLoad() {
 			// #ifdef APP-PLUS
 			let that = this;
-			that.requestAndroidPermission('android.permission.READ_CALENDAR'); // 读取日历
-			that.requestAndroidPermission('android.permission.WRITE_CALENDAR'); // 写入日历
+			that.requestAndroidPermission('android.permission.READ_CALENDAR');
+			that.requestAndroidPermission('android.permission.WRITE_CALENDAR');
 			// #endif
 			this.getData(this.query.id)
 		},
@@ -133,12 +133,10 @@
 		methods: {
 			async requestAndroidPermission(permisionID) {
 				var result = await permision.requestAndroidPermission(permisionID)
-				if (result == 1) {
-					// "已获得授权"
-				} else if (result == 0) {
-					uni.$u.toast("未获得授权");
+				if (result == 1) {} else if (result == 0) {
+					uni.$u.toast("Unauthorized");
 				} else {
-					uni.$u.toast("被永久拒绝权限");
+					uni.$u.toast("Permanently denied permission");
 				}
 			},
 			getData(id) {
@@ -194,24 +192,19 @@
 					"_id"));
 				var ContentValues = plus.android.importClass("android.content.ContentValues");
 				var events = new ContentValues();
-				events.put("title", "活动提醒");
-				events.put("description", "pond为您提醒您选择的活动");
-				// 插入账户  
+				events.put("title", "Event reminder");
+				events.put("description", "pond Remind you of the selected activity");
 				events.put("calendar_id", calId);
-				//位置  可不填
-				// events.put("eventLocation", "位置");
-				events.put("dtstart", starttime); //时间戳 到毫秒的时间戳
-				events.put("dtend", endtime); //时间戳 到毫秒的时间戳
+				// events.put("eventLocation", "area");
+				events.put("dtstart", starttime);
+				events.put("dtend", endtime);
 				events.put("hasAlarm", 1);
-				events.put("eventTimezone", "Asia/Shanghai"); // 这个是时区，必须有，这个就是中国标准时区，在中国境内的不必再改  
-				// 添加事件    
+				events.put("eventTimezone", "Asia/Shanghai");
 				var newEvent = plus.android.invoke(plus.android.runtimeMainActivity().getContentResolver(),
 					"insert", Uri.parse(calanderEventURL), events);
-				// 事件提醒的设定  
 				var id = plus.android.invoke(newEvent, "getLastPathSegment");
 				var values = new ContentValues();
 				values.put("event_id", id);
-				// 提前15分钟有提醒  
 				values.put("minutes", "15");
 				values.put("method", "1");
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);
@@ -292,8 +285,8 @@
 			letter-spacing: 0em;
 			text-align: left;
 		}
-		
-		.spanview{
+
+		.spanview {
 			display: inline-block;
 		}
 

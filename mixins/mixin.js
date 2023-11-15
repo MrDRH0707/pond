@@ -27,9 +27,6 @@ export default {
 				}
 			},
 			methods: {
-				/**
-				 * 获取用户信息
-				 */
 				getUserInfo() {
 					this.request.getRequest('/api/ma/sysUser/getInfo', {}).then(res => {
 						this.userInfo = res.user
@@ -37,9 +34,8 @@ export default {
 					});
 				},
 				/**
-				 * 页面跳转
-				 * @param {String} url  跳转地址
-				 * @param {Object} params  跳转参数
+				 * @param {String} url  
+				 * @param {Object} params  
 				 */
 				navigatePage(url, params = {}) {
 					let query = [];
@@ -58,9 +54,8 @@ export default {
 					})
 				},
 				/**
-				 * 页面跳转
-				 * @param {String} url  跳转地址
-				 * @param {Object} params  跳转参数
+				 * @param {String} url  
+				 * @param {Object} params  
 				 */
 				switchTabPage(url, params = {}) {
 					let query = [];
@@ -76,30 +71,22 @@ export default {
 						url,
 					})
 				},
-				/**
-				 * 返回上一层
-				 */
 				historyback(delta = 1) {
 					uni.navigateBack({
 						delta,
 					})
 				},
-				/**
-				 * 处理json数据空值置空
-				 */
 				nullstr(data) {
 					for (let x in data) {
 						if (data[x] === null) {
 							data[x] = "";
 						} else {
 							if (Array.isArray(data[x])) {
-								// 是数组遍历数组 递归继续处理
 								data[x] = data[x].map((z) => {
 									return this.nullstr(z);
 								});
 							}
 							if (typeof data[x] === "object") {
-								// 是json 递归继续处理
 								data[x] = this.nullstr(data[x]);
 							}
 						}

@@ -21,10 +21,10 @@ const getLocationa = (callback) => {
 			callback(res)
 		},
 		fail: error => {
-			console.log("获取定位失败了", error)
+			console.log("Failed to obtain location", error)
 			uni.showModal({
-				title: '提示',
-				content: '获取定位失败，是否授权打开定位',
+				title: 'tip',
+				content: 'Failed to obtain location. Are you authorized to open the location',
 				success: (res) => {
 					if (res.confirm) {
 						uni.getSystemInfo({
@@ -36,7 +36,6 @@ const getLocationa = (callback) => {
 										.runtimeMainActivity();
 									var Intent = plus.android.importClass(
 										"android.content.Intent");
-									//可能应该直接进入应用列表的权限设置？=> android.settings.APPLICATION_SETTINGS
 									var mIntent = new Intent(
 										'android.settings.LOCATION_SOURCE_SETTINGS'
 									);

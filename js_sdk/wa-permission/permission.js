@@ -1,13 +1,8 @@
-/**
- * 本模块封装了Android、iOS的应用权限判断、打开应用权限设置界面、以及位置系统服务是否开启
- */
-
 var isIos
 // #ifdef APP-PLUS
 isIos = (plus.os.name == "iOS")
 // #endif
 
-// 判断推送权限是否开启
 function judgeIosPermissionPush() {
 	var result = false;
 	var UIApplication = plus.ios.import("UIApplication");

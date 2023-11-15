@@ -6,12 +6,11 @@ const baseUrlfile = 'https://hmmobile.eastseastone.com'
 // const baseUrlfile = 'http://c63database.mysql.database.azure.com'
 
 /* =============================================================================================== */
-let _this = null; // this指向
+let _this = null;
 let timer;
 
 
 /**
- * 带入this指向
  * @param {Object} vm_this  this
  */
 const sendThis = (vm_this) => {

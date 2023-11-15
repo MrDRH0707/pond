@@ -3,7 +3,8 @@
 		<view class="container_main">
 			<image class="pageoff" src="../../static/images/off.png" mode="widthFixw" @click="historyback()"></image>
 			<view class="tiptxt">
-				I want to<view class="blue">attend</view>an event in<view class="blue" @click="historyback(2)">{{ query.title }}</view>
+				I want to<view class="blue">attend</view>an event in<view class="blue" @click="historyback(2)">
+					{{ query.title }}</view>
 				on
 				<view class="blue" @click="historyback()">{{query.dateStr}}</view>
 				with

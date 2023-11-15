@@ -35,7 +35,7 @@
 				this.websrc = option.weburl + "?" + str.slice(1, str.length);
 			},
 			handleMessage(e) {
-				console.log('接收到的消息：', e.detail.data[0]);
+				console.log('Received message:', e.detail.data[0]);
 				let msgquery = e.detail.data[0]
 				if (msgquery.type == 'navigatePage') {
 					// this.navigatePage(msgquery.val);

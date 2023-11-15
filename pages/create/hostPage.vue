@@ -3,7 +3,7 @@
 		<pagerockerdef @back='back' @next='submit()'></pagerockerdef>
 		<view class="container_main">
 			<view class="tipmini">
-				<view>{{userInfo.userName}}, We’ve populated your event page for you</view>
+				<view>{{ userInfo.userName }}, We’ve populated your event page for you</view>
 			</view>
 			<view class="line"></view>
 			<view class="upload_main">
@@ -13,7 +13,7 @@
 				</view>
 			</view>
 			<view class="forminfo">
-				<view class="title">{{query.title}}</view>
+				<view class="title">{{ query.title }}</view>
 				<view class="line"></view>
 				<view class="item" @click="ondatatime()">
 					<view class="item_label">When?</view>
@@ -137,8 +137,8 @@
 		onLoad() {
 			// #ifdef APP-PLUS
 			let that = this;
-			that.requestAndroidPermission('android.permission.READ_CALENDAR'); // 读取日历
-			that.requestAndroidPermission('android.permission.WRITE_CALENDAR'); // 写入日历
+			that.requestAndroidPermission('android.permission.READ_CALENDAR');
+			that.requestAndroidPermission('android.permission.WRITE_CALENDAR');
 			// #endif
 			let Cache = this.getCache()
 			this.details = this.userInfo.userName
@@ -170,12 +170,10 @@
 		methods: {
 			async requestAndroidPermission(permisionID) {
 				var result = await permision.requestAndroidPermission(permisionID)
-				if (result == 1) {
-					// "已获得授权"
-				} else if (result == 0) {
-					uni.$u.toast("未获得授权");
+				if (result == 1) {} else if (result == 0) {
+					uni.$u.toast("Unauthorized");
 				} else {
-					uni.$u.toast("被永久拒绝权限");
+					uni.$u.toast("Permanently denied permission");
 				}
 			},
 			uploadinfo() {
@@ -186,7 +184,7 @@
 						console.log('chooseImage', res)
 						const tempFilePaths = res.tempFilePaths[0];
 						uni.uploadFile({
-							url: _this.request.baseUrlfile + '/common/upload', //post请求的地址
+							url: _this.request.baseUrlfile + '/common/upload',
 							filePath: tempFilePaths,
 							name: 'file',
 							formData: {},
@@ -202,28 +200,12 @@
 					}
 				})
 			},
-			// 选择完整日期
 			ondatatime(e) {
 				this.$refs.datatime.openpicker(e);
 			},
-			// 完整日期回调
 			datatimechange(row) {
 				this.eventtime = row.split('-').reverse().join('/')
 			},
-			// // 更新地址并关闭地图
-			// updateAddress(addressObj) {
-			// 	this.mapShow = false
-			// 	// #ifdef APP-PLUS
-			// 	this.positionObj = addressObj
-			// 	//#endif
-			// 	// #ifndef APP-PLUS
-			// 	this.positionObj = {
-			// 		"longitude": 115.02089142246793,
-			// 		"latitude": 35.77559943073253,
-			// 		"address": "华龙区金辉职高生活区(政和一路北)"
-			// 	}
-			// 	// #endif
-			// },
 			getplatform(time) {
 				uni.getSystemInfo({
 					success: res => {
@@ -256,24 +238,19 @@
 					"_id"));
 				var ContentValues = plus.android.importClass("android.content.ContentValues");
 				var events = new ContentValues();
-				events.put("title", "活动提醒");
-				events.put("description", "pond为您提醒您选择的活动");
-				// 插入账户  
+				events.put("title", "Event reminder");
+				events.put("description", "pond Remind you of the selected activity");
 				events.put("calendar_id", calId);
-				//位置  可不填
-				// events.put("eventLocation", "位置");
-				events.put("dtstart", starttime); //时间戳 到毫秒的时间戳
-				events.put("dtend", endtime); //时间戳 到毫秒的时间戳
+				// events.put("eventLocation", "area");
+				events.put("dtstart", starttime);
+				events.put("dtend", endtime);
 				events.put("hasAlarm", 1);
-				events.put("eventTimezone", "Asia/Shanghai"); // 这个是时区，必须有，这个就是中国标准时区，在中国境内的不必再改  
-				// 添加事件    
+				events.put("eventTimezone", "Asia/Shanghai");
 				var newEvent = plus.android.invoke(plus.android.runtimeMainActivity().getContentResolver(),
 					"insert", Uri.parse(calanderEventURL), events);
-				// 事件提醒的设定  
 				var id = plus.android.invoke(newEvent, "getLastPathSegment");
 				var values = new ContentValues();
 				values.put("event_id", id);
-				// 提前15分钟有提醒  
 				values.put("minutes", "15");
 				values.put("method", "1");
 				plus.android.invoke(main.getContentResolver(), "insert", Uri.parse(calanderRemiderURL), values);

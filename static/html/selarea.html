@@ -1,317 +1,317 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title></title>
-	<script>
-		var oHtml = document.getElementsByTagName("html")[0];
-		var iWidth = document.documentElement.clientWidth;
-		iWidth = iWidth > 750 ? 750 : iWidth;
-		oHtml.style.fontSize = iWidth / 7.5 + "px";
-	</script>
-
-	<script src="./vue.js"></script>
-	<script src="./webview.js"></script>
-	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx0gmbWRB0jXQ6qm9LoUqzruR9IuXb1dY&callback=initMap&libraries=&v=weekly"
-		defer>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<script>
+			var oHtml = document.getElementsByTagName("html")[0];
+			var iWidth = document.documentElement.clientWidth;
+			iWidth = iWidth > 750 ? 750 : iWidth;
+			oHtml.style.fontSize = iWidth / 7.5 + "px";
 		</script>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-		}
 
-		html,
-		body {
-			width: 100%;
-			height: 100vh;
-		}
+		<script src="./vue.js"></script>
+		<script src="./webview.js"></script>
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAx0gmbWRB0jXQ6qm9LoUqzruR9IuXb1dY&callback=initMap&libraries=&v=weekly"
+			defer>
+		</script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
 
-		.container {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			margin: auto;
-			width: 100%;
-			height: 100%;
-			padding-top: 1rem;
-			box-sizing: border-box;
-			display: flex;
-			flex-direction: column;
-			background-color: #F5F4F0;
-			color: #2c3e50;
-			padding-top: 0.3rem;
-			/* border: 3px solid red; */
-			/* box-sizing: border-box; */
-		}
+			html,
+			body {
+				width: 100%;
+				height: 100vh;
+			}
 
-		.head {
-			height: 1rem;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 0.3rem;
-			box-sizing: border-box;
-		}
+			.container {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 100%;
+				height: 100%;
+				padding-top: 1rem;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				background-color: #F5F4F0;
+				color: #2c3e50;
+				padding-top: 0.3rem;
+				/* border: 3px solid red; */
+				/* box-sizing: border-box; */
+			}
 
-		.off {
-			width: 0.6rem;
-			height: 0.6rem;
-		}
+			.head {
+				height: 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0.3rem;
+				box-sizing: border-box;
+			}
 
-		.next {
-			right: 0.3rem;
-			width: 0.8rem;
-		}
+			.off {
+				width: 0.6rem;
+				height: 0.6rem;
+			}
 
-		.map {
-			flex: 1;
-			width: 100%;
-			position: relative;
-			/* border: 3px solid red; */
-			/* box-sizing: border-box; */
-		}
+			.next {
+				right: 0.3rem;
+				width: 0.8rem;
+			}
 
-		#cmap {
-			width: 100%;
-			height: 100%;
-			/* border: 3px solid blue; */
-			/* box-sizing: border-box; */
-		}
+			.map {
+				flex: 1;
+				width: 100%;
+				position: relative;
+				/* border: 3px solid red; */
+				/* box-sizing: border-box; */
+			}
 
-		.maininfo {
-			position: absolute;
-			z-index: 9999999;
-			bottom: 0.3rem;
-			left: 0.5rem;
-			right: 1.1rem;
-			padding: 0.3rem;
-			box-sizing: border-box;
-			background-color: #fff;
-			font-size: 0.4rem;
-			border-radius: 0.1rem;
-		}
+			#cmap {
+				width: 100%;
+				height: 100%;
+				/* border: 3px solid blue; */
+				/* box-sizing: border-box; */
+			}
 
-		.toast {
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: rgba(0, 0, 0, 0.8);
-			color: #fff;
-			padding: 0.1rem 0.2rem;
-			border-radius: 4px;
-			font-size: 0.34rem;
-		}
-	</style>
-</head>
+			.maininfo {
+				position: absolute;
+				z-index: 9999999;
+				bottom: 0.3rem;
+				left: 0.5rem;
+				right: 1.1rem;
+				padding: 0.3rem;
+				box-sizing: border-box;
+				background-color: #fff;
+				font-size: 0.4rem;
+				border-radius: 0.1rem;
+			}
 
-<body>
-	<div class="container" id="app">
-		<div class="head">
-			<img class="off" @click="onback()" src="../../static/images/off.png" alt="">
-			<img class="next" @click="onnext()" src="../../static/images/Arrow-47left.png" alt="">
+			.toast {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: rgba(0, 0, 0, 0.8);
+				color: #fff;
+				padding: 0.1rem 0.2rem;
+				border-radius: 4px;
+				font-size: 0.34rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container" id="app">
+			<div class="head">
+				<img class="off" @click="onback()" src="../../static/images/off.png" alt="">
+				<img class="next" @click="onnext()" src="../../static/images/Arrow-47left.png" alt="">
+			</div>
+			<div class="map">
+				<div id="cmap"></div>
+			</div>
+			<div class="maininfo">
+				<div>my area:{{area.address}}</div>
+			</div>
+			<div class="toast" v-if="toastoff">{{toastname}}</div>
 		</div>
-		<div class="map">
-			<div id="cmap"></div>
-		</div>
-		<div class="maininfo">
-			<div>my area:{{area.address}}</div>
-		</div>
-		<div class="toast" v-if="toastoff">{{toastname}}</div>
-	</div>
-</body>
-<script>
-	function initMap() {
-		console.log('init')
-	}
+	</body>
+	<script>
+		function initMap() {
+			console.log('init')
+		}
 
-	new Vue({
-		el: '#app',
-		data: {
-			cmap: null,
-			query: {},
-			mapstarPos: '../images/star_active.png',
-			mapPos: '../images/area.png',
-			shopMarker: '',
-			area: {
-				address: 'Please select a location',
-				lat: '',
-				lng: ''
+		new Vue({
+			el: '#app',
+			data: {
+				cmap: null,
+				query: {},
+				mapstarPos: '../images/star_active.png',
+				mapPos: '../images/area.png',
+				shopMarker: '',
+				area: {
+					address: 'Please select a location',
+					lat: '',
+					lng: ''
+				},
+				toastname: '',
+				toastoff: false,
+				timer: null
 			},
-			toastname: '',
-			toastoff: false,
-			timer: null
-		},
-		mounted() {
-			console.log('href', window.location.href)
-			setTimeout(() => {
-				this.getmap()
-			}, 500)
-		},
-		methods: {
-			getmap() {
-				var _this = this
-				this.cmap = new google.maps.Map(document.getElementById("cmap"), {
-					zoom: 16,
-					center: {
-						lat: Number('-33.8688197000'),
-						lng: Number('151.2092955000'),
-						// lat: Number('39.9148840962'),
-						// lng: Number('116.403883218'),
+			mounted() {
+				console.log('href', window.location.href)
+				setTimeout(() => {
+					this.getmap()
+				}, 500)
+			},
+			methods: {
+				getmap() {
+					var _this = this
+					this.cmap = new google.maps.Map(document.getElementById("cmap"), {
+						zoom: 16,
+						center: {
+							lat: Number('-33.8688197000'),
+							lng: Number('151.2092955000'),
+							// lat: Number('39.9148840962'),
+							// lng: Number('116.403883218'),
+						}
+					});
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(function(position) {
+							var pos = {
+								lat: position.coords.latitude,
+								lng: position.coords.longitude
+							};
+							_this.cmap.setCenter(pos);
+							_this.reverseGeocode(pos.lat, pos.lng)
+						}, function() {
+							_this.toast('Unable to obtain current location')
+						});
 					}
-				});
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function (position) {
-						var pos = {
-							lat: position.coords.latitude,
-							lng: position.coords.longitude
-						};
-						_this.cmap.setCenter(pos);
-						_this.reverseGeocode(pos.lat, pos.lng)
-					}, function () {
-						_this.toast('Unable to obtain current location')
+					google.maps.event.addListener(this.cmap, 'click', function(e) {
+						_this.reverseGeocode(e.latLng.lat(), e.latLng.lng())
+					})
+				},
+				reverseGeocode(lat, lng) {
+					var _this = this
+					var geocoder = new google.maps.Geocoder();
+					var latlng = new google.maps.LatLng(lat, lng);
+					geocoder.geocode({
+						'location': latlng
+					}, (results, status) => {
+						if (status === 'OK') {
+							if (results[0]) {
+								const obj = {
+									address: results[0].formatted_address,
+									lat: lat,
+									lng: lng
+								}
+								if (_this.shopMarker) {
+									_this.shopMarker.setMap(null)
+								}
+								_this.shopMarker = new google.maps.Marker({
+									position: {
+										lat: obj.lat,
+										lng: obj.lng,
+									},
+									map: this.cmap,
+									icon: {
+										url: _this.mapPos,
+										scaledSize: new google.maps.Size(50, 50),
+										// origin: new google.maps.Point(0, 0),
+										anchor: new google.maps.Point(0, 0)
+									}
+								});
+								_this.area = obj
+							} else {
+								console.log('Address not found');
+							}
+						} else {
+							console.log('Reverse geocoding failed' + status);
+						}
+					});
+				},
+				getUrlParam(name) {
+					var s = window.location.href.split('?')[1];
+					return (
+						decodeURIComponent(
+							(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec("?" + s) || [,
+								''
+							])[1]
+							.replace(/\+/g, '%20')
+						) || null
+					);
+				},
+				getRequest(url, params) {
+					return new Promise((resolve, reject) => {
+						var getxhr;
+						if (window.XMLHttpRequest) {
+							getxhr = new window.XMLHttpRequest();
+						} else {
+							getxhr = new ActiveXObject('Microsoft.XMLHttp');
+						}
+						let query = [];
+						for (var p in params) {
+							if (params.hasOwnProperty(p)) {
+								query.push(encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
+							}
+						}
+						var querydata = ''
+						if (query.length) {
+							querydata = `?${query.join('&')}`;
+						}
+						var setURL = this.getUrlParam('baseUrl') + url + querydata;
+						getxhr.open('get', setURL, true);
+						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
+						getxhr.send('');
+						getxhr.onreadystatechange = function() {
+							if (getxhr.readyState == 4 && getxhr.status == 200) {
+								resolve(JSON.parse(getxhr.responseText))
+							}
+						}
+					});
+				},
+				postRequest(url, params) {
+					return new Promise((resolve, reject) => {
+						var getxhr;
+						if (window.XMLHttpRequest) {
+							getxhr = new window.XMLHttpRequest();
+						} else {
+							getxhr = new ActiveXObject('Microsoft.XMLHttp');
+						}
+						var setURL = this.getUrlParam('baseUrl') + url;
+						getxhr.open('post', setURL, true);
+						getxhr.setRequestHeader('Content-Type', 'application/json');
+						getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
+						getxhr.send(JSON.stringify(params));
+						getxhr.onreadystatechange = function() {
+							if (getxhr.readyState == 4 && getxhr.status == 200) {
+								resolve(JSON.parse(getxhr.responseText))
+							}
+						}
+					});
+				},
+				toast(name) {
+					this.toastname = name;
+					this.toastoff = true
+					if (this.timer) clearTimeout(timer);
+					this.timer = setTimeout(() => {
+						this.toastoff = false
+					}, 2000)
+				},
+				onback() {
+					uni.postMessage({
+						data: {
+							type: 'historyback',
+						}
+					});
+				},
+				onnext() {
+					if (this.area.address == '') {
+						this.toast("Complete information")
+						return
+					}
+					uni.postMessage({
+						data: {
+							type: 'details',
+							address: this.area.address,
+							lat: this.area.lat,
+							lng: this.area.lng,
+						}
 					});
 				}
-				google.maps.event.addListener(this.cmap, 'click', function (e) {
-					_this.reverseGeocode(e.latLng.lat(), e.latLng.lng())
-				})
-			},
-			reverseGeocode(lat, lng) {
-				var _this = this
-				var geocoder = new google.maps.Geocoder();
-				var latlng = new google.maps.LatLng(lat, lng);
-				geocoder.geocode({
-					'location': latlng
-				}, (results, status) => {
-					if (status === 'OK') {
-						if (results[0]) {
-							const obj = {
-								address: results[0].formatted_address,
-								lat: lat,
-								lng: lng
-							}
-							if (_this.shopMarker) {
-								_this.shopMarker.setMap(null)
-							}
-							_this.shopMarker = new google.maps.Marker({
-								position: {
-									lat: obj.lat,
-									lng: obj.lng,
-								},
-								map: this.cmap,
-								icon: {
-									url: _this.mapPos,
-									scaledSize: new google.maps.Size(50, 50),
-									// origin: new google.maps.Point(0, 0),
-									anchor: new google.maps.Point(0, 0)
-								}
-							});
-							_this.area = obj
-						} else {
-							console.log('Address not found');
-						}
-					} else {
-						console.log('Reverse geocoding failed' + status);
-					}
-				});
-			},
-			getUrlParam(name) {
-				var s = window.location.href.split('?')[1];
-				return (
-					decodeURIComponent(
-						(new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec("?" + s) || [,
-							''
-						])[1]
-							.replace(/\+/g, '%20')
-					) || null
-				);
-			},
-			getRequest(url, params) {
-				return new Promise((resolve, reject) => {
-					var getxhr;
-					if (window.XMLHttpRequest) {
-						getxhr = new window.XMLHttpRequest();
-					} else {
-						getxhr = new ActiveXObject('Microsoft.XMLHttp');
-					}
-					let query = [];
-					for (var p in params) {
-						if (params.hasOwnProperty(p)) {
-							query.push(encodeURIComponent(p) + '=' + encodeURIComponent(params[p]));
-						}
-					}
-					var querydata = ''
-					if (query.length) {
-						querydata = `?${query.join('&')}`;
-					}
-					var setURL = this.getUrlParam('baseUrl') + url + querydata;
-					getxhr.open('get', setURL, true);
-					getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
-					getxhr.send('');
-					getxhr.onreadystatechange = function () {
-						if (getxhr.readyState == 4 && getxhr.status == 200) {
-							resolve(JSON.parse(getxhr.responseText))
-						}
-					}
-				});
-			},
-			postRequest(url, params) {
-				return new Promise((resolve, reject) => {
-					var getxhr;
-					if (window.XMLHttpRequest) {
-						getxhr = new window.XMLHttpRequest();
-					} else {
-						getxhr = new ActiveXObject('Microsoft.XMLHttp');
-					}
-					var setURL = this.getUrlParam('baseUrl') + url;
-					getxhr.open('post', setURL, true);
-					getxhr.setRequestHeader('Content-Type', 'application/json');
-					getxhr.setRequestHeader('X-GcSoft-Token', this.getUrlParam('token'));
-					getxhr.send(JSON.stringify(params));
-					getxhr.onreadystatechange = function () {
-						if (getxhr.readyState == 4 && getxhr.status == 200) {
-							resolve(JSON.parse(getxhr.responseText))
-						}
-					}
-				});
-			},
-			toast(name) {
-				this.toastname = name;
-				this.toastoff = true
-				if (this.timer) clearTimeout(timer);
-				this.timer = setTimeout(() => {
-					this.toastoff = false
-				}, 2000)
-			},
-			onback() {
-				uni.postMessage({
-					data: {
-						type: 'historyback',
-					}
-				});
-			},
-			onnext() {
-				if (this.area.address == '') {
-					this.toast("Complete information")
-					return
-				}
-				uni.postMessage({
-					data: {
-						type: 'details',
-						address: this.area.address,
-						lat: this.area.lat,
-						lng: this.area.lng,
-					}
-				});
 			}
-		}
-	});
-</script>
+		});
+	</script>
 
 </html>
